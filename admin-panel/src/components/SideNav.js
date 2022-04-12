@@ -1,5 +1,5 @@
-import React,{useState} from 'react';
-import { Link,useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -25,14 +25,13 @@ import User from './User';
 import BusTimings from './BusTimings';
 import FerryTimings from './FerryTimings';
 
-
 const drawerWidth = 240;
 
 function ResponsiveDrawer(props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
-const navigate = useNavigate();
-const [component,setComponent]=useState("User");
+  const navigate = useNavigate();
+  const [component, setComponent] = useState('User');
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
@@ -42,80 +41,83 @@ const [component,setComponent]=useState("User");
       <Toolbar />
       <Divider />
       <List>
-        {["User","Role","Contacts","Mess Menu","Food Items","Food Outlets","Bus Timings","Ferry Timings"].map((text, index) => (
-          <ListItem button key={text}>
+        {[
+          'User',
+          'Role',
+          'Contacts',
+          'Mess Menu',
+          'Food Items',
+          'Food Outlets',
+          'Bus Timings',
+          'Ferry Timings',
+        ].map((text, index) => (
+          <ListItem
+            button
+            key={text}
+            onClick={() => {
+              if (text === 'User') {
+                navigate('/user');
+                setComponent('User');
+              } else if (text === 'Role') {
+                navigate('/role');
+                setComponent('Role');
+              } else if (text === 'Contacts') {
+                navigate('/contacts');
+                setComponent('Contacts');
+              } else if (text === 'Mess Menu') {
+                navigate('/mess-menu');
+                setComponent('Mess Menu');
+              } else if (text === 'Food Items') {
+                navigate('/food-items');
+                setComponent('Food Items');
+              } else if (text === 'Food Outlets') {
+                navigate('/food-outlets');
+                setComponent('Food Outlets');
+              } else if (text === 'Bus Timings') {
+                navigate('/bus-timings');
+                setComponent('Bus Timings');
+              } else if (text === 'Ferry Timings') {
+                navigate('/ferry-timings');
+                setComponent('Ferry Timings');
+              }
+            }}
+          >
             <ListItemIcon>
               {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
             </ListItemIcon>
-            <ListItemText onClick={()=>{
-              if(text==="User"){
-                setComponent("User");
-                navigate("/user");
-              }
-              else if(text==="Role"){
-                setComponent("Role");
-                navigate("/role");
-              }
-              else if(text==="Contacts"){
-                setComponent("Contacts");
-                navigate("/contacts");
-              }
-              else if(text==="Mess Menu"){
-                setComponent("Mess Menu");
-                navigate("/mess-menu");
-              }
-              else if(text==="Food Items"){
-                setComponent("Food Items");
-                navigate("/food-items");
-              }
-              else if(text==="Food Outlets"){
-                setComponent("Food Outlets");
-                navigate("/food-outlets");
-              }
-              else if(text==="Bus Timings"){
-                setComponent("Bus Timings");
-                navigate("/bus-timings");
-              }
-              else if(text==="Ferry Timings"){
-                setComponent("Ferry Timings");
-                navigate("/ferry-timings");
-              }
-
-              
-            }}>{text}</ListItemText>
+            <ListItemText>{text}</ListItemText>
           </ListItem>
         ))}
       </List>
       <Divider />
-  
     </div>
   );
 
   const container =
     window !== undefined ? () => window().document.body : undefined;
-    
-    const loadComponent=()=>{
-      switch(component){
-        case "User":
-          return <User/>
-        case "Role":
-          return <Role/>
-        case "Contacts":
-          return <Contacts/>
-        case "Mess Menu":
-          return <MessMenu/>
-        case "Food Items":
-          return <FoodItems/>
-        case "Food Outlets":
-          return <Foodoutlet/>
-        case "Bus Timings":
-          return <BusTimings/>
-        case "Ferry Timings":
-          return <FerryTimings/>
-        default:
-          return <User/>
-      }
+
+  const loadComponent = () => {
+    switch (component) {
+      case 'User':
+        return <User />;
+      case 'Role':
+        return <Role />;
+      case 'Contacts':
+        return <Contacts />;
+      case 'Mess Menu':
+        return <MessMenu />;
+      case 'Food Items':
+        return <FoodItems />;
+      case 'Food Outlets':
+        return <Foodoutlet />;
+      case 'Bus Timings':
+        return <BusTimings />;
+      case 'Ferry Timings':
+        return <FerryTimings />;
+      default:
+        return <User />;
     }
+  };
 
   return (
     <Box sx={{ display: 'flex' }}>
@@ -189,10 +191,7 @@ const [component,setComponent]=useState("User");
         }}
       >
         <Toolbar />
-        <Typography paragraph>
-          {loadComponent()}
-        </Typography>
-        
+        <Typography paragraph>{loadComponent()}</Typography>
       </Box>
     </Box>
   );
