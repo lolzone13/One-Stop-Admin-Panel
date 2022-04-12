@@ -8,6 +8,7 @@ import Role from "./components/Role.js";
 import User from "./components/User.js";
 import BusTimings from "./components/BusTimings.js";
 import FerryTimings from "./components/FerryTimings.js";
+import SideNav from './components/SideNav';
 import './App.css';
 
 
@@ -15,11 +16,12 @@ function App() {
   return (
     <>
       <Router>
+      <SideNav/>
         <Routes >
           <Route path="/" element={<Dashboard />} />
           <Route path="/contacts" element={<Contacts />} />
           <Route path="/food-items" element={<FoodItems />} />
-          <Route path="/food-outlet" element={<Foodoutlet />} />
+          <Route path="/food-outlets" element={<Foodoutlet />} />
           <Route path="/mess-menu" element={<MessMenu />} />
           <Route path="/role" element={<Role />} />
           <Route path="/user" element={<User />} />

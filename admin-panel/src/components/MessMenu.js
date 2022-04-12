@@ -2,7 +2,7 @@ import React from 'react'
 
 const MessMenu = () => {
   return (
-    <div>MessMenu</div>
+    <div>MessMenu all</div>
   )
 }
 
