@@ -2,7 +2,7 @@ import React from 'react'
 
 const Foodoutlet = () => {
   return (
-    <div>Foodoutlet</div>
+    <div>Foodoutlet all</div>
   )
 }
 

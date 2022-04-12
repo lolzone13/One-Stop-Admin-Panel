@@ -2,7 +2,7 @@ import React from 'react'
 
 const BusTimings = () => {
   return (
-    <div>BusTimings</div>
+    <div>all BusTimings</div>
   )
 }
 

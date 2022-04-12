@@ -2,7 +2,7 @@ import React from 'react'
 
 const FerryTimings = () => {
   return (
-    <div>FerryTimings</div>
+    <div>all FerryTimings</div>
   )
 }
 

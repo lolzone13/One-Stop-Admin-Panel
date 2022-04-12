@@ -4,7 +4,7 @@ import SideNav from './SideNav';
 const Dashboard = () => {
   return (
     <>
-      <SideNav />
+      {/* <SideNav /> */}
     </>
   );
 };
