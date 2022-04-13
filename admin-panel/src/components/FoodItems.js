@@ -1,9 +1,12 @@
-import React from 'react'
+import React from 'react';
+import TableFoodItems from './TableFoodItems.js';
 
 const FoodItems = () => {
   return (
-    <div>FoodItems all</div>
-  )
-}
+    <>
+      <TableFoodItems />
+    </>
+  );
+};
 
-export default FoodItems
+export default FoodItems;
