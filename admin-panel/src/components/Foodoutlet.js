@@ -1,8 +1,12 @@
 import React from 'react'
+import TableFoodoutlet from './TableFoodoutlet'
 
 const Foodoutlet = () => {
   return (
-    <div>Foodoutlet all</div>
+  <>
+    <TableFoodoutlet/>
+
+  </>
   )
 }
 
