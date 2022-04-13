@@ -15,7 +15,7 @@ import './App.css';
 function App() {
   return (
     <>
-      <Router>
+      <Router>      
       <SideNav/>
         <Routes >
           <Route path="/" element={<Dashboard />} />
