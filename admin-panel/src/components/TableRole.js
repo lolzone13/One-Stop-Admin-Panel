@@ -5,6 +5,9 @@ import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import Popper from '@mui/material/Popper';
 import { DataGrid } from '@mui/x-data-grid';
+import Button from '@mui/material/Button';
+import Modal from '@mui/material/Modal';
+import TextField from '@mui/material/TextField';
 
 function isOverflown(element) {
   return (
@@ -12,6 +15,11 @@ function isOverflown(element) {
     element.scrollWidth > element.clientWidth
   );
 }
+
+const handleClick = () => {
+
+}
+
 
 const GridCellExpand = React.memo(function GridCellExpand(props) {
   const { width, value } = props;
@@ -124,6 +132,66 @@ renderCellExpand.propTypes = {
   value: PropTypes.string,
 };
 
+
+
+
+function EditDelete() {
+
+
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+  const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
+  };
+
+  return (
+    <>
+      <Button
+      onClick={handleOpen}
+      >
+        Edit
+      </Button>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <Typography id="modal-modal-title" variant="h6" component="h2">
+            Text in a modal
+          </Typography>
+          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+
+
+            <form noValidate autoComplete="off">
+            <TextField id="outlined-basic" label="Outlined" variant="outlined" />
+            </form>
+
+
+
+
+          </Typography>
+        </Box>
+      </Modal>
+      <Button
+      // onClick={() => Delete(params.getValue(params.id, "id"))}
+      >
+        Delete
+      </Button>
+    </>
+  );
+}
+
 const columns = [
   { field: 'col1', headerName: 'Column 1', width: 80, renderCell: renderCellExpand },
   {
@@ -145,22 +213,7 @@ const columns = [
     flex: 0.3,
     type: "number",
     sortable: false,
-    renderCell: (params) => {
-      return (
-        <>
-          <button 
-          // onClick={() => Delete(params.getValue(params.id, "id"))}
-          >
-            Edit
-          </button>
-          <button 
-          // onClick={() => Delete(params.getValue(params.id, "id"))}
-          >
-            Delete
-          </button>
-        </>
-      );
-    },
+    renderCell: EditDelete,
   },
 ];
 
@@ -206,8 +259,8 @@ const rows = [
 export default function RenderExpandCellGrid() {
   return (
     <div style={{ height: 400, width: '100%' }}>
-      <DataGrid rows={rows} columns={columns} 
-disableSelectionOnClick
+      <DataGrid rows={rows} columns={columns}
+        disableSelectionOnClick
       />
     </div>
   );

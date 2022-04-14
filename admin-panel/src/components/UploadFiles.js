@@ -18,7 +18,7 @@ function UploadFiles(props) {
         formData.append('file', file);
 
         try {
-            const res = await axios.post(props.url);
+            const res = await axios.post(props.url, formData);
             console.log('Successfully added!');
         } catch (error) {
             console.log(error);
