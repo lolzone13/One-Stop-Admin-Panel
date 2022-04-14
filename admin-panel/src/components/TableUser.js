@@ -1,31 +1,142 @@
-import React,{useState} from 'react';
+import * as React from 'react';
+import PropTypes from 'prop-types';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import Paper from '@mui/material/Paper';
+import Popper from '@mui/material/Popper';
 import { DataGrid } from '@mui/x-data-grid';
-import {Link} from 'react-router-dom'
+
+function isOverflown(element) {
+  return (
+    element.scrollHeight > element.clientHeight ||
+    element.scrollWidth > element.clientWidth
+  );
+}
+
+const GridCellExpand = React.memo(function GridCellExpand(props) {
+  const { width, value } = props;
+  const wrapper = React.useRef(null);
+  const cellDiv = React.useRef(null);
+  const cellValue = React.useRef(null);
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [showFullCell, setShowFullCell] = React.useState(false);
+  const [showPopper, setShowPopper] = React.useState(false);
+
+  const handleMouseEnter = () => {
+    const isCurrentlyOverflown = isOverflown(cellValue.current);
+    setShowPopper(isCurrentlyOverflown);
+    setAnchorEl(cellDiv.current);
+    setShowFullCell(true);
+  };
+
+  const handleMouseLeave = () => {
+    setShowFullCell(false);
+  };
+
+  React.useEffect(() => {
+    if (!showFullCell) {
+      return undefined;
+    }
+
+    function handleKeyDown(nativeEvent) {
+      // IE11, Edge (prior to using Bink?) use 'Esc'
+      if (nativeEvent.key === 'Escape' || nativeEvent.key === 'Esc') {
+        setShowFullCell(false);
+      }
+    }
+
+    document.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [setShowFullCell, showFullCell]);
+
+  return (
+    <Box
+      ref={wrapper}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      sx={{
+        alignItems: 'center',
+        lineHeight: '24px',
+        width: 1,
+        height: 1,
+        position: 'relative',
+        display: 'flex',
+      }}
+    >
+      <Box
+        ref={cellDiv}
+        sx={{
+          height: 1,
+          width,
+          display: 'block',
+          position: 'absolute',
+          top: 0,
+        }}
+      />
+      <Box
+        ref={cellValue}
+        sx={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}
+      >
+        {value}
+      </Box>
+      {showPopper && (
+        <Popper
+          open={showFullCell && anchorEl !== null}
+          anchorEl={anchorEl}
+          style={{ width, marginLeft: -17 }}
+        >
+          <Paper
+            elevation={1}
+            style={{ minHeight: wrapper.current.offsetHeight - 3 }}
+          >
+            <Typography variant="body2" style={{ padding: 8 }}>
+              {value}
+            </Typography>
+          </Paper>
+        </Popper>
+      )}
+    </Box>
+  );
+});
+
+GridCellExpand.propTypes = {
+  value: PropTypes.string.isRequired,
+  width: PropTypes.number.isRequired,
+};
+
+function renderCellExpand(params) {
+  return (
+    <GridCellExpand value={params.value || ''} width={params.colDef.computedWidth} />
+  );
+}
+
+renderCellExpand.propTypes = {
+  /**
+   * The column of the row that the current cell belongs to.
+   */
+  colDef: PropTypes.object.isRequired,
+  /**
+   * The cell value, but if the column has valueGetter, use getValue.
+   */
+  value: PropTypes.string,
+};
 
 const columns = [
-  { field: 'id', headerName: 'ID', width: 150 },
-  { field: 'CollegeToCity_WorkingDay', headerName: 'CollegeToCity_WorkingDay', width: 250 },
-  { field: 'CityToCollege_WorkingDay', headerName: 'CityToCollege_WorkingDay', width: 250 },
+  { field: 'col1', headerName: 'Column 1', width: 80, renderCell: renderCellExpand },
   {
-    field: 'CollegeToCity_Holiday',
-    headerName: 'CollegeToCity_Holiday',
-   
-    width: 250,
+    field: 'col2',
+    headerName: 'Column 2',
+    width: 100,
+    renderCell: renderCellExpand,
   },
   {
-    field: 'CityToCollege_Holiday',
-    headerName: 'CityToCollege_Holiday',
-   
-    width: 250,
-  },
-  {
-    field: 'fullName',
-    headerName: 'Full name',
-    description: 'This column has a value getter and is not sortable.',
-    sortable: false,
-    width: 160,
-    valueGetter: (params) =>
-      `${params.row.firstName || ''} ${params.row.lastName || ''}`,
+    field: 'col3',
+    headerName: 'Column 3',
+    width: 150,
+    renderCell: renderCellExpand,
   },
   {
     field: "actions",
@@ -37,9 +148,11 @@ const columns = [
     renderCell: (params) => {
       return (
         <>
-          <Link to={`/admin/user/${params.getValue(params.id, "id")}`}>
+          <button 
+          // onClick={() => Delete(params.getValue(params.id, "id"))}
+          >
             Edit
-          </Link>
+          </button>
           <button 
           // onClick={() => Delete(params.getValue(params.id, "id"))}
           >
@@ -49,42 +162,52 @@ const columns = [
       );
     },
   },
-
 ];
 
 const rows = [
-  { id: 10, lastName: 'Snow', firstName: 'Jon', age: 35 },
-  { id: 20, lastName: 'Lannister', firstName: 'Cersei', age: 42 },
-  { id: 3, lastName: 'Lannister', firstName: 'Jaime', age: 45 },
-  { id: 4, lastName: 'Stark', firstName: 'Arya', age: 16 },
-  { id: 5, lastName: 'Targaryen', firstName: 'Daenerys', age: null },
-  { id: 6, lastName: 'Melisandre', firstName: null, age: 150 },
-  { id: 7, lastName: 'Clifford', firstName: 'Ferrara', age: 44 },
-  { id: 8, lastName: 'Frances', firstName: 'Rossini', age: 36 },
-  { id: 9, lastName: 'Roxie', firstName: 'Harvey', age: 65 },
+  {
+    id: 1,
+    col1: 'Hello',
+    col2: 'World',
+    col3: 'In publishing and graphic design, Lorem ipsum is a placeholder text commonly used.',
+  },
+  {
+    id: 2,
+    col1: 'DataGridPro',
+    col2: 'is Awesome',
+    col3: 'In publishing and graphic design, Lorem ipsum is a placeholder text or a typeface without relying on meaningful content. Lorem ipsum may be used as a placeholder before final copy is available.',
+  },
+  {
+    id: 3,
+    col1: 'MUI',
+    col2: 'is Amazing',
+    col3: 'Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content. Lorem ipsum may be used as a placeholder before final copy is available.',
+  },
+  {
+    id: 4,
+    col1: 'Hello',
+    col2: 'World',
+    col3: 'In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form.',
+  },
+  {
+    id: 5,
+    col1: 'DataGridPro',
+    col2: 'is Awesome',
+    col3: 'Typeface without relying on meaningful content. Lorem ipsum may be used as a placeholder before final copy is available.',
+  },
+  {
+    id: 6,
+    col1: 'MUI',
+    col2: 'is Amazing',
+    col3: 'Lorem ipsum may be used as a placeholder before final copy is available.',
+  },
 ];
 
-export default function DataTable() {
-  const [selectedRows, setSelectedRows] =useState([]);
-
-
+export default function RenderExpandCellGrid() {
   return (
     <div style={{ height: 400, width: '100%' }}>
-      <DataGrid
-        rows={rows}
-        columns={columns}
-        pageSize={5}
-        rowsPerPageOptions={[5]}
-        // checkboxSelection
-       
-        // onSelectionModelChange={(ids) => {
-        //   const selectedIDs = new Set(ids);
-        //   const selectedRows = rows.filter((row) =>
-        //     selectedIDs.has(row.id),
-        //   );
-
-        //   setSelectedRows(selectedRows);
-        // }}
+      <DataGrid rows={rows} columns={columns} 
+disableSelectionOnClick
       />
     </div>
   );

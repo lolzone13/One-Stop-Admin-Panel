@@ -1,8 +1,11 @@
-import React from 'react'
+import React,{useEffect,useState} from 'react'
+import TableUser from './TableUser'
 
 const User = () => {
   return (
-    <div>User hello</div>
+    <>
+      <TableUser />
+    </>
   )
 }
 

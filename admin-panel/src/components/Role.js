@@ -1,8 +1,11 @@
 import React from 'react'
+import TableRole from './TableRole'
 
 const Role = () => {
   return (
-    <div>Role alls</div>
+  <>
+    <TableRole />
+  </>
   )
 }
 

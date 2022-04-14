@@ -1,0 +1,19 @@
+.contacts_page{
+    width:100%;
+    height:80vh;
+  
+}
+
+.contacts_page_button1,.contacts_page_button2{
+    height:50%;
+    width:100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    /* border: 1px solid black; */
+  
+}
+.contacts_page_button1>span,.contacts_page_button2>span{
+  font-size: 17.5px;
+}

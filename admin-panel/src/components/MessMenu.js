@@ -1,11 +1,14 @@
 import React from 'react';
 import UploadFiles from './UploadFiles.js';
+import "./css/MessMenu.css"
 
 const MessMenu = () => {
   return (
-    <div>
-      MessMenu all
+    <div className='messmenu_page'>
+     <div className='messmenu_page_button1'>
+     <span>SELECT THE PDF</span>
       <UploadFiles />
+     </div>
       </div>
   )
 }
