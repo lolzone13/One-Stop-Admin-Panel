@@ -1,10 +1,11 @@
-import * as React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import Popper from '@mui/material/Popper';
 import { DataGrid } from '@mui/x-data-grid';
+import axios from 'axios';
 
 function isOverflown(element) {
   return (
@@ -33,6 +34,18 @@ const GridCellExpand = React.memo(function GridCellExpand(props) {
     setShowFullCell(false);
   };
 
+  const [foodItemsUrl, setFoodItemsUrl] = React.useState(
+    'http://localhost:3000/getAllItems'
+  );
+  const [foodItems, setFoodItems] = React.useState([]);
+
+  React.useEffect(() => {
+    axios.get(foodItemsUrl).then((res) => {
+      console.log(res.data);
+      setFoodItems(res.data);
+    });
+  }, [foodItemsUrl]);
+
   React.useEffect(() => {
     if (!showFullCell) {
       return undefined;
@@ -46,6 +59,8 @@ const GridCellExpand = React.memo(function GridCellExpand(props) {
     }
 
     document.addEventListener('keydown', handleKeyDown);
+
+    
 
     return () => {
       document.removeEventListener('keydown', handleKeyDown);

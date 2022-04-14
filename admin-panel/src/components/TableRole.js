@@ -135,7 +135,7 @@ renderCellExpand.propTypes = {
 
 
 
-function EditDelete() {
+function EditCommand() {
 
 
   const [open, setOpen] = React.useState(false);
@@ -213,7 +213,7 @@ const columns = [
     flex: 0.3,
     type: "number",
     sortable: false,
-    renderCell: EditDelete,
+    renderCell: EditCommand,
   },
 ];
 
