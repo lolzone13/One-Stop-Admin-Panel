@@ -9,7 +9,7 @@ const BusTimings = () => {
       <div className='timings_page'>
      <div className='timings_page_button1'>
      <span>SELECT THE CSV</span>
-      <UploadFiles />
+      <UploadFiles fileType='.csv' url='http://localhost:3000/createbustiming'/>
      </div>
       </div>
    </>

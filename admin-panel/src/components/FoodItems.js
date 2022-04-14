@@ -9,7 +9,7 @@ const FoodItems = () => {
       <div className='fooditems_page'>
         <div className='fooditems_page_button1'>
         <span>SELECT THE CSV </span>
-      <UploadFiles />
+      <UploadFiles fileType='.csv' url='http://localhost:3000/createItem'/>
         </div>
         <div className='fooditems_page_table'>
         <TableFoodItems />

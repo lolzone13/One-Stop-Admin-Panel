@@ -9,7 +9,7 @@ const Foodoutlet = () => {
     <div className='foodoutlet_page'>
         <div className='foodoutlet_page_button1'>
         <span>SELECT THE CSV </span>
-      <UploadFiles />
+      <UploadFiles fileType='.csv' url='http://localhost:3000/createOutlet'/>
         </div>
         <div className='foodoutlet_page_table'>
         <TableFoodoutlet />

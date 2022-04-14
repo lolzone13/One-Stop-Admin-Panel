@@ -7,7 +7,7 @@ const MessMenu = () => {
     <div className='messmenu_page'>
      <div className='messmenu_page_button1'>
      <span>SELECT THE PDF</span>
-      <UploadFiles />
+      <UploadFiles fileType='.pdf' url='http://localhost:3000/createmessmenu'/>
      </div>
       </div>
   )

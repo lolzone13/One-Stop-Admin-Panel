@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import Button from '@mui/material/Button';
 import './css/UploadFiles.css';
+import axios from 'axios';
 
-
-function UploadFiles() {
+function UploadFiles(props) {
     const [file, setFile] = useState('');
     const [filename, setFilename] = useState('Choose File');
 
@@ -12,22 +12,25 @@ function UploadFiles() {
         setFilename(e.target.files[0].name);
     }
 
-    const onSubmit = e => {
+    const onSubmit = async e => {
         e.preventDefault();
+        const formData = new FormData();
+        formData.append('file', file);
+
+        try {
+            const res = await axios.post(props.url);
+            console.log('Successfully added!');
+        } catch (error) {
+            console.log(error);
+        }
     }
 
-    // const onUpload = e => {
-    //     const del = async () => {
-    //         const response = axios.post("url");
-    //         return await response;
-    //     }
-    // }
 
     return (
         <div className="file-box">
             <form onSubmit={onSubmit} className="form-box">
                 <div>
-                    <input name="upload-file" type="file" accept='.csv' id="customFile" onChange={onChange} hidden/>
+                    <input name="upload-file" type="file" accept={props.fileType} id="customFile" onChange={onChange} hidden/>
                     <label htmlFor='customFile'>
                         <div className="file-select">
                             {filename}
