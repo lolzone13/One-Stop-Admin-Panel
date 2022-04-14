@@ -23,7 +23,6 @@ function App() {
           <Route path="/food-outlets" element={<></>} />
           <Route path="/mess-menu" element={<></>} />
           <Route path="/role" element={<></>} />
-          
           <Route path="/bus-timings" element={<></>} />
           <Route path="/ferry-timings" element={<></>} />
         </Routes>  

@@ -5,6 +5,7 @@ import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import Popper from '@mui/material/Popper';
 import { DataGrid } from '@mui/x-data-grid';
+import axios from 'axios';
 
 function isOverflown(element) {
   return (
@@ -32,6 +33,18 @@ const GridCellExpand = React.memo(function GridCellExpand(props) {
   const handleMouseLeave = () => {
     setShowFullCell(false);
   };
+
+  const [foodOutletsUrl, setFoodOutletsUrl] = React.useState(
+    'http://localhost:3000/getAllOutlets'
+  );
+    const [foodOutlets, setFoodOutlets] = React.useState([]);
+
+  React.useEffect(() => {
+    axios.get(foodOutletsUrl).then((res) => {
+      console.log(res.data);
+      setFoodOutlets(res.data);
+    });
+  }, [foodOutletsUrl]);
 
   React.useEffect(() => {
     if (!showFullCell) {
