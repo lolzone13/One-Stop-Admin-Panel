@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React,{useState} from 'react';
 import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -9,6 +9,7 @@ import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
 import TextField from '@mui/material/TextField';
 import axios from 'axios';
+import RoleSelect from "./RoleSelect"
 
 function isOverflown(element) {
   return (
@@ -150,8 +151,13 @@ function EditCommand() {
 
 
   const [open, setOpen] = React.useState(false);
+  const [rolesselected, setRolesSelected] = React.useState([]);
+  const [name,setName]=useState("");
+  const [emailid,setEmailid]=useState("");
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+ 
+
   const style = {
     position: 'absolute',
     top: '50%',
@@ -163,7 +169,8 @@ function EditCommand() {
     boxShadow: 24,
     p: 4,
   };
-
+console.log(rolesselected);
+console.log(name);
   return (
     <>
       <Button
@@ -179,16 +186,26 @@ function EditCommand() {
       >
         <Box sx={style}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
-            Text in a modal
+            Edit User
           </Typography>
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
 
 
             <form noValidate autoComplete="off">
-            <TextField id="outlined-basic" label="Outlined" variant="outlined" />
+            <TextField id="outlined-basic" label="Name" variant="outlined" onChange={(event)=>setName(event.target.value)}/>
             </form>
+            <form noValidate autoComplete="off">
+            <TextField id="outlined-basic" label="Email ID" variant="outlined" onChange={(event)=>setEmailid(event.target.value)}/>
+            </form>
+            <form noValidate autoComplete="off">
+            <TextField id="outlined-basic" label="Microsoft ID" variant="outlined" />
+            </form>
+            <RoleSelect setRolesSelected={setRolesSelected}/>
 
-
+            <Button type="submit" variant="contained" > 
+                
+                Edit
+                </ Button>
 
 
           </Typography>
