@@ -17,10 +17,6 @@ function isOverflown(element) {
   );
 }
 
-const handleClick = () => {
-
-}
-
 
 const GridCellExpand = React.memo(function GridCellExpand(props) {
   const { width, value } = props;
@@ -42,15 +38,23 @@ const GridCellExpand = React.memo(function GridCellExpand(props) {
     setShowFullCell(false);
   };
 
-  const [roleUrl, setRoleUrl] = React.useState('swc.iitg.ac.in/onestopapi/getAllRoles');
+
   const [roles, setRoles] = React.useState([]);
 
   React.useEffect(() => {
-    axios.get(roleUrl).then((res) => {
-      console.log(res.data);
-      setRoles(res.data);
-    });
-  }, [roleUrl]);
+    async function fetchData() {
+      try {
+        const res = await axios.get('https://swc.iitg.ac.in/onestopapi/getAllRoles');
+        setRoles(res.data);
+  
+      } catch (error) {
+        console.log(error);
+      }
+
+    }
+
+    
+  }, []);
 
   React.useEffect(() => {
     if (!showFullCell) {

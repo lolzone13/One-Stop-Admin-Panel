@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -37,17 +37,23 @@ const GridCellExpand = React.memo(function GridCellExpand(props) {
     setShowFullCell(false);
   };
 
-  const [foodItemsUrl, setFoodItemsUrl] = React.useState(
-    'swc.iitg.ac.in/onestopapi/getAllItems'
-  );
+
   const [foodItems, setFoodItems] = React.useState([]);
 
   React.useEffect(() => {
-    axios.get(foodItemsUrl).then((res) => {
-      console.log(res.data);
-      setFoodItems(res.data);
-    });
-  }, [foodItemsUrl]);
+    async function fetchData() {
+      try {
+        const res = await axios.get('https://swc.iitg.ac.in/onestopapi/getAllItems');
+        setFoodItems(res.data);
+  
+      } catch (error) {
+        console.log(error);
+      }
+
+    }
+
+    
+  }, []);
 
   React.useEffect(() => {
     if (!showFullCell) {

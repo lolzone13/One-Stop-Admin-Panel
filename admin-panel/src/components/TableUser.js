@@ -37,15 +37,22 @@ const GridCellExpand = React.memo(function GridCellExpand(props) {
     setShowFullCell(false);
   };
 
-  const [userUrl, setUserUrl] = React.useState('swc.iitg.ac.in/onestopapi/getAllUsers');
   const [users, setUsers] = React.useState([]);
 
   React.useEffect(() => {
-    axios.get(userUrl).then((res) => {
-      console.log(res.data);
-      setUsers(res.data);
-    });
-  }, [userUrl]);
+    async function fetchData() {
+      try {
+        const res = await axios.get('https://swc.iitg.ac.in/onestopapi/getAllUsers');
+        setUsers(res.data);
+  
+      } catch (error) {
+        console.log(error);
+      }
+
+    }
+
+    
+  }, []);
 
   React.useEffect(() => {
     if (!showFullCell) {

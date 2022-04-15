@@ -38,7 +38,7 @@ const GridCellExpand = React.memo(function GridCellExpand(props) {
   };
 
   const [foodOutletsUrl, setFoodOutletsUrl] = React.useState(
-    'swc.iitg.ac.in/onestopapi/getAllOutlets'
+    'https://swc.iitg.ac.in/onestopapi/getAllOutlets'
   );
     const [foodOutlets, setFoodOutlets] = React.useState([]);
 
