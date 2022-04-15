@@ -192,22 +192,28 @@ function EditCommand() {
 
 
 const columns = [
-  { field: 'col1', headerName: 'Name', width: 150, renderCell: renderCellExpand },
+  { field: 'name', headerName: 'Name', width: 150, renderCell: renderCellExpand },
   {
-    field: 'col2',
+    field: 'ingredients',
     headerName: 'Ingredients',
     width: 300,
     renderCell: renderCellExpand,
   },
   {
-    field: 'col3',
+    field: 'veg',
     headerName: 'Vegetarian',
     width: 150,
     renderCell: renderCellExpand,
   },
   {
-    field: 'col4',
+    field: 'price',
     headerName: 'Price',
+    width: 100,
+    renderCell: renderCellExpand,
+  },
+  {
+    field: 'waiting_time',
+    headerName: 'Waiting Time',
     width: 100,
     renderCell: renderCellExpand,
   },
@@ -222,50 +228,7 @@ const columns = [
   },
 ];
 
-const rows = [
-  {
-    id: 1,
-    col1: 'Hello',
-    col2: 'World',
-    col3: 'In publishing and graphic design, Lorem ipsum is a placeholder text commonly used.',
-    col4: 5330.000
-  },
-  {
-    id: 2,
-    col1: 'DataGridPro',
-    col2: 'is Awesome',
-    col3: 'In publishing and graphic design, Lorem ipsum is a placeholder text or a typeface without relying on meaningful content. Lorem ipsum may be used as a placeholder before final copy is available.',
-    col4: 5330.000
-  },
-  {
-    id: 3,
-    col1: 'MUI',
-    col2: 'is Amazing',
-    col3: 'Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content. Lorem ipsum may be used as a placeholder before final copy is available.',
-    col4: 5330.000
-  },
-  {
-    id: 4,
-    col1: 'Hello',
-    col2: 'World',
-    col3: 'In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form.',
-    col4: 5330.000
-  },
-  {
-    id: 5,
-    col1: 'DataGridPro',
-    col2: 'is Awesome',
-    col3: 'Typeface without relying on meaningful content. Lorem ipsum may be used as a placeholder before final copy is available.',
-    col4: 5330.000
-  },
-  {
-    id: 6,
-    col1: 'MUI',
-    col2: 'is Amazing',
-    col3: 'Lorem ipsum may be used as a placeholder before final copy is available.',
-    col4: 2350.00
-  },
-];
+
 
 export default function RenderExpandCellGrid() {
   const [foodItems, setFoodItems] = React.useState([]);
@@ -274,7 +237,9 @@ export default function RenderExpandCellGrid() {
     async function fetchData() {
       try {
         const res = await axios.get('https://swc.iitg.ac.in/onestopapi/getAllItems');
+        console.log("hiiii",res.data);
         setFoodItems(res.data);
+     
   
       } catch (error) {
         console.log(error);
@@ -285,7 +250,7 @@ export default function RenderExpandCellGrid() {
 
     
   }, []);
-  console.log(foodItems);
+  // console.log(foodItems[0].ingredients[0]);
   return (
     <div style={{ height: 400, width: '100%' }}>
       <DataGrid rows={foodItems} columns={columns} 

@@ -213,37 +213,7 @@ const columns = [
   },
 ];
 
-const rows = [
-  {
-    id: 1,
-    role:"Head"
-   
-  },
-  {
-    id: 2,
-    role:"Secretary"
-  },
-  {
-    id: 3,
-    role:"Head"
-   
-  },
-  {
-    id: 4,
-    role:"Secretary"
-  },
-  {
-    id: 5,
-    role:"Head"
-   
-  },
-  {
-    id: 6,
-    role:"Secretary"
-  },
- 
-  
-];
+
 
 export default function RenderExpandCellGrid() {
   const [roles, setRoles] = React.useState([]);

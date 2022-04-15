@@ -193,28 +193,40 @@ function EditCommand() {
 }
 
 const columns = [
-  { field: 'col1', headerName: 'Name', width: 200, renderCell: renderCellExpand },
+  { field: 'name', headerName: 'Name', width: 200, renderCell: renderCellExpand },
   {
-    field: 'col2',
+    field: 'caption',
     headerName: 'Caption',
     width: 300,
     renderCell: renderCellExpand,
   },
   {
-    field: 'col3',
+    field: 'waiting_time',
+    headerName: 'Waiting Time',
+    width: 150,
+    renderCell: renderCellExpand,
+  },
+  {
+    field: 'closing_time',
     headerName: 'Closing Time',
     width: 150,
     renderCell: renderCellExpand,
   },
   {
-    field: 'col4',
+    field: 'phone_number',
     headerName: 'Phone Number',
     width: 150,
     renderCell: renderCellExpand,
   },
   {
-    field: 'col5',
-    headerName: 'Location',
+    field: 'tags',
+    headerName: 'Tags',
+    width: 150,
+    renderCell: renderCellExpand,
+  },
+  {
+    field: 'menu',
+    headerName: 'Menu',
     width: 150,
     renderCell: renderCellExpand,
   },
@@ -229,56 +241,9 @@ const columns = [
   },
 ];
 
-const rows = [
-  {
-    id: 1,
-    col1: 'Hello',
-    col2: 'World',
-    col3: 'In publishing and graphic design, Lorem ipsum is a placeholder text commonly used.',
-    col4: 8989588043,
-    col5: 'lat-long'
-  },
-  {
-    id: 2,
-    col1: 'DataGridPro',
-    col2: 'is Awesome',
-    col3: 'In publishing and graphic design, Lorem ipsum is a placeholder text or a typeface without relying on meaningful content. Lorem ipsum may be used as a placeholder before final copy is available.',
-    col4: 8989588043,
-    col5: 'lat-long'
-  },
-  {
-    id: 3,
-    col1: 'MUI',
-    col2: 'is Amazing',
-    col3: 'Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content. Lorem ipsum may be used as a placeholder before final copy is available.',
-    col4: 8989588043,
-    col5: 'lat-long'
-  },
-  {
-    id: 4,
-    col1: 'Hello',
-    col2: 'World',
-    col3: 'In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form.',
-    col4: 8989588043,
-    col5: 'lat-long'
-  },
-  {
-    id: 5,
-    col1: 'DataGridPro',
-    col2: 'is Awesome',
-    col3: 'Typeface without relying on meaningful content. Lorem ipsum may be used as a placeholder before final copy is available.',
-    col4: 8989588043,
-    col5: 'lat-long'
-  },
-  {
-    id: 6,
-    col1: 'MUI',
-    col2: 'is Amazing',
-    col3: 'Lorem ipsum may be used as a placeholder before final copy is available.',
-    col4: 8989588043,
-    col5: 'lat-long'
-  },
-];
+
+   
+  
 
 export default function RenderExpandCellGrid() {
   const [foodOutlets, setFoodOutlets] = React.useState([]);
