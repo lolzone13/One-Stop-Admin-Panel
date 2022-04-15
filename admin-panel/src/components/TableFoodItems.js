@@ -140,17 +140,23 @@ renderCellExpand.propTypes = {
 };
 
 const columns = [
-  { field: 'col1', headerName: 'Column 1', width: 80, renderCell: renderCellExpand },
+  { field: 'col1', headerName: 'Name', width: 150, renderCell: renderCellExpand },
   {
     field: 'col2',
-    headerName: 'Column 2',
-    width: 100,
+    headerName: 'Ingredients',
+    width: 300,
     renderCell: renderCellExpand,
   },
   {
     field: 'col3',
-    headerName: 'Column 3',
+    headerName: 'Vegetarian',
     width: 150,
+    renderCell: renderCellExpand,
+  },
+  {
+    field: 'col4',
+    headerName: 'Price',
+    width: 100,
     renderCell: renderCellExpand,
   },
   {
@@ -185,36 +191,42 @@ const rows = [
     col1: 'Hello',
     col2: 'World',
     col3: 'In publishing and graphic design, Lorem ipsum is a placeholder text commonly used.',
+    col4: 5330.000
   },
   {
     id: 2,
     col1: 'DataGridPro',
     col2: 'is Awesome',
     col3: 'In publishing and graphic design, Lorem ipsum is a placeholder text or a typeface without relying on meaningful content. Lorem ipsum may be used as a placeholder before final copy is available.',
+    col4: 5330.000
   },
   {
     id: 3,
     col1: 'MUI',
     col2: 'is Amazing',
     col3: 'Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content. Lorem ipsum may be used as a placeholder before final copy is available.',
+    col4: 5330.000
   },
   {
     id: 4,
     col1: 'Hello',
     col2: 'World',
     col3: 'In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form.',
+    col4: 5330.000
   },
   {
     id: 5,
     col1: 'DataGridPro',
     col2: 'is Awesome',
     col3: 'Typeface without relying on meaningful content. Lorem ipsum may be used as a placeholder before final copy is available.',
+    col4: 5330.000
   },
   {
     id: 6,
     col1: 'MUI',
     col2: 'is Amazing',
     col3: 'Lorem ipsum may be used as a placeholder before final copy is available.',
+    col4: 2350.00
   },
 ];
 
