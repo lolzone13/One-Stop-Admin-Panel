@@ -8,6 +8,7 @@ import { DataGrid } from '@mui/x-data-grid';
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
 import TextField from '@mui/material/TextField';
+import axios from 'axios';
 
 function isOverflown(element) {
   return (
@@ -40,6 +41,16 @@ const GridCellExpand = React.memo(function GridCellExpand(props) {
   const handleMouseLeave = () => {
     setShowFullCell(false);
   };
+
+  const [roleUrl, setRoleUrl] = React.useState('http://localhost:3000/getAllRoles');
+  const [roles, setRoles] = React.useState([]);
+
+  React.useEffect(() => {
+    axios.get(roleUrl).then((res) => {
+      console.log(res.data);
+      setRoles(res.data);
+    });
+  }, [roleUrl]);
 
   React.useEffect(() => {
     if (!showFullCell) {
