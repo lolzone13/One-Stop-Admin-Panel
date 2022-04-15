@@ -37,7 +37,7 @@ const GridCellExpand = React.memo(function GridCellExpand(props) {
     setShowFullCell(false);
   };
 
-  const [userUrl, setUserUrl] = React.useState('http://localhost:3000/getAllUsers');
+  const [userUrl, setUserUrl] = React.useState('swc.iitg.ac.in/onestopapi/getAllUsers');
   const [users, setUsers] = React.useState([]);
 
   React.useEffect(() => {

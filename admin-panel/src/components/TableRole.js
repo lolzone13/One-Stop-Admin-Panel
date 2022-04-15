@@ -42,7 +42,7 @@ const GridCellExpand = React.memo(function GridCellExpand(props) {
     setShowFullCell(false);
   };
 
-  const [roleUrl, setRoleUrl] = React.useState('http://localhost:3000/getAllRoles');
+  const [roleUrl, setRoleUrl] = React.useState('swc.iitg.ac.in/onestopapi/getAllRoles');
   const [roles, setRoles] = React.useState([]);
 
   React.useEffect(() => {
