@@ -221,19 +221,8 @@ console.log(name);
 }
 
 const columns = [
-  { field: 'col1', headerName: 'Name', width: 200, renderCell: renderCellExpand },
-  {
-    field: 'col2',
-    headerName: 'Email',
-    width: 200,
-    renderCell: renderCellExpand,
-  },
-  {
-    field: 'col3',
-    headerName: 'Role',
-    width: 150,
-    renderCell: renderCellExpand,
-  },
+  { field: 'role', headerName: 'Role', width: 200, renderCell: renderCellExpand },
+ 
   {
     field: "actions",
     headerName: "Actions",
@@ -248,45 +237,38 @@ const columns = [
 const rows = [
   {
     id: 1,
-    col1: 'Hello',
-    col2: 'World',
-    col3: 'In publishing and graphic design, Lorem ipsum is a placeholder text commonly used.',
+    role:"Head"
+   
   },
   {
     id: 2,
-    col1: 'DataGridPro',
-    col2: 'is Awesome',
-    col3: 'In publishing and graphic design, Lorem ipsum is a placeholder text or a typeface without relying on meaningful content. Lorem ipsum may be used as a placeholder before final copy is available.',
+    role:"Secretary"
   },
   {
     id: 3,
-    col1: 'MUI',
-    col2: 'is Amazing',
-    col3: 'Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content. Lorem ipsum may be used as a placeholder before final copy is available.',
+    role:"Head"
+   
   },
   {
     id: 4,
-    col1: 'Hello',
-    col2: 'World',
-    col3: 'In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form.',
+    role:"Secretary"
   },
   {
     id: 5,
-    col1: 'DataGridPro',
-    col2: 'is Awesome',
-    col3: 'Typeface without relying on meaningful content. Lorem ipsum may be used as a placeholder before final copy is available.',
+    role:"Head"
+   
   },
   {
     id: 6,
-    col1: 'MUI',
-    col2: 'is Amazing',
-    col3: 'Lorem ipsum may be used as a placeholder before final copy is available.',
+    role:"Secretary"
   },
+ 
+  
 ];
 
 export default function RenderExpandCellGrid() {
   return (
-    <div style={{ height: 400, width: '100%' }}>
+    <div style={{ height: 400, width: '50%' }}>
       <DataGrid rows={rows} columns={columns}
         disableSelectionOnClick
       />
