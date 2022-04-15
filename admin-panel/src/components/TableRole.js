@@ -204,16 +204,16 @@ function EditCommand() {
 }
 
 const columns = [
-  { field: 'col1', headerName: 'Column 1', width: 80, renderCell: renderCellExpand },
+  { field: 'col1', headerName: 'Name', width: 200, renderCell: renderCellExpand },
   {
     field: 'col2',
-    headerName: 'Column 2',
-    width: 100,
+    headerName: 'Email',
+    width: 200,
     renderCell: renderCellExpand,
   },
   {
     field: 'col3',
-    headerName: 'Column 3',
+    headerName: 'Role',
     width: 150,
     renderCell: renderCellExpand,
   },
