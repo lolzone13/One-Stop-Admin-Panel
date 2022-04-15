@@ -9,17 +9,13 @@ import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
 import TextField from '@mui/material/TextField';
 import axios from 'axios';
-import RoleSelect from "./RoleSelect"
+
 
 function isOverflown(element) {
   return (
     element.scrollHeight > element.clientHeight ||
     element.scrollWidth > element.clientWidth
   );
-}
-
-const handleClick = () => {
-
 }
 
 
@@ -43,15 +39,23 @@ const GridCellExpand = React.memo(function GridCellExpand(props) {
     setShowFullCell(false);
   };
 
-  const [roleUrl, setRoleUrl] = React.useState('http://localhost:3000/getAllRoles');
+
   const [roles, setRoles] = React.useState([]);
 
   React.useEffect(() => {
-    axios.get(roleUrl).then((res) => {
-      console.log(res.data);
-      setRoles(res.data);
-    });
-  }, [roleUrl]);
+    async function fetchData() {
+      try {
+        const res = await axios.get('https://swc.iitg.ac.in/onestopapi/getAllRoles');
+        setRoles(res.data);
+  
+      } catch (error) {
+        console.log(error);
+      }
+
+    }
+
+    
+  }, []);
 
   React.useEffect(() => {
     if (!showFullCell) {
@@ -151,9 +155,7 @@ function EditCommand() {
 
 
   const [open, setOpen] = React.useState(false);
-  const [rolesselected, setRolesSelected] = React.useState([]);
-  const [name,setName]=useState("");
-  const [emailid,setEmailid]=useState("");
+  const [role,setRole]=React.useState('');
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
  
@@ -169,8 +171,7 @@ function EditCommand() {
     boxShadow: 24,
     p: 4,
   };
-console.log(rolesselected);
-console.log(name);
+
   return (
     <>
       <Button
@@ -186,22 +187,15 @@ console.log(name);
       >
         <Box sx={style}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
-            Edit User
+            Edit Role
           </Typography>
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
 
 
             <form noValidate autoComplete="off">
-            <TextField id="outlined-basic" label="Name" variant="outlined" onChange={(event)=>setName(event.target.value)}/>
+            <TextField id="outlined-basic" label="Role" variant="outlined" onChange={(event)=>setRole(event.target.value)}/>
             </form>
-            <form noValidate autoComplete="off">
-            <TextField id="outlined-basic" label="Email ID" variant="outlined" onChange={(event)=>setEmailid(event.target.value)}/>
-            </form>
-            <form noValidate autoComplete="off">
-            <TextField id="outlined-basic" label="Microsoft ID" variant="outlined" />
-            </form>
-            <RoleSelect setRolesSelected={setRolesSelected}/>
-
+           
             <Button type="submit" variant="contained" > 
                 
                 Edit
@@ -271,6 +265,7 @@ export default function RenderExpandCellGrid() {
     <div style={{ height: 400, width: '50%' }}>
       <DataGrid rows={rows} columns={columns}
         disableSelectionOnClick
+getRowId={(row) => row._id}
       />
     </div>
   );

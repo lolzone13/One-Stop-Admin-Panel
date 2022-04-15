@@ -1,11 +1,15 @@
-import * as React from 'react';
+import React,{useState} from 'react';
 import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import Popper from '@mui/material/Popper';
 import { DataGrid } from '@mui/x-data-grid';
+import Button from '@mui/material/Button';
+import Modal from '@mui/material/Modal';
+import TextField from '@mui/material/TextField';
 import axios from 'axios';
+import RoleSelect from "./RoleSelect"
 
 function isOverflown(element) {
   return (
@@ -34,16 +38,7 @@ const GridCellExpand = React.memo(function GridCellExpand(props) {
     setShowFullCell(false);
   };
 
-  const [userUrl, setUserUrl] = React.useState('http://localhost:3000/getAllUsers');
-  const [users, setUsers] = React.useState([]);
-
-  React.useEffect(() => {
-    axios.get(userUrl).then((res) => {
-      console.log(res.data);
-      setUsers(res.data);
-    });
-  }, [userUrl]);
-
+ 
   React.useEffect(() => {
     if (!showFullCell) {
       return undefined;
@@ -135,18 +130,94 @@ renderCellExpand.propTypes = {
   value: PropTypes.string,
 };
 
+
+
+function EditCommand() {
+
+
+  const [open, setOpen] = React.useState(false);
+  const [rolesselected, setRolesSelected] = React.useState([]);
+  const [name,setName]=useState("");
+  const [emailid,setEmailid]=useState("");
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+  const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
+  };
+
+  return (
+    <>
+      <Button
+      onClick={handleOpen}
+      >
+        Edit
+      </Button>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <Typography id="modal-modal-title" variant="h6" component="h2">
+            Text in a modal
+          </Typography>
+          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+
+
+          <form noValidate autoComplete="off">
+            <TextField id="outlined-basic" label="Email ID" variant="outlined" onChange={(event)=>setEmailid(event.target.value)}/>
+            </form>
+            <form noValidate autoComplete="off">
+            <TextField id="outlined-basic" label="Microsoft ID" variant="outlined" />
+            </form>
+            <RoleSelect setRolesSelected={setRolesSelected}/>
+            <Button type="submit" variant="contained" > 
+                
+                Edit
+                </ Button>
+
+
+
+
+          </Typography>
+        </Box>
+      </Modal>
+      <Button
+      // onClick={() => Delete(params.getValue(params.id, "id"))}
+      >
+        Delete
+      </Button>
+    </>
+  );
+}
+
 const columns = [
-  { field: 'col1', headerName: 'Name', width: 200, renderCell: renderCellExpand },
+  { field: 'name', headerName: 'Name', width: 280, renderCell: renderCellExpand },
   {
-    field: 'col2',
-    headerName: 'Email',
-    width: 200,
+    field: ' microsoftid',
+    headerName: ' Microsoft ID',
+    width: 250,
     renderCell: renderCellExpand,
   },
   {
-    field: 'col3',
-    headerName: 'Date-Created',
-    width: 150,
+    field: 'emailid',
+    headerName: 'Email ID',
+    width: 250,
+    renderCell: renderCellExpand,
+  },
+  {
+    field: 'role',
+    headerName: 'Role',
+    width: 250,
     renderCell: renderCellExpand,
   },
   {
@@ -156,22 +227,7 @@ const columns = [
     flex: 0.3,
     type: "number",
     sortable: false,
-    renderCell: (params) => {
-      return (
-        <>
-          <button 
-          // onClick={() => Delete(params.getValue(params.id, "id"))}
-          >
-            Edit
-          </button>
-          <button 
-          // onClick={() => Delete(params.getValue(params.id, "id"))}
-          >
-            Delete
-          </button>
-        </>
-      );
-    },
+    renderCell: EditCommand,
   },
 ];
 
@@ -215,10 +271,33 @@ const rows = [
 ];
 
 export default function RenderExpandCellGrid() {
+  const [users, setUsers] = React.useState([]);
+
+  React.useEffect(() => {
+    async function fetchData() {
+      try {
+        const res = await axios.get('https://swc.iitg.ac.in/onestopapi/getAllUsers');
+        console.log(res.data);
+        setUsers(res.data);
+        
+        
+  
+      } catch (error) {
+        console.log("error",error);
+      }
+
+    }
+fetchData();
+    
+  }, []);
+  console.log("users",users);
+
   return (
     <div style={{ height: 400, width: '100%' }}>
-      <DataGrid rows={rows} columns={columns} 
+      <DataGrid rows={users} columns={columns} 
 disableSelectionOnClick
+getRowId={(row) => row._id}
+
       />
     </div>
   );
