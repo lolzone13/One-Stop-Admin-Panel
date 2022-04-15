@@ -208,7 +208,7 @@ const columns = [
   {
     field: 'col2',
     headerName: 'Email',
-    width: 200,
+    width: 100,
     renderCell: renderCellExpand,
   },
   {
