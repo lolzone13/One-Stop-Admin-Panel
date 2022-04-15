@@ -38,22 +38,7 @@ const GridCellExpand = React.memo(function GridCellExpand(props) {
   };
 
 
-  const [foodItems, setFoodItems] = React.useState([]);
 
-  React.useEffect(() => {
-    async function fetchData() {
-      try {
-        const res = await axios.get('https://swc.iitg.ac.in/onestopapi/getAllItems');
-        setFoodItems(res.data);
-  
-      } catch (error) {
-        console.log(error);
-      }
-
-    }
-
-    
-  }, []);
 
   React.useEffect(() => {
     if (!showFullCell) {
@@ -283,9 +268,27 @@ const rows = [
 ];
 
 export default function RenderExpandCellGrid() {
+  const [foodItems, setFoodItems] = React.useState([]);
+
+  React.useEffect(() => {
+    async function fetchData() {
+      try {
+        const res = await axios.get('https://swc.iitg.ac.in/onestopapi/getAllItems');
+        setFoodItems(res.data);
+  
+      } catch (error) {
+        console.log(error);
+      }
+
+    }
+    fetchData();
+
+    
+  }, []);
+  console.log(foodItems);
   return (
     <div style={{ height: 400, width: '100%' }}>
-      <DataGrid rows={rows} columns={columns} 
+      <DataGrid rows={foodItems} columns={columns} 
 disableSelectionOnClick
 getRowId={(row) => row._id}
       />

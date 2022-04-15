@@ -40,22 +40,7 @@ const GridCellExpand = React.memo(function GridCellExpand(props) {
   };
 
 
-  const [roles, setRoles] = React.useState([]);
 
-  React.useEffect(() => {
-    async function fetchData() {
-      try {
-        const res = await axios.get('https://swc.iitg.ac.in/onestopapi/getAllRoles');
-        setRoles(res.data);
-  
-      } catch (error) {
-        console.log(error);
-      }
-
-    }
-
-    
-  }, []);
 
   React.useEffect(() => {
     if (!showFullCell) {
@@ -261,9 +246,28 @@ const rows = [
 ];
 
 export default function RenderExpandCellGrid() {
+  const [roles, setRoles] = React.useState([]);
+
+  React.useEffect(() => {
+    async function fetchData() {
+      try {
+        const res = await axios.get('https://swc.iitg.ac.in/onestopapi/getAllRoles');
+        console.log("Hello", res.data);
+        setRoles(res.data);
+        
+  
+      } catch (error) {
+        console.log(error);
+      }
+
+    }
+    fetchData();
+    
+  }, []);
+  console.log("Roles", roles);
   return (
     <div style={{ height: 400, width: '50%' }}>
-      <DataGrid rows={rows} columns={columns}
+      <DataGrid rows={roles} columns={columns}
         disableSelectionOnClick
 getRowId={(row) => row._id}
       />
