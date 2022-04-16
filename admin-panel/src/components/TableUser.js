@@ -143,26 +143,34 @@ export default function RenderExpandCellGrid() {
   const [rolesselected, setRolesSelected] = React.useState([]);
   const [name, setName] = useState('');
   const [emailid, setEmailid] = useState('');
+
   const handleEdit = (event, cellValues) => {
-    // setName(cellValues.row.name);
-    // setEmailid(cellValues.row.emailid);
-    // setMicrosoftid(cellValues.row.microsoftid);
-    // setRolesSelected(cellValues.row.roles);
-    editUser(cellValues.row._id);
+    setName(cellValues.row.name);
+    setEmailid(cellValues.row.emailid);
+    setMicrosoftid(cellValues.row.microsoftid);
+    setRolesSelected(cellValues.row.roles);
   };
 
   const editUser = async (_id) => {
     const response = await axios.put(
-      `https://swc.iitg.ac.in/onestopapi/updateUser/${_id}`
+      `https://swc.iitg.ac.in/onestopapi/updateUser/${_id}`,{
+        name,
+        emailid,
+        microsoftid,
+        roles: rolesselected
+      }
     );
-    if (response.status === 200) {
-      // setName(cellValues.row.name);
-      // setEmailid(cellValues.row.emailid);
-      // setMicrosoftid(cellValues.row.microsoftid);
-      // setRolesSelected(cellValues.row.roles);
-
-    }
+    const new_response = await axios.get(
+      `https://swc.iitg.ac.in/onestopapi/getAllUsers`
+    );
+    setUsers(new_response.data);
   }
+
+  const handleUpdate = (event, cellValues) => {
+    editUser(cellValues.row._id);
+    setOpen(false);
+  };
+
   const handleDelete = (event, cellValues) => {
     deleteUser(cellValues.row._id);
   };
@@ -202,7 +210,6 @@ export default function RenderExpandCellGrid() {
     }
     fetchData();
   }, []);
-  console.log('users', users);
 
   const columns = [
     {
@@ -290,12 +297,19 @@ export default function RenderExpandCellGrid() {
                       label='Microsoft ID'
                       defaultValue={microsoftid}
                       variant='outlined'
+                      onChange={(event) => setMicrosoftid(event.target.value)}
                     />
                   </form>
                   <br />
                   <RoleSelect setRolesSelected={setRolesSelected} />
                   <br />
-                  <Button type='submit' variant='contained'>
+                  <Button
+                    onClick={(event) => {
+                      handleUpdate(event, cellValues);
+                    }}
+                    type='submit'
+                    variant='contained'
+                  >
                     Edit
                   </Button>
                 </Typography>
