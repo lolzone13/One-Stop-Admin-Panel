@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -10,14 +10,12 @@ import Modal from '@mui/material/Modal';
 import TextField from '@mui/material/TextField';
 import axios from 'axios';
 
-
 function isOverflown(element) {
   return (
     element.scrollHeight > element.clientHeight ||
     element.scrollWidth > element.clientWidth
   );
 }
-
 
 const GridCellExpand = React.memo(function GridCellExpand(props) {
   const { width, value } = props;
@@ -38,9 +36,6 @@ const GridCellExpand = React.memo(function GridCellExpand(props) {
   const handleMouseLeave = () => {
     setShowFullCell(false);
   };
-
-
-
 
   React.useEffect(() => {
     if (!showFullCell) {
@@ -87,7 +82,11 @@ const GridCellExpand = React.memo(function GridCellExpand(props) {
       />
       <Box
         ref={cellValue}
-        sx={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}
+        sx={{
+          whiteSpace: 'nowrap',
+          overflow: 'hidden',
+          textOverflow: 'ellipsis',
+        }}
       >
         {value}
       </Box>
@@ -101,7 +100,7 @@ const GridCellExpand = React.memo(function GridCellExpand(props) {
             elevation={1}
             style={{ minHeight: wrapper.current.offsetHeight - 3 }}
           >
-            <Typography variant="body2" style={{ padding: 8 }}>
+            <Typography variant='body2' style={{ padding: 8 }}>
               {value}
             </Typography>
           </Paper>
@@ -118,7 +117,10 @@ GridCellExpand.propTypes = {
 
 function renderCellExpand(params) {
   return (
-    <GridCellExpand value={params.value || ''} width={params.colDef.computedWidth} />
+    <GridCellExpand
+      value={params.value || ''}
+      width={params.colDef.computedWidth}
+    />
   );
 }
 
@@ -133,18 +135,49 @@ renderCellExpand.propTypes = {
   value: PropTypes.string,
 };
 
-
-
-
-function EditCommand() {
-
-
+export default function RenderExpandCellGrid() {
+  const [roles, setRoles] = React.useState([]);
   const [open, setOpen] = React.useState(false);
-  const [role,setRole]=React.useState('');
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
- 
+  const [role, setRole] = React.useState('');
 
+  const handleEdit = (event, cellValues) => {
+    setRole(cellValues.row.role);
+  };
+
+  const editRoles = async (_id) => {
+    const response = await axios.put(
+      `https://swc.iitg.ac.in/onestopapi/updateRole/${_id}`,
+      {
+        role,
+      }
+    );
+    const new_response = await axios.get(
+      `https://swc.iitg.ac.in/onestopapi/getAllOutlets`
+    );
+    setRoles(new_response.data);
+  };
+
+  const handleUpdate = (event, cellValues) => {
+    editRoles(cellValues.row._id);
+    setOpen(false);
+  };
+
+  const handleDelete = (event, cellValues) => {
+    deleteRoles(cellValues.row._id);
+  };
+
+  const deleteRoles = async (_id) => {
+    const response = await axios.delete(
+      `https://swc.iitg.ac.in/onestopapi/deleteRole/${_id}`
+    );
+    if (response.status === 200) {
+      setRoles(
+        roles.filter((role) => role._id !== _id)
+      );
+    }
+  };
+
+  const handleClose = () => setOpen(false);
   const style = {
     position: 'absolute',
     top: '50%',
@@ -157,89 +190,105 @@ function EditCommand() {
     p: 4,
   };
 
-  return (
-    <>
-      <Button
-      onClick={handleOpen}
-      >
-        Edit
-      </Button>
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={style}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            Edit Role
-          </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-
-
-            <form noValidate autoComplete="off">
-            <TextField id="outlined-basic" label="Role" variant="outlined" onChange={(event)=>setRole(event.target.value)}/>
-            </form>
-           
-            <Button type="submit" variant="contained" > 
-                
-                Edit
-                </ Button>
-
-
-          </Typography>
-        </Box>
-      </Modal>
-      <Button
-      // onClick={() => Delete(params.getValue(params.id, "id"))}
-      >
-        Delete
-      </Button>
-    </>
-  );
-}
-
-const columns = [
-  { field: 'role', headerName: 'Role', width: 200, renderCell: renderCellExpand },
- 
-  {
-    field: "actions",
-    headerName: "Actions",
-    minWidth: 150,
-    flex: 0.3,
-    type: "number",
-    sortable: false,
-    renderCell: EditCommand,
-  },
-];
-
-
-
-export default function RenderExpandCellGrid() {
-  const [roles, setRoles] = React.useState([]);
-
   React.useEffect(() => {
     async function fetchData() {
       try {
-        const res = await axios.get('https://swc.iitg.ac.in/onestopapi/getAllRoles');
-        console.log("Hello", res.data);
+        const res = await axios.get(
+          'https://swc.iitg.ac.in/onestopapi/getAllRoles'
+        );
+        console.log('Hello', res.data);
         setRoles(res.data);
-        
-  
       } catch (error) {
         console.log(error);
       }
-
     }
     fetchData();
-    
   }, []);
-  console.log("Roles", roles);
+
+  const columns = [
+    {
+      field: 'role',
+      headerName: 'Role',
+      width: 200,
+      renderCell: renderCellExpand,
+    },
+    {
+      field: 'Edit',
+      renderCell: (cellValues) => {
+        return (
+          <>
+            <Button
+              variant='contained'
+              color='primary'
+              onClick={(event) => {
+                setOpen(true);
+                handleEdit(event, cellValues);
+              }}
+            >
+              Edit
+            </Button>
+            <Modal
+              open={open}
+              onClose={handleClose}
+              aria-labelledby='modal-modal-title'
+              aria-describedby='modal-modal-description'
+            >
+              <Box sx={style}>
+                <Typography id='modal-modal-title' variant='h6' component='h2'>
+                  Text in a modal
+                </Typography>
+                <Typography id='modal-modal-description' sx={{ mt: 2 }}>
+                  <form noValidate autoComplete='off'>
+                    <TextField
+                      id='outlined-basic'
+                      label='Role'
+                      variant='outlined'
+                      defaultValue={role}
+                      onChange={(event) => setRole(event.target.value)}
+                    />
+                  </form>
+                  <br />
+                  <Button
+                    onClick={(event) => {
+                      handleUpdate(event, cellValues);
+                    }}
+                    type='submit'
+                    variant='contained'
+                  >
+                    Edit
+                  </Button>
+                </Typography>
+              </Box>
+            </Modal>
+          </>
+        );
+      },
+    },
+    {
+      field: 'Delete',
+      renderCell: (cellValues) => {
+        return (
+          <Button
+            variant='contained'
+            color='primary'
+            onClick={(event) => {
+              handleDelete(event, cellValues);
+            }}
+          >
+            Delete
+          </Button>
+        );
+      },
+    },
+  ];
+
   return (
     <div style={{ height: 400, width: '50%' }}>
-      <DataGrid rows={roles} columns={columns}
+      <DataGrid
+        rows={roles}
+        columns={columns}
         disableSelectionOnClick
-getRowId={(row) => row._id}
+        getRowId={(row) => row._id}
       />
     </div>
   );

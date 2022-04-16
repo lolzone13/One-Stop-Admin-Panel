@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -36,11 +36,6 @@ const GridCellExpand = React.memo(function GridCellExpand(props) {
   const handleMouseLeave = () => {
     setShowFullCell(false);
   };
-
-
-  
-
-
 
   React.useEffect(() => {
     if (!showFullCell) {
@@ -87,7 +82,11 @@ const GridCellExpand = React.memo(function GridCellExpand(props) {
       />
       <Box
         ref={cellValue}
-        sx={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}
+        sx={{
+          whiteSpace: 'nowrap',
+          overflow: 'hidden',
+          textOverflow: 'ellipsis',
+        }}
       >
         {value}
       </Box>
@@ -101,7 +100,7 @@ const GridCellExpand = React.memo(function GridCellExpand(props) {
             elevation={1}
             style={{ minHeight: wrapper.current.offsetHeight - 3 }}
           >
-            <Typography variant="body2" style={{ padding: 8 }}>
+            <Typography variant='body2' style={{ padding: 8 }}>
               {value}
             </Typography>
           </Paper>
@@ -118,7 +117,10 @@ GridCellExpand.propTypes = {
 
 function renderCellExpand(params) {
   return (
-    <GridCellExpand value={params.value || ''} width={params.colDef.computedWidth} />
+    <GridCellExpand
+      value={params.value || ''}
+      width={params.colDef.computedWidth}
+    />
   );
 }
 
@@ -133,13 +135,66 @@ renderCellExpand.propTypes = {
   value: PropTypes.string,
 };
 
-
-
-function EditCommand() {
-
-
+export default function RenderExpandCellGrid() {
+  const [foodOutlets, setFoodOutlets] = React.useState([]);
   const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
+  const [name, setName] = useState('');
+  const [caption, setCaption] = useState('');
+  const [waiting_time, setWaiting_time] = React.useState('');
+  const [closing_time, setClosing_time] = React.useState('');
+  const [phone_number, setPhone_number] = React.useState('');
+  const [tags, setTags] = React.useState('');
+  const [menu, setMenu] = React.useState('');
+
+  const handleEdit = (event, cellValues) => {
+    setName(cellValues.row.name);
+    setCaption(cellValues.row.caption);
+    setWaiting_time(cellValues.row.waiting_time);
+    setClosing_time(cellValues.row.closing_time);
+    setPhone_number(cellValues.row.phone_number);
+    setTags(cellValues.row.tags);
+    setMenu(cellValues.row.menu);
+  };
+
+  const editFoodOutlets = async (_id) => {
+    const response = await axios.put(
+      `https://swc.iitg.ac.in/onestopapi/updateOutlet/${_id}`,
+      {
+        name,
+        caption,
+        waiting_time,
+        closing_time,
+        phone_number,
+        tags,
+        menu,
+      }
+    );
+    const new_response = await axios.get(
+      `https://swc.iitg.ac.in/onestopapi/getAllRoles`
+    );
+    setFoodOutlets(new_response.data);
+  };
+
+  const handleUpdate = (event, cellValues) => {
+    editFoodOutlets(cellValues.row._id);
+    setOpen(false);
+  };
+
+  const handleDelete = (event, cellValues) => {
+    deleteFoodOutlets(cellValues.row._id);
+  };
+
+  const deleteFoodOutlets = async (_id) => {
+    const response = await axios.delete(
+      `https://swc.iitg.ac.in/onestopapi/deleteOutlet/${_id}`
+    );
+    if (response.status === 200) {
+      setFoodOutlets(
+        foodOutlets.filter((foodOutlet) => foodOutlet._id !== _id)
+      );
+    }
+  };
+
   const handleClose = () => setOpen(false);
   const style = {
     position: 'absolute',
@@ -153,123 +208,202 @@ function EditCommand() {
     p: 4,
   };
 
-  return (
-    <>
-      <Button
-      onClick={handleOpen}
-      >
-        Edit
-      </Button>
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={style}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            Text in a modal
-          </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-
-
-            <form noValidate autoComplete="off">
-            <TextField id="outlined-basic" label="Outlined" variant="outlined" />
-            </form>
-
-
-
-
-          </Typography>
-        </Box>
-      </Modal>
-      <Button
-      // onClick={() => Delete(params.getValue(params.id, "id"))}
-      >
-        Delete
-      </Button>
-    </>
-  );
-}
-
-const columns = [
-  { field: 'name', headerName: 'Name', width: 200, renderCell: renderCellExpand },
-  {
-    field: 'caption',
-    headerName: 'Caption',
-    width: 300,
-    renderCell: renderCellExpand,
-  },
-  {
-    field: 'waiting_time',
-    headerName: 'Waiting Time',
-    width: 150,
-    renderCell: renderCellExpand,
-  },
-  {
-    field: 'closing_time',
-    headerName: 'Closing Time',
-    width: 150,
-    renderCell: renderCellExpand,
-  },
-  {
-    field: 'phone_number',
-    headerName: 'Phone Number',
-    width: 150,
-    renderCell: renderCellExpand,
-  },
-  {
-    field: 'tags',
-    headerName: 'Tags',
-    width: 150,
-    renderCell: renderCellExpand,
-  },
-  {
-    field: 'menu',
-    headerName: 'Menu',
-    width: 150,
-    renderCell: renderCellExpand,
-  },
-  {
-    field: "actions",
-    headerName: "Actions",
-    minWidth: 150,
-    flex: 0.3,
-    type: "number",
-    sortable: false,
-    renderCell: EditCommand,
-  },
-];
-
-
-   
-  
-
-export default function RenderExpandCellGrid() {
-  const [foodOutlets, setFoodOutlets] = React.useState([]);
   React.useEffect(() => {
     async function fetchData() {
       try {
-        const res = await axios.get('https://swc.iitg.ac.in/onestopapi/getAllOutlets');
+        const res = await axios.get(
+          'https://swc.iitg.ac.in/onestopapi/getAllOutlets'
+        );
         console.log(res.data);
         setFoodOutlets(res.data);
-        
-        
-  
       } catch (error) {
-        console.log("error",error);
+        console.log('error', error);
       }
-
     }
-fetchData();
+    fetchData();
   }, []);
 
-  console.log('Food-Outlets', foodOutlets);
+  const columns = [
+    {
+      field: 'name',
+      headerName: 'Name',
+      width: 200,
+      renderCell: renderCellExpand,
+    },
+    {
+      field: 'caption',
+      headerName: 'Caption',
+      width: 300,
+      renderCell: renderCellExpand,
+    },
+    {
+      field: 'waiting_time',
+      headerName: 'Waiting Time',
+      width: 150,
+      renderCell: renderCellExpand,
+    },
+    {
+      field: 'closing_time',
+      headerName: 'Closing Time',
+      width: 150,
+      renderCell: renderCellExpand,
+    },
+    {
+      field: 'phone_number',
+      headerName: 'Phone Number',
+      width: 150,
+      renderCell: renderCellExpand,
+    },
+    {
+      field: 'tags',
+      headerName: 'Tags',
+      width: 150,
+      renderCell: renderCellExpand,
+    },
+    {
+      field: 'menu',
+      headerName: 'Menu',
+      width: 150,
+      renderCell: renderCellExpand,
+    },
+    {
+      field: 'Edit',
+      renderCell: (cellValues) => {
+        return (
+          <>
+            <Button
+              variant='contained'
+              color='primary'
+              onClick={(event) => {
+                setOpen(true);
+                handleEdit(event, cellValues);
+              }}
+            >
+              Edit
+            </Button>
+            <Modal
+              open={open}
+              onClose={handleClose}
+              aria-labelledby='modal-modal-title'
+              aria-describedby='modal-modal-description'
+            >
+              <Box sx={style}>
+                <Typography id='modal-modal-title' variant='h6' component='h2'>
+                  Text in a modal
+                </Typography>
+                <Typography id='modal-modal-description' sx={{ mt: 2 }}>
+                  <form noValidate autoComplete='off'>
+                    <TextField
+                      id='outlined-basic'
+                      label='Name'
+                      variant='outlined'
+                      defaultValue={name}
+                      onChange={(event) => setName(event.target.value)}
+                    />
+                  </form>
+                  <br />
+                  <form noValidate autoComplete='off'>
+                    <TextField
+                      id='outlined-basic'
+                      label='Caption'
+                      variant='outlined'
+                      defaultValue={caption}
+                      onChange={(event) => setCaption(event.target.value)}
+                    />
+                  </form>
+                  <br />
+                  <form noValidate autoComplete='off'>
+                    <TextField
+                      id='outlined-basic'
+                      label='Waiting Time'
+                      defaultValue={waiting_time}
+                      variant='outlined'
+                      onChange={(event) => setWaiting_time(event.target.value)}
+                    />
+                  </form>
+                  <br />
+                  <form noValidate autoComplete='off'>
+                    <TextField
+                      id='outlined-basic'
+                      label='Closing Time'
+                      defaultValue={closing_time}
+                      variant='outlined'
+                      onChange={(event) => setClosing_time(event.target.value)}
+                    />
+                  </form>
+                  <br />
+                  <form noValidate autoComplete='off'>
+                    <TextField
+                      id='outlined-basic'
+                      label='Phone Number'
+                      defaultValue={phone_number}
+                      variant='outlined'
+                      onChange={(event) => setPhone_number(event.target.value)}
+                    />
+                  </form>
+                  <br />
+                  <form noValidate autoComplete='off'>
+                    <TextField
+                      id='outlined-basic'
+                      label='Tags'
+                      defaultValue={tags}
+                      variant='outlined'
+                      onChange={(event) => setTags(event.target.value)}
+                    />
+                  </form>
+                  <br />
+                  <form noValidate autoComplete='off'>
+                    <TextField
+                      id='outlined-basic'
+                      label='Menu'
+                      defaultValue={menu}
+                      variant='outlined'
+                      onChange={(event) => setMenu(event.target.value)}
+                    />
+                  </form>
+                  <br />
+
+                  <Button
+                    onClick={(event) => {
+                      handleUpdate(event, cellValues);
+                    }}
+                    type='submit'
+                    variant='contained'
+                  >
+                    Edit
+                  </Button>
+                </Typography>
+              </Box>
+            </Modal>
+          </>
+        );
+      },
+    },
+    {
+      field: 'Delete',
+      renderCell: (cellValues) => {
+        return (
+          <Button
+            variant='contained'
+            color='primary'
+            onClick={(event) => {
+              handleDelete(event, cellValues);
+            }}
+          >
+            Delete
+          </Button>
+        );
+      },
+    },
+  ];
+
   return (
     <div style={{ height: 400, width: '100%' }}>
-      <DataGrid rows={foodOutlets} columns={columns} 
-disableSelectionOnClick
-getRowId={(row) => row._id}
+      <DataGrid
+        rows={foodOutlets}
+        columns={columns}
+        disableSelectionOnClick
+        getRowId={(row) => row._id}
       />
     </div>
   );
