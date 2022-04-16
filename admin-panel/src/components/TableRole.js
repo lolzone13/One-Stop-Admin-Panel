@@ -152,7 +152,7 @@ export default function RenderExpandCellGrid() {
       }
     );
     const new_response = await axios.get(
-      `https://swc.iitg.ac.in/onestopapi/getAllOutlets`
+      `https://swc.iitg.ac.in/onestopapi/getAllRoles`
     );
     setRoles(new_response.data);
   };
