@@ -1,0 +1,12 @@
+.role_page{
+    display:flex;
+
+}
+
+.role_page_add{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+}
