@@ -43,7 +43,6 @@ function ResponsiveDrawer(props) {
       <Divider />
       <List>
         {[
-          'Login',
           'User',
           'Role',
           'Contacts',
@@ -57,11 +56,7 @@ function ResponsiveDrawer(props) {
             button
             key={text}
             onClick={() => {
-              if (text === 'Login') {
-                navigate('/login');
-                setComponent('Login');
-              }
-              else if (text === 'User') {
+              if (text === 'User') {
                 navigate('/user');
                 setComponent('User');
               }
@@ -105,8 +100,6 @@ function ResponsiveDrawer(props) {
 
   const loadComponent = () => {
     switch (component) {
-      case 'Login':
-        return <Login />;
       case 'User':
         return <User />;
       case 'Role':
@@ -124,7 +117,7 @@ function ResponsiveDrawer(props) {
       case 'Ferry Timings':
         return <FerryTimings />;
       default:
-        return <Login />;
+        return <User />;
     }
   };
 
