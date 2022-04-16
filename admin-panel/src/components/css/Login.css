@@ -1,0 +1,117 @@
+body {
+  font-family: 'Open sans', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
+    'Helvetica Neue', sans-serif !important;
+}
+
+.login-wrapper {
+  text-align: center;
+  max-width: 300px;
+  width: 100%;
+  border-radius: 5px;
+  background: white;
+  padding: 45px;
+  margin: auto;
+}
+
+input {
+  height: 40px;
+  padding: 11px 13px;
+  box-sizing: border-box;
+  margin: 0;
+  margin-bottom: 20px;
+  color: rgba(0, 0, 0, 0.65);
+  font-variant: tabular-nums;
+  list-style: none;
+  font-feature-settings: 'tnum', 'tnum', 'tnum';
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  color: #161537;
+  font-size: 15px;
+  line-height: 1.5;
+  background-color: #fff;
+  background-image: none;
+  border: 1px solid #e4e9f0;
+  border-radius: 4px;
+  transition: all 0.3s;
+  width: 15.5rem;
+  margin: 0px auto 20px;
+}
+.title {
+  font-weight: 300;
+  font-size: 20px;
+  font-family: 'Barlow', sans-serif;
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 20px;
+}
+
+.title strong {
+  font-size: 25px;
+}
+
+button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #1b55e3;
+  border: 1px solid #1b55e3;
+  margin: 0 auto;
+  border-radius: 3px;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-out;
+  width: 250px;
+  color: white;
+  font-size: 16px;
+  margin-top: 10px;
+  position: relative;
+}
+
+button:hover {
+  background-color: #3669e7;
+  border: 1px solid #3669e7;
+}
+.divider {
+  display: block;
+  text-align: center;
+  overflow: hidden;
+  white-space: nowrap;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.divider span {
+  position: relative;
+  display: inline-block;
+  color: #343a42 !important;
+}
+
+.divider span:before {
+  right: 100%;
+  margin-right: 12px;
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 9999px;
+  height: 1px;
+  background: #d2d2d2;
+}
+
+.divider span:after {
+  left: 100%;
+  margin-left: 12px;
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 9999px;
+  height: 1px;
+  background: #d2d2d2;
+}
+
+img {
+  width: 25px;
+  position: absolute;
+  left: 10px;
+}
