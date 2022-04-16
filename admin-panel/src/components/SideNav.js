@@ -16,6 +16,7 @@ import MailIcon from '@mui/icons-material/Mail';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
+import Login from './Login';
 import Contacts from './Contacts';
 import FoodItems from './FoodItems';
 import Foodoutlet from './Foodoutlet';
@@ -31,7 +32,7 @@ function ResponsiveDrawer(props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const navigate = useNavigate();
-  const [component, setComponent] = useState('User');
+  const [component, setComponent] = useState('Login');
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
@@ -42,6 +43,7 @@ function ResponsiveDrawer(props) {
       <Divider />
       <List>
         {[
+          'Login',
           'User',
           'Role',
           'Contacts',
@@ -55,10 +57,15 @@ function ResponsiveDrawer(props) {
             button
             key={text}
             onClick={() => {
-              if (text === 'User') {
+              if (text === 'Login') {
+                navigate('/login');
+                setComponent('Login');
+              }
+              else if (text === 'User') {
                 navigate('/user');
                 setComponent('User');
-              } else if (text === 'Role') {
+              }
+               else if (text === 'Role') {
                 navigate('/role');
                 setComponent('Role');
               } else if (text === 'Contacts') {
@@ -98,6 +105,8 @@ function ResponsiveDrawer(props) {
 
   const loadComponent = () => {
     switch (component) {
+      case 'Login':
+        return <Login />;
       case 'User':
         return <User />;
       case 'Role':
@@ -115,7 +124,7 @@ function ResponsiveDrawer(props) {
       case 'Ferry Timings':
         return <FerryTimings />;
       default:
-        return <User />;
+        return <Login />;
     }
   };
 

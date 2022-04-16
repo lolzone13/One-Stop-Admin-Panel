@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -9,7 +9,7 @@ import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
 import TextField from '@mui/material/TextField';
 import axios from 'axios';
-import RoleSelect from "./RoleSelect"
+import RoleSelect from './RoleSelect';
 
 function isOverflown(element) {
   return (
@@ -38,7 +38,6 @@ const GridCellExpand = React.memo(function GridCellExpand(props) {
     setShowFullCell(false);
   };
 
- 
   React.useEffect(() => {
     if (!showFullCell) {
       return undefined;
@@ -84,7 +83,11 @@ const GridCellExpand = React.memo(function GridCellExpand(props) {
       />
       <Box
         ref={cellValue}
-        sx={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}
+        sx={{
+          whiteSpace: 'nowrap',
+          overflow: 'hidden',
+          textOverflow: 'ellipsis',
+        }}
       >
         {value}
       </Box>
@@ -98,7 +101,7 @@ const GridCellExpand = React.memo(function GridCellExpand(props) {
             elevation={1}
             style={{ minHeight: wrapper.current.offsetHeight - 3 }}
           >
-            <Typography variant="body2" style={{ padding: 8 }}>
+            <Typography variant='body2' style={{ padding: 8 }}>
               {value}
             </Typography>
           </Paper>
@@ -115,7 +118,10 @@ GridCellExpand.propTypes = {
 
 function renderCellExpand(params) {
   return (
-    <GridCellExpand value={params.value || ''} width={params.colDef.computedWidth} />
+    <GridCellExpand
+      value={params.value || ''}
+      width={params.colDef.computedWidth}
+    />
   );
 }
 
@@ -130,16 +136,46 @@ renderCellExpand.propTypes = {
   value: PropTypes.string,
 };
 
-
-
-function EditCommand() {
-
-
+export default function RenderExpandCellGrid() {
+  const [users, setUsers] = React.useState([]);
   const [open, setOpen] = React.useState(false);
+  const [microsoftid, setMicrosoftid] = React.useState('');
   const [rolesselected, setRolesSelected] = React.useState([]);
-  const [name,setName]=useState("");
-  const [emailid,setEmailid]=useState("");
-  const handleOpen = () => setOpen(true);
+  const [name, setName] = useState('');
+  const [emailid, setEmailid] = useState('');
+  const handleEdit = (event, cellValues) => {
+    // setName(cellValues.row.name);
+    // setEmailid(cellValues.row.emailid);
+    // setMicrosoftid(cellValues.row.microsoftid);
+    // setRolesSelected(cellValues.row.roles);
+    editUser(cellValues.row._id);
+  };
+
+  const editUser = async (_id) => {
+    const response = await axios.put(
+      `https://swc.iitg.ac.in/onestopapi/updateUser/${_id}`
+    );
+    if (response.status === 200) {
+      // setName(cellValues.row.name);
+      // setEmailid(cellValues.row.emailid);
+      // setMicrosoftid(cellValues.row.microsoftid);
+      // setRolesSelected(cellValues.row.roles);
+
+    }
+  }
+  const handleDelete = (event, cellValues) => {
+    deleteUser(cellValues.row._id);
+  };
+
+  const deleteUser = async (_id) => {
+    const response = await axios.delete(
+      `https://swc.iitg.ac.in/onestopapi/deleteUser/${_id}`
+    );
+    if (response.status === 200) {
+      setUsers(users.filter((user) => user._id !== _id));
+    }
+  };
+
   const handleClose = () => setOpen(false);
   const style = {
     position: 'absolute',
@@ -152,116 +188,148 @@ function EditCommand() {
     boxShadow: 24,
     p: 4,
   };
-
-  return (
-    <>
-      <Button
-      onClick={handleOpen}
-      >
-        Edit
-      </Button>
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={style}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            Text in a modal
-          </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-
-
-          <form noValidate autoComplete="off">
-            <TextField id="outlined-basic" label="Email ID" variant="outlined" onChange={(event)=>setEmailid(event.target.value)}/>
-            </form>
-            <form noValidate autoComplete="off">
-            <TextField id="outlined-basic" label="Microsoft ID" variant="outlined" />
-            </form>
-            <RoleSelect setRolesSelected={setRolesSelected}/>
-            <Button type="submit" variant="contained" > 
-                
-                Edit
-                </ Button>
-
-
-
-
-          </Typography>
-        </Box>
-      </Modal>
-      <Button
-      // onClick={() => Delete(params.getValue(params.id, "id"))}
-      >
-        Delete
-      </Button>
-    </>
-  );
-}
-
-const columns = [
-  { field: 'name', headerName: 'Name', width: 280, renderCell: renderCellExpand },
-  {
-    field: 'microsoftid',
-    headerName: ' Microsoft ID',
-    width: 250,
-    renderCell: renderCellExpand,
-  },
-  {
-    field: 'emailid',
-    headerName: 'Email ID',
-    width: 250,
-    renderCell: renderCellExpand,
-  },
-  {
-    field: 'role',
-    headerName: 'Role',
-    width: 250,
-    renderCell: renderCellExpand,
-  },
-  {
-    field: "actions",
-    headerName: "Actions",
-    minWidth: 150,
-    flex: 0.3,
-    type: "number",
-    sortable: false,
-    renderCell: EditCommand,
-  },
-];
-
-
- 
-
-export default function RenderExpandCellGrid() {
-  const [users, setUsers] = React.useState([]);
-
   React.useEffect(() => {
     async function fetchData() {
       try {
-        const res = await axios.get('https://swc.iitg.ac.in/onestopapi/getAllUsers');
+        const res = await axios.get(
+          'https://swc.iitg.ac.in/onestopapi/getAllUsers'
+        );
         console.log(res.data);
         setUsers(res.data);
-        
-        
-  
       } catch (error) {
-        console.log("error",error);
+        console.log('error', error);
       }
-
     }
-fetchData();
-    
+    fetchData();
   }, []);
-  console.log("users",users);
+  console.log('users', users);
+
+  const columns = [
+    {
+      field: 'name',
+      headerName: 'Name',
+      width: 280,
+      renderCell: renderCellExpand,
+    },
+    {
+      field: 'microsoftid',
+      headerName: ' Microsoft ID',
+      width: 250,
+      renderCell: renderCellExpand,
+    },
+    {
+      field: 'emailid',
+      headerName: 'Email ID',
+      width: 250,
+      renderCell: renderCellExpand,
+    },
+    {
+      field: 'role',
+      headerName: 'Role',
+      width: 250,
+      renderCell: renderCellExpand,
+    },
+    // {
+    //   field: "actions",
+    //   headerName: "Actions",
+    //   minWidth: 150,
+    //   flex: 0.3,
+    //   type: "number",
+    //   sortable: false,
+    //   renderCell: EditCommand,
+    // },
+    {
+      field: 'Edit',
+      renderCell: (cellValues) => {
+        return (
+          <>
+            <Button
+              variant='contained'
+              color='primary'
+              onClick={(event) => {
+                setOpen(true);
+                handleEdit(event, cellValues);
+              }}
+            >
+              Edit
+            </Button>
+            <Modal
+              open={open}
+              onClose={handleClose}
+              aria-labelledby='modal-modal-title'
+              aria-describedby='modal-modal-description'
+            >
+              <Box sx={style}>
+                <Typography id='modal-modal-title' variant='h6' component='h2'>
+                  Text in a modal
+                </Typography>
+                <Typography id='modal-modal-description' sx={{ mt: 2 }}>
+                  <form noValidate autoComplete='off'>
+                    <TextField
+                      id='outlined-basic'
+                      label='Name'
+                      variant='outlined'
+                      defaultValue={name}
+                      onChange={(event) => setName(event.target.value)}
+                    />
+                  </form>
+                  <br />
+                  <form noValidate autoComplete='off'>
+                    <TextField
+                      id='outlined-basic'
+                      label='Email ID'
+                      variant='outlined'
+                      defaultValue={emailid}
+                      onChange={(event) => setEmailid(event.target.value)}
+                    />
+                  </form>
+                  <br />
+                  <form noValidate autoComplete='off'>
+                    <TextField
+                      id='outlined-basic'
+                      label='Microsoft ID'
+                      defaultValue={microsoftid}
+                      variant='outlined'
+                    />
+                  </form>
+                  <br />
+                  <RoleSelect setRolesSelected={setRolesSelected} />
+                  <br />
+                  <Button type='submit' variant='contained'>
+                    Edit
+                  </Button>
+                </Typography>
+              </Box>
+            </Modal>
+          </>
+        );
+      },
+    },
+    {
+      field: 'Delete',
+      renderCell: (cellValues) => {
+        return (
+          <Button
+            variant='contained'
+            color='primary'
+            onClick={(event) => {
+              handleDelete(event, cellValues);
+            }}
+          >
+            Delete
+          </Button>
+        );
+      },
+    },
+  ];
 
   return (
     <div style={{ height: 400, width: '100%' }}>
-      <DataGrid rows={users} columns={columns} 
-disableSelectionOnClick
-getRowId={(row) => row._id}
-
+      <DataGrid
+        rows={users}
+        columns={columns}
+        disableSelectionOnClick
+        getRowId={(row) => row._id}
       />
     </div>
   );
