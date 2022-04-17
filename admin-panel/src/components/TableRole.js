@@ -209,7 +209,7 @@ export default function RenderExpandCellGrid() {
     {
       field: 'role',
       headerName: 'Role',
-      width: 200,
+      width: 400,
       renderCell: renderCellExpand,
     },
     {

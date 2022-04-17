@@ -2,6 +2,7 @@
     margin:0;
     height:82vh;
     width:100%;
+    margin-left: 17%;
     /* border: 1px solid black; */
     display: flex;
     flex-direction: column;
