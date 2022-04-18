@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -16,7 +16,6 @@ import MailIcon from '@mui/icons-material/Mail';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import Login from './Login';
 import Contacts from './Contacts';
 import FoodItems from './FoodItems';
 import Foodoutlet from './Foodoutlet';
@@ -62,25 +61,25 @@ function ResponsiveDrawer(props) {
               }
                else if (text === 'Role') {
                 navigate('/role');
-                setComponent('Role');
+                //setComponent('Role');
               } else if (text === 'Contacts') {
                 navigate('/contacts');
-                setComponent('Contacts');
+                //setComponent('Contacts');
               } else if (text === 'Mess Menu') {
                 navigate('/mess-menu');
-                setComponent('Mess Menu');
+                //setComponent('Mess Menu');
               } else if (text === 'Food Items') {
                 navigate('/food-items');
-                setComponent('Food Items');
+                //setComponent('Food Items');
               } else if (text === 'Food Outlets') {
                 navigate('/food-outlets');
-                setComponent('Food Outlets');
+                //setComponent('Food Outlets');
               } else if (text === 'Bus Timings') {
                 navigate('/bus-timings');
-                setComponent('Bus Timings');
+                //setComponent('Bus Timings');
               } else if (text === 'Ferry Timings') {
                 navigate('/ferry-timings');
-                setComponent('Ferry Timings');
+                //setComponent('Ferry Timings');
               }
             }}
           >
@@ -193,7 +192,7 @@ function ResponsiveDrawer(props) {
         }}
       >
         <Toolbar />
-        <Typography paragraph>{loadComponent()}</Typography>
+        {/* <Typography paragraph>{loadComponent()}</Typography> */}
       </Box>
     </Box>
   );

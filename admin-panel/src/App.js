@@ -18,14 +18,16 @@ function App() {
       <Router>
         <SideNav />
         <Routes>
-          <Route path='/login' element={<></>} />
-          <Route path='/contacts' element={<></>} />
-          <Route path='/food-items' element={<></>} />
-          <Route path='/food-outlets' element={<></>} />
-          <Route path='/mess-menu' element={<></>} />
-          <Route path='/role' element={<></>} />
-          <Route path='/bus-timings' element={<></>} />
-          <Route path='/ferry-timings' element={<></>} />
+          <Route path="/" element={<User />} />
+          <Route path='/user' element={<><User /></>} />
+          <Route path='/login' element={<><Login /></>} />
+          <Route path='/contacts' element={<><Contacts /></>} />
+          <Route path='/food-items' element={<><FoodItems /></>} />
+          <Route path='/food-outlets' element={<><Foodoutlet /></>} />
+          <Route path='/mess-menu' element={<><MessMenu /></>} />
+          <Route path='/role' element={<><Role /></>} />
+          <Route path='/bus-timings' element={<><BusTimings /></>} />
+          <Route path='/ferry-timings' element={<><FerryTimings /> </>} />
         </Routes>
       </Router>
     </>

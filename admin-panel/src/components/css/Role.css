@@ -1,6 +1,6 @@
 .role_page{
     display:flex;
-
+    margin-left: 20%;
 }
 
 .role_page_add{
@@ -9,4 +9,5 @@
     justify-content: center;
     align-items: center;
     width: 50%;
+    
 }
