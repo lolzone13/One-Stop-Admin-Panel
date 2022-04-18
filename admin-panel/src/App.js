@@ -18,7 +18,8 @@ function App() {
       <Router>
         <SideNav />
         <Routes>
-        <Route path='/user' element={<><User /></>} />
+          <Route path="/" element={<User />} />
+          <Route path='/user' element={<><User /></>} />
           <Route path='/login' element={<><Login /></>} />
           <Route path='/contacts' element={<><Contacts /></>} />
           <Route path='/food-items' element={<><FoodItems /></>} />
