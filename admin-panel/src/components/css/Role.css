@@ -1,13 +1,26 @@
-.role_page{
-    display:flex;
-    margin-left: 20%;
+.role_page {
+  display: flex;
+  margin-left: 20%;
 }
 
-.role_page_add{
+.role_page_add {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+}
+
+@media screen and (max-width: 480px) {
+  .role_page {
+    margin-left: 0%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 50%;
-    
+  }
+
+  .role_page_add {
+    margin-top: 2rem;
+  }
 }

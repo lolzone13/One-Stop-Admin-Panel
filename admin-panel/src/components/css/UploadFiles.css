@@ -29,7 +29,7 @@
     border-width: 1px; 
     cursor: pointer; 
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); 
-
+    margin-left: 5%;
 }
 
 .file-select:hover {
@@ -41,4 +41,20 @@
     margin-top: 10%;
     display: flex;
     justify-content: center;
+    margin-left: 10%;
+}
+
+@media screen and (max-width: 480px) {
+    .form-box {
+    width: 75%;
+    margin: 0;
+
+}
+.upload-button {
+    margin-top: 10%;
+    display: flex;
+    justify-content: center;
+    margin-left: 10rem;
+}
+
 }

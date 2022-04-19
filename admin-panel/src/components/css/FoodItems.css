@@ -2,7 +2,7 @@
     margin:0;
     height:82vh;
     width:100%;
-    margin-left: 17%;
+    margin-left: 8%;
     /* border: 1px solid black; */
     display: flex;
     flex-direction: column;
@@ -24,6 +24,24 @@
 .fooditems_page_table{
     width:100%;
     height:60%;
-   
+   margin-left: 9%;
+    margin-top: 2%;
     /* border: 1px solid black; */
+}
+
+@media screen and (max-width: 480px) {
+  .fooditems_page {
+    margin-left: 0%;
+    padding: 2%;
+  }
+  .fooditems_page_button1{
+    height:25%;
+    width:50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    /* border: 1px solid black; */
+}
 }

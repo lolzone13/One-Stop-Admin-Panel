@@ -8,52 +8,52 @@ import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
 import TextField from '@mui/material/TextField';
 import axios from 'axios';
-import TableRole from './TableRole'
-import "./css/Role.css"
+import TableRole from './TableRole';
+import './css/Role.css';
 
 const Role = () => {
-  const [role, setRole] = useState("");
-  const handleUpdate = async(e) => {
-try{
-  const response = await axios.post('https://swc.iitg.ac.in/onestopapi/createRole', {
-    role: role
-  });
-  console.log(response);
-  setRole("");
-  window.location.reload();
-}catch(error){
-  console.log(error)
-}
-
-  }
+  const [role, setRole] = useState('');
+  const handleUpdate = async (e) => {
+    try {
+      const response = await axios.post(
+        'https://swc.iitg.ac.in/onestopapi/createRole',
+        {
+          role: role,
+        }
+      );
+      console.log(response);
+      setRole('');
+      window.location.reload();
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
-  <>
-    <div className='role_page'>
-  <TableRole />
-    <div className='role_page_add'>
-    <form noValidate autoComplete='off'>
-                    <TextField
-                      id='outlined-basic'
-                      label='Role'
-                     
-                      variant='outlined'
-                      onChange={(event) => setRole(event.target.value)}
-                    />
-                  </form>
-                  <Button
-                    onClick={(event) => {
-                      handleUpdate(event);
-                    }}
-                    type='submit'
-                    variant='contained'
-                  >
-                   Add
-                  </Button>
+    <>
+      <div className='role_page'>
+        <TableRole />
+        <div className='role_page_add'>
+          <form noValidate autoComplete='off'>
+            <TextField
+              id='outlined-basic'
+              label='Role'
+              variant='outlined'
+              onChange={(event) => setRole(event.target.value)}
+            />
+          </form>
+          <Button
+            onClick={(event) => {
+              handleUpdate(event);
+            }}
+            type='submit'
+            variant='contained'
+          >
+            Add
+          </Button>
+        </div>
+      </div>
+    </>
+  );
+};
 
-    </div>
-    </div>
-  </>
-  )
-}
-
-export default Role
+export default Role;

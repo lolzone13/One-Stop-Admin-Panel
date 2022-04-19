@@ -2,3 +2,10 @@
     display:flex;
     margin-left: 17%;
 }
+
+@media screen and (max-width: 480px) {
+  .user_page {
+    margin-left: 0%;
+    padding: 2%;
+  }
+}
