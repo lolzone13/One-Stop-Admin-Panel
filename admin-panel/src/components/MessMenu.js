@@ -11,22 +11,26 @@ const MessMenu = () => {
 
 
 
-    const [age, setAge] = React.useState('');
+    const [hostel, setHostel] = React.useState('');
 
     const handleChange = (event) => {
-        setAge(event.target.value);
+        setHostel(event.target.value);
     };
     return (
         <div className='messmenu_page'>
+            <span style={{ "margin-left": 640 }}>SELECT THE CSV</span>
+            <UploadFiles fileType='.csv' url='https://swc.iitg.ac.in/onestopapi/createmessmenu' />
+            <span style={{ "position": "relative", "margin-left": 575, "top": 60, "font-size": 30}}>Choose the hostel</span>
             <div className='messmenu_page_button1'>
-                <Box sx={{ minWidth: 120 }}>
+
+                <Box sx={{ minWidth: 225 }}>
                     <FormControl fullWidth>
-                        <InputLabel id="demo-simple-select-label">Age</InputLabel>
+                        <InputLabel id="demo-simple-select-label">Hostel</InputLabel>
                         <Select
                             labelId="demo-simple-select-label"
                             id="demo-simple-select"
-                            value={age}
-                            label="Age"
+                            value={hostel}
+                            label="Hostel"
                             onChange={handleChange}
                         >
                             <MenuItem value={"Brahmaputra"}>Brahmaputra</MenuItem>
@@ -45,8 +49,8 @@ const MessMenu = () => {
                         </Select>
                     </FormControl>
                 </Box>
-                <span>SELECT THE CSV</span>
-                <UploadFiles fileType='.csv' url='https://swc.iitg.ac.in/onestopapi/createmessmenu' />
+                
+                
             </div>
         </div>
     )
