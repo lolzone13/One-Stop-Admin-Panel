@@ -19,6 +19,8 @@ const MessMenu = () => {
     return (
         <div className='messmenu_page'>
             <div className='messmenu_page_button1'>
+            <span>SELECT THE CSV</span>
+                <UploadFiles fileType='.csv' url='https://swc.iitg.ac.in/onestopapi/createmessmenu' />
                 <Box sx={{ minWidth: 120 }}>
                     <FormControl fullWidth>
                         <InputLabel id="demo-simple-select-label">Age</InputLabel>
@@ -26,7 +28,7 @@ const MessMenu = () => {
                             labelId="demo-simple-select-label"
                             id="demo-simple-select"
                             value={age}
-                            label="Age"
+                            label="Hostels"
                             onChange={handleChange}
                         >
                             <MenuItem value={"Brahmaputra"}>Brahmaputra</MenuItem>
@@ -45,8 +47,7 @@ const MessMenu = () => {
                         </Select>
                     </FormControl>
                 </Box>
-                <span>SELECT THE CSV</span>
-                <UploadFiles fileType='.csv' url='https://swc.iitg.ac.in/onestopapi/createmessmenu' />
+                
             </div>
         </div>
     )

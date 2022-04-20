@@ -15,9 +15,11 @@ import './App.css';
 function App() {
   return (
     <>
+     
       <Router>
-        <SideNav />
+     <SideNav />
         <Routes>
+        
           <Route path="/" element={<User />} />
           <Route path='/user' element={<><User /></>} />
           <Route path='/login' element={<><Login /></>} />
