@@ -8,6 +8,8 @@ import { DataGrid } from '@mui/x-data-grid';
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
 import TextField from '@mui/material/TextField';
+import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
+import EditIcon from '@mui/icons-material/Edit';
 import axios from 'axios';
 
 function isOverflown(element) {
@@ -143,13 +145,14 @@ export default function RenderExpandCellGrid() {
   const [veg, setVeg] = React.useState('');
   const [price, setPrice] = React.useState('');
   const [waiting_time, setWaiting_time] = React.useState('');
-
+  const [selectedRows, setSelectedRows] = React.useState([]);
   const handleEdit = (event, cellValues) => {
     setName(cellValues.row.name);
     setIngredients(cellValues.row.ingredients);
     setVeg(cellValues.row.veg);
     setPrice(cellValues.row.price);
     setWaiting_time(cellValues.row.waiting_time);
+    
   };
 
   const editFoodItems = async (_id) => {
@@ -214,7 +217,32 @@ export default function RenderExpandCellGrid() {
     }
     fetchData();
   }, []);
-
+  const foodItemsRow=[
+    {
+      name: "Food1",
+      ingredients: "Good Food",
+      veg: "Vegetarian",
+      price: "250 Rs",
+      waiting_time: "30 mins",
+      _id: "id1"
+    },
+    {
+      name: "Food2",
+      ingredients: "Good Food",
+      veg: "Vegetarian",
+      price: "250 Rs",
+      waiting_time: "30 mins",
+      _id: "id2"
+    },
+    {
+      name: "Food3",
+      ingredients: "Good Food",
+      veg: "Vegetarian",
+      price: "250 Rs",
+      waiting_time: "30 mins",
+      _id: "id3"
+    }
+  ]
   const columns = [
     {
       field: 'name',
@@ -251,7 +279,7 @@ export default function RenderExpandCellGrid() {
       renderCell: (cellValues) => {
         return (
           <>
-            <Button
+            {/* <Button
               variant='contained'
               color='primary'
               onClick={(event) => {
@@ -260,7 +288,13 @@ export default function RenderExpandCellGrid() {
               }}
             >
               Edit
-            </Button>
+            </Button> */}
+            <EditIcon 
+            onClick={(event) => {
+                setOpen(true);
+                handleEdit(event, cellValues);
+              }}
+             />
             <Modal
               open={open}
               onClose={handleClose}
@@ -339,30 +373,43 @@ export default function RenderExpandCellGrid() {
       },
     },
     {
-      field: 'Delete',
-      renderCell: (cellValues) => {
+      field: "delete",
+      width: 50,
+      sortable: false,
+      disableColumnMenu: true,
+      renderHeader: () => {
         return (
-          <Button
-            variant='contained'
-            color='primary'
-            onClick={(event) => {
-              handleDelete(event, cellValues);
+          
+            <DeleteOutlinedIcon 
+            onClick={() => {
+              console.log(selectedRows);
             }}
-          >
-            Delete
-          </Button>
+            />
+          
         );
-      },
+      }
     },
   ];
 
   return (
     <div style={{ height: 400, width: '100%' }}>
       <DataGrid
-        rows={foodItems}
+        rows={foodItemsRow}
         columns={columns}
         disableSelectionOnClick
         getRowId={(row) => row._id}
+        onSelectionModelChange={(ids) => {
+          const selectedIDs = new Set(ids);
+          
+          let selectrows=[];
+          selectedIDs.forEach(function(value) {
+           selectrows.push(value);
+          })
+          setSelectedRows(selectrows);
+    
+
+          
+        }}
       />
     </div>
   );
