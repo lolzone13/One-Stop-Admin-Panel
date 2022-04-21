@@ -10,6 +10,10 @@ import Modal from '@mui/material/Modal';
 import TextField from '@mui/material/TextField';
 import axios from 'axios';
 import RoleSelect from './RoleSelect';
+import { IconButton} from '@mui/material';
+import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
+import EditIcon from '@mui/icons-material/Edit';
+
 
 function isOverflown(element) {
   return (
@@ -143,6 +147,7 @@ export default function RenderExpandCellGrid() {
   const [rolesselected, setRolesSelected] = React.useState([]);
   const [name, setName] = useState('');
   const [emailid, setEmailid] = useState('');
+  const [selectedRows, setSelectedRows] = React.useState([]);
 
   const handleEdit = (event, cellValues) => {
     setName(cellValues.row.name);
@@ -211,6 +216,31 @@ export default function RenderExpandCellGrid() {
     fetchData();
   }, []);
 
+  const usersnow=[
+    {
+      name:"user1",
+      emailid:"user1@.com",
+      microsoftid:"user1@",
+      role:["user","admin"],
+      _id:"id1"
+    },
+    {
+      name:"user2",
+      emailid:"user2@.com",
+      microsoftid:"user2@",
+      role:["user","admin"],
+      _id:"id2"
+    },
+    {
+      name:"user3",
+      emailid:"user3@.com",
+      microsoftid:"user3@",
+      role:["user","admin"],
+      _id:"id3"
+
+    }
+  ]
+
   const columns = [
     {
       field: 'name',
@@ -230,12 +260,14 @@ export default function RenderExpandCellGrid() {
       width: 250,
       renderCell: renderCellExpand,
     },
+  
     {
       field: 'role',
       headerName: 'Role',
       width: 250,
       renderCell: renderCellExpand,
     },
+    
     // {
     //   field: "actions",
     //   headerName: "Actions",
@@ -247,10 +279,11 @@ export default function RenderExpandCellGrid() {
     // },
     {
       field: 'Edit',
+      width:40,
       renderCell: (cellValues) => {
         return (
           <>
-            <Button
+            {/* <Button
               variant='contained'
               color='primary'
               onClick={(event) => {
@@ -259,7 +292,14 @@ export default function RenderExpandCellGrid() {
               }}
             >
               Edit
-            </Button>
+            </Button> */}
+            <EditIcon 
+            onClick={(event) => {
+                setOpen(true);
+                handleEdit(event, cellValues);
+              }}
+             />
+
             <Modal
               open={open}
               onClose={handleClose}
@@ -320,30 +360,47 @@ export default function RenderExpandCellGrid() {
       },
     },
     {
-      field: 'Delete',
-      renderCell: (cellValues) => {
+      field: "delete",
+      width: 50,
+      sortable: false,
+      disableColumnMenu: true,
+      renderHeader: () => {
         return (
-          <Button
-            variant='contained'
-            color='primary'
-            onClick={(event) => {
-              handleDelete(event, cellValues);
+          
+            <DeleteOutlinedIcon 
+            onClick={() => {
+              console.log(selectedRows);
             }}
-          >
-            Delete
-          </Button>
+            />
+          
         );
-      },
+      }
     },
+  
   ];
+  
+  console.log(selectedRows);
 
   return (
     <div style={{ height: 400, width: '100%' }}>
       <DataGrid
-        rows={users}
+        rows={usersnow}
         columns={columns}
         disableSelectionOnClick
+        checkboxSelection
         getRowId={(row) => row._id}
+        onSelectionModelChange={(ids) => {
+          const selectedIDs = new Set(ids);
+          
+          let selectrows=[];
+          selectedIDs.forEach(function(value) {
+           selectrows.push(value);
+          })
+          setSelectedRows(selectrows);
+    
+
+          
+        }}
       />
     </div>
   );
