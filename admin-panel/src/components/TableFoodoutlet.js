@@ -8,6 +8,8 @@ import { DataGrid } from '@mui/x-data-grid';
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
 import TextField from '@mui/material/TextField';
+import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
+import EditIcon from '@mui/icons-material/Edit';
 import axios from 'axios';
 
 function isOverflown(element) {
@@ -145,6 +147,7 @@ export default function RenderExpandCellGrid() {
   const [phone_number, setPhone_number] = React.useState('');
   const [tags, setTags] = React.useState('');
   const [menu, setMenu] = React.useState('');
+  const [selectedRows, setSelectedRows] = React.useState([]);
 
   const handleEdit = (event, cellValues) => {
     setName(cellValues.row.name);
@@ -222,7 +225,17 @@ export default function RenderExpandCellGrid() {
     }
     fetchData();
   }, []);
-
+  const foodOutletRows = [
+    {
+      name: "McDonalds",
+      caption: "kuch bhi",
+      waiting_time: "30 mins",
+      closing_time: "10:00 PM",
+      phone_number: 890329037,
+      tags: ["hello", "these"],
+      menu: ["foo", "bar"]
+    }
+  ]
   const columns = [
     {
       field: 'name',
@@ -271,7 +284,7 @@ export default function RenderExpandCellGrid() {
       renderCell: (cellValues) => {
         return (
           <>
-            <Button
+            {/* <Button
               variant='contained'
               color='primary'
               onClick={(event) => {
@@ -280,7 +293,13 @@ export default function RenderExpandCellGrid() {
               }}
             >
               Edit
-            </Button>
+            </Button> */}
+              <EditIcon 
+            onClick={(event) => {
+                setOpen(true);
+                handleEdit(event, cellValues);
+              }}
+             />
             <Modal
               open={open}
               onClose={handleClose}
@@ -381,17 +400,18 @@ export default function RenderExpandCellGrid() {
     },
     {
       field: 'Delete',
-      renderCell: (cellValues) => {
+      width: 50,
+      sortable: false,
+      disableColumnMenu: true,
+      renderHeader: () => {
         return (
-          <Button
-            variant='contained'
-            color='primary'
-            onClick={(event) => {
-              handleDelete(event, cellValues);
+          
+            <DeleteOutlinedIcon 
+            onClick={() => {
+              console.log(selectedRows);
             }}
-          >
-            Delete
-          </Button>
+            />
+          
         );
       },
     },
