@@ -10,6 +10,7 @@ import TextField from '@mui/material/TextField';
 import axios from 'axios';
 import TableRole from './TableRole';
 import './css/Role.css';
+import RoleTable from "./RoleTable";
 
 const Role = () => {
   const [role, setRole] = useState('');
@@ -31,7 +32,8 @@ const Role = () => {
   return (
     <>
       <div className='role_page'>
-        <TableRole />
+        {/* <TableRole /> */}
+        <RoleTable />
         <div className='role_page_add'>
           <form noValidate autoComplete='off'>
             <TextField
