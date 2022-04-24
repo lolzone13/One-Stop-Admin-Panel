@@ -157,7 +157,7 @@ export default function RenderExpandCellGrid() {
 
   const editFoodItems = async (_id) => {
     const response = await axios.put(
-      `https://swc.iitg.ac.in/onestopapi/updateItem/${_id}`,
+      `https://one-stop-api.herokuapp.com/updateItem/${_id}`,
       {
         name,
         ingredients,
@@ -167,7 +167,7 @@ export default function RenderExpandCellGrid() {
       }
     );
     const new_response = await axios.get(
-      `https://swc.iitg.ac.in/onestopapi/getAllItems`
+      `https://one-stop-api.herokuapp.com/getAllItems`
     );
     setFoodItems(new_response.data);
   };
@@ -183,7 +183,7 @@ export default function RenderExpandCellGrid() {
 
   const deleteFoodItems = async (_id) => {
     const response = await axios.delete(
-      `https://swc.iitg.ac.in/onestopapi/deleteItem/${_id}`
+      `https://one-stop-api.herokuapp.com/deleteItem/${_id}`
     );
     if (response.status === 200) {
       setFoodItems(foodItems.filter((foodItem) => foodItem._id !== _id));
@@ -207,7 +207,7 @@ export default function RenderExpandCellGrid() {
     async function fetchData() {
       try {
         const res = await axios.get(
-          'https://swc.iitg.ac.in/onestopapi/getAllItems'
+          'https://one-stop-api.herokuapp.com/getAllItems'
         );
         console.log('hiiii', res.data);
         setFoodItems(res.data);
@@ -394,7 +394,7 @@ export default function RenderExpandCellGrid() {
   return (
     <div style={{ height: 400, width: '100%' }}>
       <DataGrid
-        rows={foodItemsRow}
+        rows={foodItems}
         columns={columns}
         disableSelectionOnClick
         getRowId={(row) => row._id}

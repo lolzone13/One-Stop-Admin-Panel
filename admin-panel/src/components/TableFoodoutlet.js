@@ -161,7 +161,7 @@ export default function RenderExpandCellGrid() {
 
   const editFoodOutlets = async (_id) => {
     const response = await axios.put(
-      `https://swc.iitg.ac.in/onestopapi/updateOutlet/${_id}`,
+      `https://one-stop-api.herokuapp.com/updateOutlet/${_id}`,
       {
         name,
         caption,
@@ -173,7 +173,7 @@ export default function RenderExpandCellGrid() {
       }
     );
     const new_response = await axios.get(
-      `https://swc.iitg.ac.in/onestopapi/getAllRoles`
+      `https://one-stop-api.herokuapp.com/getAllRoles`
     );
     setFoodOutlets(new_response.data);
   };
@@ -189,7 +189,7 @@ export default function RenderExpandCellGrid() {
 
   const deleteFoodOutlets = async (_id) => {
     const response = await axios.delete(
-      `https://swc.iitg.ac.in/onestopapi/deleteOutlet/${_id}`
+      `https://one-stop-api.herokuapp.com/deleteOutlet/${_id}`
     );
     if (response.status === 200) {
       setFoodOutlets(
@@ -215,7 +215,7 @@ export default function RenderExpandCellGrid() {
     async function fetchData() {
       try {
         const res = await axios.get(
-          'https://swc.iitg.ac.in/onestopapi/getAllOutlets'
+          'https://one-stop-api.herokuapp.com/getAllOutlets'
         );
         console.log(res.data);
         setFoodOutlets(res.data);

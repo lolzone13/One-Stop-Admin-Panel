@@ -158,7 +158,7 @@ export default function RenderExpandCellGrid() {
 
   const editUser = async (_id) => {
     const response = await axios.put(
-      `https://swc.iitg.ac.in/onestopapi/updateUser/${_id}`,{
+      `https://one-stop-api.herokuapp.com/updateUser/${_id}`,{
         name,
         emailid,
         microsoftid,
@@ -166,7 +166,7 @@ export default function RenderExpandCellGrid() {
       }
     );
     const new_response = await axios.get(
-      `https://swc.iitg.ac.in/onestopapi/getAllUsers`
+      `https://one-stop-api.herokuapp.com/getAllUsers`
     );
     setUsers(new_response.data);
   }
@@ -182,7 +182,7 @@ export default function RenderExpandCellGrid() {
 
   const deleteUser = async (_id) => {
     const response = await axios.delete(
-      `https://swc.iitg.ac.in/onestopapi/deleteUser/${_id}`
+      `https://one-stop-api.herokuapp.com/deleteUser/${_id}`
     );
     if (response.status === 200) {
       setUsers(users.filter((user) => user._id !== _id));
@@ -205,7 +205,7 @@ export default function RenderExpandCellGrid() {
     async function fetchData() {
       try {
         const res = await axios.get(
-          'https://swc.iitg.ac.in/onestopapi/getAllUsers'
+          'https://one-stop-api.herokuapp.com/getAllUsers'
         );
         console.log(res.data);
         setUsers(res.data);
@@ -384,7 +384,7 @@ export default function RenderExpandCellGrid() {
   return (
     <div style={{ height: 400, width: '100%' }}>
       <DataGrid
-        rows={usersnow}
+        rows={users}
         columns={columns}
         disableSelectionOnClick
         checkboxSelection

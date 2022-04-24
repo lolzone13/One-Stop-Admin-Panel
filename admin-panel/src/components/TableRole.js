@@ -146,13 +146,13 @@ export default function RenderExpandCellGrid() {
 
   const editRoles = async (_id) => {
     const response = await axios.put(
-      `https://swc.iitg.ac.in/onestopapi/updateRole/${_id}`,
+      `https://one-stop-api.herokuapp.com/updateRole/${_id}`,
       {
         role,
       }
     );
     const new_response = await axios.get(
-      `https://swc.iitg.ac.in/onestopapi/getAllRoles`
+      `https://one-stop-api.herokuapp.com/getAllRoles`
     );
     setRoles(new_response.data);
   };
@@ -168,7 +168,7 @@ export default function RenderExpandCellGrid() {
 
   const deleteRoles = async (_id) => {
     const response = await axios.delete(
-      `https://swc.iitg.ac.in/onestopapi/deleteRole/${_id}`
+      `https://one-stop-api.herokuapp.com/deleteRole/${_id}`
     );
     if (response.status === 200) {
       setRoles(
@@ -194,7 +194,7 @@ export default function RenderExpandCellGrid() {
     async function fetchData() {
       try {
         const res = await axios.get(
-          'https://swc.iitg.ac.in/onestopapi/getAllRoles'
+          'https://one-stop-api.herokuapp.com/getAllRoles'
         );
         console.log('Hello', res.data);
         setRoles(res.data);
