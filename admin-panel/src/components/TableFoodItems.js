@@ -152,7 +152,6 @@ export default function RenderExpandCellGrid() {
     setVeg(cellValues.row.veg);
     setPrice(cellValues.row.price);
     setWaiting_time(cellValues.row.waiting_time);
-    
   };
 
   const editFoodItems = async (_id) => {
