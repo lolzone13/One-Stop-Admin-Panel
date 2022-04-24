@@ -21,15 +21,17 @@ import {
 import RoleSelect from "./RoleSelect";
 
 
-const FoodItemsTable = () => {
+const FoodOutletTable = () => {
   const [selectedRows, setSelectedRows] = React.useState([]);
-  const [foodItems, setFoodItems] = React.useState([]);
+  const [foodOutlets, setFoodOutlets] = React.useState([]);
   const [open, setOpen] = React.useState(false);
   const [name, setName] = useState('');
-  const [ingredients, setIngredients] = React.useState('');
-  const [veg, setVeg] = React.useState('');
-  const [price, setPrice] = React.useState('');
+  const [caption, setCaption] = useState('');
   const [waiting_time, setWaiting_time] = React.useState('');
+  const [closing_time, setClosing_time] = React.useState('');
+  const [phone_number, setPhone_number] = React.useState('');
+  const [tags, setTags] = React.useState('');
+  const [menu, setMenu] = React.useState('');
     function isOverflown(element) {
         return (
           element.scrollHeight > element.clientHeight ||
@@ -165,84 +167,73 @@ const FoodItemsTable = () => {
             <GridToolbarFilterButton style={{display:selectedRows.length==0?"":"none"}}/>
             {/* <GridToolbarDensitySelector /> */}
             <GridToolbarExport style={{display:selectedRows.length==0?"":"none"}}/>
-            <DeleteOutlinedIcon style={{fontSize:"26px",display:selectedRows.length==0?"none":"",color:"#1976d2",marginLeft:"7.5px"}} onClick={()=>deleteFoodItems(selectedRows)}/>
+            <DeleteOutlinedIcon style={{fontSize:"26px",display:selectedRows.length==0?"none":"",color:"#1976d2",marginLeft:"7.5px"}} onClick={()=>deleteFoodOutlets(selectedRows)}/>
           </GridToolbarContainer>
         );
       }
-      const rows = [
-        {
-          name: "Jash kalpes desai in the bioscience and bioengineering branch",
-          emailid: "user1@.com",
-          microsoftid: "user1@adjawgfaejgfgqighaeihefhaefjfga",
-          role: ["user", "admin"],
-          _id: "id1"
-        },
-        {
-          name: "user2",
-          emailid: "user2@.com",
-          microsoftid: "user2@",
-          role: ["user", "admin"],
-          _id: "id2"
-        },
-        {
-          name: "user3",
-          emailid: "user3@.com",
-          microsoftid: "user3@",
-          role: ["user", "admin"],
-          _id: "id3"
-        }
-      ];
+    
 
 
-  
+     
     
       const handleEdit = (event, cellValues) => {
         setName(cellValues.row.name);
-        setIngredients(cellValues.row.ingredients);
-        setVeg(cellValues.row.veg);
-        setPrice(cellValues.row.price);
+        setCaption(cellValues.row.caption);
         setWaiting_time(cellValues.row.waiting_time);
+        setClosing_time(cellValues.row.closing_time);
+        setPhone_number(cellValues.row.phone_number);
+        setTags(cellValues.row.tags);
+        setMenu(cellValues.row.menu);
       };
-    
-      const editFoodItems = async (_id) => {
-        console.log({
-              name,
-              ingredients,
-              veg,
-              price,
-              waiting_time,
-            });
-        // const response = await axios.put(
-        //   `https://swc.iitg.ac.in/onestopapi/updateItem/${_id}`,
-        //   {
-        //     name,
-        //     ingredients,
-        //     veg,
-        //     price,
-        //     waiting_time,
-        //   }
-        // );
-        // const new_response = await axios.get(
-        //   `https://swc.iitg.ac.in/onestopapi/getAllItems`
-        // );
-        // setFoodItems(new_response.data);
-      };
-    
+
       const handleUpdate = (event, cellValues) => {
-        editFoodItems(cellValues.row._id);
+        editFoodOutlets(cellValues.row._id);
         setOpen(false);
       };
     
     
-      const deleteFoodItems = async (ids) => {
+      const editFoodOutlets = async (_id) => {
+        console.log({
+              name,
+              caption,
+              waiting_time,
+              closing_time,
+              phone_number,
+              tags,
+              menu,
+            })
+        // const response = await axios.put(
+        //   `https://swc.iitg.ac.in/onestopapi/updateOutlet/${_id}`,
+        //   {
+        //     name,
+        //     caption,
+        //     waiting_time,
+        //     closing_time,
+        //     phone_number,
+        //     tags,
+        //     menu,
+        //   }
+        // );
+        // const new_response = await axios.get(
+        //   `https://swc.iitg.ac.in/onestopapi/getAllRoles`
+        // );
+        // setFoodOutlets(new_response.data);
+      };
+    
+      
+    
+    
+      const deleteFoodOutlets = async (ids) => {
         // const response = await axios.delete(
-        //   `https://swc.iitg.ac.in/onestopapi/deleteItem/${_id}`
+        //   `https://swc.iitg.ac.in/onestopapi/deleteOutlet/${_id}`
         // );
         // if (response.status === 200) {
-        //   setFoodItems(foodItems.filter((foodItem) => foodItem._id !== _id));
+        //   setFoodOutlets(
+        //     foodOutlets.filter((foodOutlet) => foodOutlet._id !== _id)
+        //   );
         // }
         let res = rows.filter(fooditem => !ids.includes(fooditem._id));
-          console.log(res);
+        console.log(res);
       };
     
       const handleClose = () => setOpen(false);
@@ -262,12 +253,12 @@ const FoodItemsTable = () => {
         async function fetchData() {
           try {
             const res = await axios.get(
-              'https://swc.iitg.ac.in/onestopapi/getAllItems'
+              'https://swc.iitg.ac.in/onestopapi/getAllOutlets'
             );
-            console.log('hiiii', res.data);
-            setFoodItems(res.data);
+            console.log(res.data);
+            setFoodOutlets(res.data);
           } catch (error) {
-            console.log(error);
+            console.log('error', error);
           }
         }
         fetchData();
@@ -277,40 +268,54 @@ const FoodItemsTable = () => {
         {
             field: 'name',
             headerName: 'Name',
-            width: 150,
+            width: 200,
             renderCell: renderCellExpand,
             sortable: false,
           },
           {
-            field: 'ingredients',
-            headerName: 'Ingredients',
-            width: 400,
-            renderCell: renderCellExpand,
-            sortable: false,
-          },
-          {
-            field: 'veg',
-            headerName: 'Vegetarian',
-            width: 250,
-            renderCell: renderCellExpand,
-            sortable: false,
-          },
-          {
-            field: 'price',
-            headerName: 'Price',
-            width: 100,
+            field: 'caption',
+            headerName: 'Caption',
+            width: 300,
             renderCell: renderCellExpand,
             sortable: false,
           },
           {
             field: 'waiting_time',
             headerName: 'Waiting Time',
-            width: 250,
+            width: 150,
+            renderCell: renderCellExpand,
+            sortable: false,
+          },
+          {
+            field: 'closing_time',
+            headerName: 'Closing Time',
+            width: 150,
+            renderCell: renderCellExpand,
+            sortable: false,
+          },
+          {
+            field: 'phone_number',
+            headerName: 'Phone Number',
+            width: 150,
+            renderCell: renderCellExpand,
+            sortable: false,
+          },
+          {
+            field: 'tags',
+            headerName: 'Tags',
+            width: 150,
+            renderCell: renderCellExpand,
+            sortable: false,
+          },
+          {
+            field: 'menu',
+            headerName: 'Menu',
+            width: 150,
             renderCell: renderCellExpand,
             sortable: false,
           },
     
-      
+     
         {
           field: "Edit",
           sortable: false,
@@ -318,7 +323,7 @@ const FoodItemsTable = () => {
           renderCell: (cellValues) => {
             return (
               <>
-               
+                
                 <EditIcon
                   onClick={(event) => {
                     setOpen(true);
@@ -350,30 +355,10 @@ const FoodItemsTable = () => {
                   <form noValidate autoComplete='off'>
                     <TextField
                       id='outlined-basic'
-                      label='Ingredients'
+                      label='Caption'
                       variant='outlined'
-                      defaultValue={ingredients}
-                      onChange={(event) => setIngredients(event.target.value)}
-                    />
-                  </form>
-                  <br />
-                  <form noValidate autoComplete='off'>
-                    <TextField
-                      id='outlined-basic'
-                      label='Vegetarian'
-                      defaultValue={veg}
-                      variant='outlined'
-                      onChange={(event) => setVeg(event.target.value)}
-                    />
-                  </form>
-                  <br />
-                  <form noValidate autoComplete='off'>
-                    <TextField
-                      id='outlined-basic'
-                      label='Price'
-                      defaultValue={price}
-                      variant='outlined'
-                      onChange={(event) => setPrice(event.target.value)}
+                      defaultValue={caption}
+                      onChange={(event) => setCaption(event.target.value)}
                     />
                   </form>
                   <br />
@@ -387,6 +372,47 @@ const FoodItemsTable = () => {
                     />
                   </form>
                   <br />
+                  <form noValidate autoComplete='off'>
+                    <TextField
+                      id='outlined-basic'
+                      label='Closing Time'
+                      defaultValue={closing_time}
+                      variant='outlined'
+                      onChange={(event) => setClosing_time(event.target.value)}
+                    />
+                  </form>
+                  <br />
+                  <form noValidate autoComplete='off'>
+                    <TextField
+                      id='outlined-basic'
+                      label='Phone Number'
+                      defaultValue={phone_number}
+                      variant='outlined'
+                      onChange={(event) => setPhone_number(event.target.value)}
+                    />
+                  </form>
+                  <br />
+                  <form noValidate autoComplete='off'>
+                    <TextField
+                      id='outlined-basic'
+                      label='Tags'
+                      defaultValue={tags}
+                      variant='outlined'
+                      onChange={(event) => setTags(event.target.value)}
+                    />
+                  </form>
+                  <br />
+                  <form noValidate autoComplete='off'>
+                    <TextField
+                      id='outlined-basic'
+                      label='Menu'
+                      defaultValue={menu}
+                      variant='outlined'
+                      onChange={(event) => setMenu(event.target.value)}
+                    />
+                  </form>
+                  <br />
+
                   <Button
                     onClick={(event) => {
                       handleUpdate(event, cellValues);
@@ -406,7 +432,19 @@ const FoodItemsTable = () => {
       ];
       console.log(selectedRows);
 
+const rows=[
+    {
+        name:"parshva",
+        _id:"1"
 
+    },
+    {
+        name:"ayush",
+        _id:"2"
+    }
+
+
+];
 
 
     
@@ -416,7 +454,7 @@ const FoodItemsTable = () => {
       <DataGrid
         rows={rows}
         columns={columns}
-       
+      
         components={{
           Toolbar: CustomToolbar
         }}
@@ -439,4 +477,4 @@ const FoodItemsTable = () => {
   )
 }
 
-export default FoodItemsTable
+export default FoodOutletTable

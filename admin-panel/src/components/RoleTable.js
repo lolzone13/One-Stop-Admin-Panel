@@ -172,77 +172,26 @@ const RoleTable = () => {
       ];
 
 
-      // const [selectedRows, setSelectedRows] = React.useState([]);
     
-    //   const handleEdit = (event, cellValues) => {
-    //     setName(cellValues.row.name);
-    //     setEmailid(cellValues.row.emailid);
-    //     setMicrosoftid(cellValues.row.microsoftid);
-    //     setRolesSelected(cellValues.row.roles);
-    //   };
+   
     
-    //   const editUser = async (_id) => {
-    //     const response = await axios.put(
-    //       `https://swc.iitg.ac.in/onestopapi/updateUser/${_id}`,
-    //       {
-    //         name,
-    //         emailid,
-    //         microsoftid,
-    //         roles: rolesselected
-    //       }
-    //     );
-    //     const new_response = await axios.get(
-    //       `https://swc.iitg.ac.in/onestopapi/getAllUsers`
-    //     );
-    //     setUsers(new_response.data);
-    //   };
-    
-    //   const handleUpdate = (event, cellValues) => {
-    //     editUser(cellValues.row._id);
-    //     setOpen(false);
-    //   };
-    
-    //   const handleDelete = (event, cellValues) => {
-    //     deleteUser(cellValues.row._id);
-    //   };
-    
-    //   const deleteUser = async (ids) => {
-       
-    //     // const response = await axios.delete(
-    //     //   `https://swc.iitg.ac.in/onestopapi/deleteUser/`,ids
-    //     // );
-    //     // if (response.status === 200) {
-    //     //   setUsers(users.filter((user) => user._id !== _id));
-    //     // }
-    //   };
-    
-    //   const handleClose = () => setOpen(false);
-    //   const style = {
-    //     position: "absolute",
-    //     top: "50%",
-    //     left: "50%",
-    //     transform: "translate(-50%, -50%)",
-    //     width: 400,
-    //     bgcolor: "background.paper",
-    //     border: "2px solid #000",
-    //     boxShadow: 24,
-    //     p: 4
-    //   };
+   
     const handleEdit = (event, cellValues) => {
         setRole(cellValues.row.role);
       };
     
       const editRoles = async (_id) => {
-        const response = await axios.put(
-          `https://swc.iitg.ac.in/onestopapi/updateRole/${_id}`,
-          {
-            role,
-          }
-        );
-        const new_response = await axios.get(
-          `https://swc.iitg.ac.in/onestopapi/getAllRoles`
-        );
-        setRoles(new_response.data);
+        console.log(role);
+        // const response = await axios.put(
+        //   `https://swc.iitg.ac.in/onestopapi/updateRole/${_id}`,
+        //   {
+        //     role,
+        //   }
+        // );
+        // const new_response = await axios.get(
+        //   `https://swc.iitg.ac.in/onestopapi/getAllRoles`
+        // );
+        // setRoles(new_response.data);
       };
     
       const handleUpdate = (event, cellValues) => {
@@ -250,19 +199,19 @@ const RoleTable = () => {
         setOpen(false);
       };
     
-      const handleDelete = (event, cellValues) => {
-        deleteRoles(cellValues.row._id);
-      };
+
     
-      const deleteRoles = async (_id) => {
-        const response = await axios.delete(
-          `https://swc.iitg.ac.in/onestopapi/deleteRole/${_id}`
-        );
-        if (response.status === 200) {
-          setRoles(
-            roles.filter((role) => role._id !== _id)
-          );
-        }
+      const deleteRoles = async (ids) => {
+        // const response = await axios.delete(
+        //   `https://swc.iitg.ac.in/onestopapi/deleteRole/${_id}`
+        // );
+        // if (response.status === 200) {
+          let res = rows.filter(role => !ids.includes(role._id));
+          console.log(res);
+          // setRoles(
+          //   roles.filter((role) => role._id !== _id)
+          // );
+        // }
       };
     
       const handleClose = () => setOpen(false);
@@ -301,15 +250,7 @@ const RoleTable = () => {
             sortable: false,
           },
     
-        // {
-        //   field: "actions",
-        //   headerName: "Actions",
-        //   minWidth: 150,
-        //   flex: 0.3,
-        //   type: "number",
-        //   sortable: false,
-        //   renderCell: EditCommand,
-        // },
+    
         {
           field: "Edit",
           sortable: false,
@@ -317,16 +258,7 @@ const RoleTable = () => {
           renderCell: (cellValues) => {
             return (
               <>
-                {/* <Button
-                  variant='contained'
-                  color='primary'
-                  onClick={(event) => {
-                    setOpen(true);
-                    handleEdit(event, cellValues);
-                  }}
-                >
-                  Edit
-                </Button> */}
+               
                 <EditIcon
                   onClick={(event) => {
                     setOpen(true);
@@ -374,68 +306,7 @@ const RoleTable = () => {
       ];
       console.log(selectedRows);
 
-    //   const columns = [
-    //     {
-    //       field: 'role',
-    //       headerName: 'Role',
-    //       width: 400,
-    //       renderCell: renderCellExpand,
-    //     },
-    //     {
-    //       field: 'Edit',
-    //       renderCell: (cellValues) => {
-    //         return (
-    //           <>
-    //             <Button
-    //               variant='contained'
-    //               color='primary'
-    //               onClick={(event) => {
-    //                 setOpen(true);
-    //                 handleEdit(event, cellValues);
-    //               }}
-    //             >
-    //               Edit
-    //             </Button>
-    //             <Modal
-    //               open={open}
-    //               onClose={handleClose}
-    //               aria-labelledby='modal-modal-title'
-    //               aria-describedby='modal-modal-description'
-    //             >
-    //               <Box sx={style}>
-    //                 <Typography id='modal-modal-title' variant='h6' component='h2'>
-    //                   Text in a modal
-    //                 </Typography>
-    //                 <Typography id='modal-modal-description' sx={{ mt: 2 }}>
-    //                   <form noValidate autoComplete='off'>
-    //                     <TextField
-    //                       id='outlined-basic'
-    //                       label='Role'
-    //                       variant='outlined'
-    //                       defaultValue={role}
-    //                       onChange={(event) => setRole(event.target.value)}
-    //                     />
-    //                   </form>
-    //                   <br />
-    //                   <Button
-    //                     onClick={(event) => {
-    //                       handleUpdate(event, cellValues);
-    //                     }}
-    //                     type='submit'
-    //                     variant='contained'
-    //                   >
-    //                     Edit
-    //                   </Button>
-    //                 </Typography>
-    //               </Box>
-    //             </Modal>
-    //           </>
-    //         );
-    //       },
-    //     },
-     
-    //   ];
-
+    
 
 
 
@@ -446,7 +317,7 @@ const RoleTable = () => {
       <DataGrid
         rows={rows}
         columns={columns}
-        // columns={[...columns, { field: 'name', sortable: false }, { field: 'emailid', sortable: false }, { field: 'microsoftid', sortable: false }, { field: 'role', sortable: false }, { field: 'Edit', sortable: false }]}
+       
         components={{
           Toolbar: CustomToolbar
         }}

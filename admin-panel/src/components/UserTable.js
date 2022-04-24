@@ -203,19 +203,25 @@ const UserTable = () => {
       };
     
       const editUser = async (_id) => {
-        const response = await axios.put(
-          `https://swc.iitg.ac.in/onestopapi/updateUser/${_id}`,
-          {
-            name,
-            emailid,
-            microsoftid,
-            roles: rolesselected
-          }
-        );
-        const new_response = await axios.get(
-          `https://swc.iitg.ac.in/onestopapi/getAllUsers`
-        );
-        setUsers(new_response.data);
+        console.log({
+          name,
+          emailid,
+          microsoftid,
+          roles: rolesselected
+        })
+        // const response = await axios.put(
+        //   `https://swc.iitg.ac.in/onestopapi/updateUser/${_id}`,
+        //   {
+        //     name,
+        //     emailid,
+        //     microsoftid,
+        //     roles: rolesselected
+        //   }
+        // );
+        // const new_response = await axios.get(
+        //   `https://swc.iitg.ac.in/onestopapi/getAllUsers`
+        // );
+        // setUsers(new_response.data);
       };
     
       const handleUpdate = (event, cellValues) => {
@@ -223,9 +229,7 @@ const UserTable = () => {
         setOpen(false);
       };
     
-      const handleDelete = (event, cellValues) => {
-        deleteUser(cellValues.row._id);
-      };
+      
     
       const deleteUser = async (ids) => {
        
@@ -233,7 +237,9 @@ const UserTable = () => {
         //   `https://swc.iitg.ac.in/onestopapi/deleteUser/`,ids
         // );
         // if (response.status === 200) {
-        //   setUsers(users.filter((user) => user._id !== _id));
+          let res = rows.filter(user => !ids.includes(user._id));
+          console.log(res);
+          // setUsers(users.filter((user) => user._id !== _id));
         // }
       };
     
@@ -280,15 +286,7 @@ const UserTable = () => {
           sortable: false
         },
     
-        // {
-        //   field: "actions",
-        //   headerName: "Actions",
-        //   minWidth: 150,
-        //   flex: 0.3,
-        //   type: "number",
-        //   sortable: false,
-        //   renderCell: EditCommand,
-        // },
+       
         {
           field: "Edit",
           sortable: false,
@@ -296,16 +294,7 @@ const UserTable = () => {
           renderCell: (cellValues) => {
             return (
               <>
-                {/* <Button
-                  variant='contained'
-                  color='primary'
-                  onClick={(event) => {
-                    setOpen(true);
-                    handleEdit(event, cellValues);
-                  }}
-                >
-                  Edit
-                </Button> */}
+                
                 <EditIcon
                   onClick={(event) => {
                     setOpen(true);
@@ -385,7 +374,7 @@ const UserTable = () => {
       <DataGrid
         rows={rows}
         columns={columns}
-        // columns={[...columns, { field: 'name', sortable: false }, { field: 'emailid', sortable: false }, { field: 'microsoftid', sortable: false }, { field: 'role', sortable: false }, { field: 'Edit', sortable: false }]}
+       
         components={{
           Toolbar: CustomToolbar
         }}
