@@ -2,6 +2,7 @@ import React from 'react';
 import TableFoodItems from './TableFoodItems.js';
 import UploadFiles from './UploadFiles';
 import "./css/FoodItems.css";
+import FoodItemsTable from './FoodItemsTable.js';
 
 const FoodItems = () => {
   return (
@@ -12,7 +13,8 @@ const FoodItems = () => {
       <UploadFiles fileType='.csv' url='https://swc.iitg.ac.in/onestopapi/createItem'/>
         </div>
         <div className='fooditems_page_table'>
-        <TableFoodItems/>
+        {/* <TableFoodItems/> */}
+        <FoodItemsTable/>
         </div>
       </div>
     </>

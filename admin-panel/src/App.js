@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-
+import UserTable from './components/UserTable.js';
 import Login from './components/Login.js';
 import Contacts from './components/Contacts.js';
 import FoodItems from './components/FoodItems.js';
@@ -22,6 +22,7 @@ function App() {
         
           <Route path="/" element={<User />} />
           <Route path='/user' element={<><User /></>} />
+          <Route path='/usertable' element={<><UserTable /></>} />
           <Route path='/login' element={<><Login /></>} />
           <Route path='/contacts' element={<><Contacts /></>} />
           <Route path='/food-items' element={<><FoodItems /></>} />
