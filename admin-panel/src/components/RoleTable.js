@@ -157,11 +157,11 @@ const RoleTable = () => {
       function CustomToolbar() {
         return (
           <GridToolbarContainer>
-            <GridToolbarColumnsButton style={{display:selectedRows.length==0?"":"none"}}/>
-            <GridToolbarFilterButton style={{display:selectedRows.length==0?"":"none"}}/>
+            <GridToolbarColumnsButton style={{display:selectedRows.length===0?"":"none"}}/>
+            <GridToolbarFilterButton style={{display:selectedRows.length===0?"":"none"}}/>
             {/* <GridToolbarDensitySelector /> */}
-            <GridToolbarExport style={{display:selectedRows.length==0?"":"none"}}/>
-            <DeleteOutlinedIcon style={{fontSize:"26px",display:selectedRows.length==0?"none":"",color:"#1976d2",marginLeft:"7.5px"}} onClick={()=>deleteRoles(selectedRows)}/>
+            <GridToolbarExport style={{display:selectedRows.length===0?"":"none"}}/>
+            <DeleteOutlinedIcon style={{fontSize:"26px",display:selectedRows.length===0?"none":"",color:"#1976d2",marginLeft:"7.5px"}} onClick={()=>deleteRoles(selectedRows)}/>
           </GridToolbarContainer>
         );
       }

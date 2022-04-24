@@ -1,5 +1,5 @@
 import React,{useEffect,useState} from 'react'
-import TableUser from './TableUser'
+
 import './css/User.css'
 import UserTable from './UserTable'
 

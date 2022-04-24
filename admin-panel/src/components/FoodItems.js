@@ -1,5 +1,5 @@
 import React from 'react';
-import TableFoodItems from './TableFoodItems.js';
+
 import UploadFiles from './UploadFiles';
 import "./css/FoodItems.css";
 import FoodItemsTable from './FoodItemsTable.js';
