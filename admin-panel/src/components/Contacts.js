@@ -4,38 +4,51 @@ import TableContactsSubsection from './TableContactsSubsection.js';
 import '../components/css/Contacts.css';
 import Dropdown from './Dropdown';
 import axios from 'axios';
+import { computeFlexColumnsWidth } from '@mui/x-data-grid/hooks/features/columns/gridColumnsUtils';
 
 const Contacts = () => {
+  const schema = [
+    {
+      section: 'Departments',
+      subsection: ['Chemical Engineering', 'Civil Engineering', 'Computer Science and Engineering', 'Electrical Engineering', 'Electronics and Communication Engineering', 'Mechanical Engineering'],
+    },
+    {
+      section: 'IITG Administration',
+      subsection: ['Director Office', 'Deputy Director Office'],
+    },
+    ]
   const [allSections, setAllSections] = React.useState([]);
-  const [section, setSection] = React.useState('');
-  const [allSubsections, setAllSubsections] = React.useState([]);
+  const [selection, setSelection] = React.useState('');
+  const [allSubsections, setAllSubsections] = React.useState({});
   const [subsection, setSubsection] = React.useState('');
 
-  const schema = [
-  {
-    section: 'Departments',
-    subsection: ['Chemical Engineering', 'Civil Engineering', 'Computer Science and Engineering', 'Electrical Engineering', 'Electronics and Communication Engineering', 'Mechanical Engineering'],
-  },
-  {
-    section: 'IITG Administration',
-    subsection: ['Director Office', 'Deputy Director Office'],
-  },
-  ]
+
 
   React.useEffect(() => {
     async function fetchData() {
       try {
-        const res = await axios.get(
-          'https://swc.iitg.ac.in/onestopapi/getAllSubsections'
-        );
-        console.log('hiiii', res.data);
-        setAllSections(schema.subsection);
+        const res = await axios.get('https://one-stop-api.herokuapp.com/getAllSubsections');
+        
+        const sectionData = {};
+        const firstDropDownData = [];
+        res.data.forEach((element) => {
+          if (element.section != undefined) {
+            sectionData[element.section] = element.subsection;
+            firstDropDownData.push(element.section);
+          }
+          
+        });
+        console.log(firstDropDownData);
+        setAllSections(firstDropDownData);
+        setAllSubsections(sectionData);
       } catch (error) {
         console.log(error);
       }
     }
+
     fetchData();
   }, []);
+  console.log(selection);
   return (
     <>
       <div className='contacts_page'>
@@ -56,13 +69,15 @@ const Contacts = () => {
         <div className='contacts_page_button2'>
           <span>Select Section</span>
           <Dropdown 
-          allSections = {allSections}
-          
+          data = {allSections}
+          setSelection = {setSelection}
           />
         </div>
         <div className='contacts_page_button2'>
           <span>Select Subsection</span>
-          <Dropdown/>
+          <Dropdown 
+          data = {allSections}
+          />
         </div>
         <div className='contacts_page_table2'>
           <TableContactsSubsection />

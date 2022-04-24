@@ -1,5 +1,4 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-
 import Login from './components/Login.js';
 import Contacts from './components/Contacts.js';
 import FoodItems from './components/FoodItems.js';
@@ -11,6 +10,9 @@ import BusTimings from './components/BusTimings.js';
 import FerryTimings from './components/FerryTimings.js';
 import SideNav from './components/SideNav';
 import './App.css';
+
+const BASE_URL = process.env.REACT_APP_BASE_URL;
+console.log(BASE_URL);
 
 function App() {
   return (

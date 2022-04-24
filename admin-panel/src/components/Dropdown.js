@@ -4,13 +4,31 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import axios from 'axios';
+
+
+const schema = [
+  {
+    section: 'Departments',
+    subsection: ['Chemical Engineering', 'Civil Engineering', 'Computer Science and Engineering', 'Electrical Engineering', 'Electronics and Communication Engineering', 'Mechanical Engineering'],
+  },
+  {
+    section: 'IITG Administration',
+    subsection: ['Director Office', 'Deputy Director Office'],
+  },
+]
 
 const Dropdown = (props) => {
-  const [allSections, setAllSections] = React.useState(props.allSections);
+
+
   const [section, setSection] = React.useState('');
+  
+
 
   const handleChange = (event) => {
     setSection(event.target.value);
+    props.setSelection(event.target.value);
+
   };
 
   return (
@@ -25,8 +43,8 @@ const Dropdown = (props) => {
             label='Sections'
             onChange={handleChange}
           >
-            {allSections.map((section) => (
-              <MenuItem value={section.section}>{section.section}</MenuItem>
+            {props.data.map((section) => (
+              <MenuItem value={section}>{section}</MenuItem>
             ))}
           </Select>
         </FormControl>

@@ -152,7 +152,7 @@ export default function RenderExpandCellGrid() {
     async function fetchData() {
       try {
         const res = await axios.get(
-          'https://swc.iitg.ac.in/onestopapi/getAllSubsections'
+          'https://one-stop-api.herokuapp.com/getAllSubsections'
         );
         console.log('hiiii', res.data);
         setContactsSubsection(res.data);

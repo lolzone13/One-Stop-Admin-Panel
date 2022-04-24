@@ -35,7 +35,7 @@ function ResponsiveDrawer(props) {
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
-
+  console.log("hello ", `${process.env.REACT_APP_BASE_URL}`);
   const drawer = (
     <div>
       <Toolbar />

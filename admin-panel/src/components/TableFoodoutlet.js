@@ -12,6 +12,7 @@ import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 import EditIcon from '@mui/icons-material/Edit';
 import axios from 'axios';
 
+
 function isOverflown(element) {
   return (
     element.scrollHeight > element.clientHeight ||
@@ -175,6 +176,7 @@ export default function RenderExpandCellGrid() {
     const new_response = await axios.get(
       `https://one-stop-api.herokuapp.com/getAllRoles`
     );
+    //console.log(`${process.env.REACT_APP_BASE_URL} getAllRoles`);
     setFoodOutlets(new_response.data);
   };
 
