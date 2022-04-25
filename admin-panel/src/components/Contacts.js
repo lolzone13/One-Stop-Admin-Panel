@@ -32,7 +32,8 @@ const Contacts = () => {
         const sectionData = {};
         const firstDropDownData = [];
         res.data.forEach((element) => {
-          if (element.section != undefined) {
+          console.log(element);
+          if (element.section !== undefined) {
             sectionData[element.section] = element.subsection;
             firstDropDownData.push(element.section);
           }
@@ -48,7 +49,9 @@ const Contacts = () => {
 
     fetchData();
   }, []);
+  
   console.log(selection);
+  console.log(allSubsections[selection]);
   return (
     <>
       <div className='contacts_page'>
@@ -76,7 +79,7 @@ const Contacts = () => {
         <div className='contacts_page_button2'>
           <span>Select Subsection</span>
           <Dropdown 
-          data = {allSections}
+          data = {allSubsections[selection]}
           />
         </div>
         <div className='contacts_page_table2'>
