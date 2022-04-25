@@ -39,7 +39,7 @@ const Contacts = () => {
           }
           
         });
-        console.log(firstDropDownData);
+        console.log(sectionData);
         setAllSections(firstDropDownData);
         setAllSubsections(sectionData);
       } catch (error) {
@@ -51,7 +51,7 @@ const Contacts = () => {
   }, []);
   
   console.log(selection);
-  console.log(allSubsections[selection]);
+  //console.log(allSubsections[selection]);
   return (
     <>
       <div className='contacts_page'>
@@ -78,9 +78,10 @@ const Contacts = () => {
         </div>
         <div className='contacts_page_button2'>
           <span>Select Subsection</span>
-          <Dropdown 
+          {selection !== '' && <Dropdown 
           data = {allSubsections[selection]}
           />
+        }
         </div>
         <div className='contacts_page_table2'>
           <TableContactsSubsection />
