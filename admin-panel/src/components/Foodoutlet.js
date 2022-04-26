@@ -1,7 +1,8 @@
 import React from 'react'
-import TableFoodoutlet from './TableFoodoutlet'
+
 import UploadFiles from './UploadFiles'
 import "./css/Foodoutlet.css"
+import FoodOutletTable from './FoodOutletTable'
 
 const Foodoutlet = () => {
   return (
@@ -12,7 +13,8 @@ const Foodoutlet = () => {
       <UploadFiles fileType='.csv' url='https://one-stop-api.herokuapp.com/createOutlet'/>
         </div>
         <div className='foodoutlet_page_table'>
-        <TableFoodoutlet />
+        {/* <TableFoodoutlet /> */}
+        <FoodOutletTable />
         </div>
       </div>
 
