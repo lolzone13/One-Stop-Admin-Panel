@@ -20,7 +20,7 @@ const Contacts = () => {
   const [allSections, setAllSections] = React.useState([]);
   const [selection, setSelection] = React.useState('');
   const [allSubsections, setAllSubsections] = React.useState({});
-  const [subsection, setSubsection] = React.useState('');
+
 
 
 
@@ -39,7 +39,7 @@ const Contacts = () => {
           }
           
         });
-        console.log(sectionData);
+        //console.log(sectionData);
         setAllSections(firstDropDownData);
         setAllSubsections(sectionData);
       } catch (error) {
@@ -50,7 +50,7 @@ const Contacts = () => {
     fetchData();
   }, []);
   
-  console.log(selection);
+  //console.log(selection);
   //console.log(allSubsections[selection]);
   return (
     <>
@@ -77,10 +77,13 @@ const Contacts = () => {
           />
         </div>
         <div className='contacts_page_button2'>
-          <span>Select Subsection</span>
-          {selection !== '' && <Dropdown 
+          
+          {selection !== '' && <div>
+            <span>Select Subsection</span>
+            <Dropdown 
           data = {allSubsections[selection]}
           />
+          </div>
         }
         </div>
         <div className='contacts_page_table2'>
