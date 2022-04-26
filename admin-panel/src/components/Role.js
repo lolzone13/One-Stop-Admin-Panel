@@ -17,7 +17,7 @@ const Role = () => {
   const handleUpdate = async (e) => {
     try {
       const response = await axios.post(
-        'https://swc.iitg.ac.in/onestopapi/createRole',
+        'https://one-stop-api.herokuapp.com/createRole',
         {
           role: role,
         }
