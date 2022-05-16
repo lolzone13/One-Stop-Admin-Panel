@@ -5,9 +5,6 @@ import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import Popper from '@mui/material/Popper';
 import { DataGrid } from '@mui/x-data-grid';
-import Button from '@mui/material/Button';
-import Modal from '@mui/material/Modal';
-import TextField from '@mui/material/TextField';
 import axios from 'axios';
 
 function isOverflown(element) {
@@ -136,48 +133,9 @@ renderCellExpand.propTypes = {
 };
 
 export default function RenderExpandCellGrid() {
-  const [roles, setRoles] = React.useState([]);
-  const [open, setOpen] = React.useState(false);
-  const [role, setRole] = React.useState('');
+  const [contactsSubsection, setContactsSubsection] = React.useState([]);
+  const [selectedRows, setSelectedRows] = React.useState([]);
 
-  const handleEdit = (event, cellValues) => {
-    setRole(cellValues.row.role);
-  };
-
-  const editRoles = async (_id) => {
-    const response = await axios.put(
-      `https://swc.iitg.ac.in/onestopapi/updateRole/${_id}`,
-      {
-        role,
-      }
-    );
-    const new_response = await axios.get(
-      `https://swc.iitg.ac.in/onestopapi/getAllRoles`
-    );
-    setRoles(new_response.data);
-  };
-
-  const handleUpdate = (event, cellValues) => {
-    editRoles(cellValues.row._id);
-    setOpen(false);
-  };
-
-  const handleDelete = (event, cellValues) => {
-    deleteRoles(cellValues.row._id);
-  };
-
-  const deleteRoles = async (_id) => {
-    const response = await axios.delete(
-      `https://swc.iitg.ac.in/onestopapi/deleteRole/${_id}`
-    );
-    if (response.status === 200) {
-      setRoles(
-        roles.filter((role) => role._id !== _id)
-      );
-    }
-  };
-
-  const handleClose = () => setOpen(false);
   const style = {
     position: 'absolute',
     top: '50%',
@@ -194,101 +152,82 @@ export default function RenderExpandCellGrid() {
     async function fetchData() {
       try {
         const res = await axios.get(
-          'https://swc.iitg.ac.in/onestopapi/getAllRoles'
+          'https://one-stop-api.herokuapp.com/getAllSubsections'
         );
-        console.log('Hello', res.data);
-        setRoles(res.data);
+        console.log('hiiii', res.data);
+        setContactsSubsection(res.data);
       } catch (error) {
         console.log(error);
       }
     }
     fetchData();
   }, []);
-
+  const contactsSubsectionRow = [
+    {
+      subsection: 'Chemical Engineering',
+      name: 'Dr. R.K. Sharma',
+      phoneNumber: '9939472002',
+      email: 'abc@gmail.com',
+      _id: 'id1',
+    },
+    {
+      subsection: 'Computer Science and Engineering',
+      name: 'Dr. R.S. Khandelwal',
+      phoneNumber: '9385085000',
+      email: 'abcde@gmail.com',
+      _id: 'id2',
+    },
+    {
+      subsection: 'Civil Engineering',
+      name: 'Dr. Y.K. Gupta',
+      phoneNumber: '9457593759',
+      email: 'ign@gmail.com',
+      _id: 'id3',
+    },
+  ];
   const columns = [
     {
-      field: 'role',
-      headerName: 'Role',
-      width: 400,
+      field: 'subsection',
+      headerName: 'Subsection',
+      width: 300,
       renderCell: renderCellExpand,
     },
     {
-      field: 'Edit',
-      renderCell: (cellValues) => {
-        return (
-          <>
-            <Button
-              variant='contained'
-              color='primary'
-              onClick={(event) => {
-                setOpen(true);
-                handleEdit(event, cellValues);
-              }}
-            >
-              Edit
-            </Button>
-            <Modal
-              open={open}
-              onClose={handleClose}
-              aria-labelledby='modal-modal-title'
-              aria-describedby='modal-modal-description'
-            >
-              <Box sx={style}>
-                <Typography id='modal-modal-title' variant='h6' component='h2'>
-                  Text in a modal
-                </Typography>
-                <Typography id='modal-modal-description' sx={{ mt: 2 }}>
-                  <form noValidate autoComplete='off'>
-                    <TextField
-                      id='outlined-basic'
-                      label='Role'
-                      variant='outlined'
-                      defaultValue={role}
-                      onChange={(event) => setRole(event.target.value)}
-                    />
-                  </form>
-                  <br />
-                  <Button
-                    onClick={(event) => {
-                      handleUpdate(event, cellValues);
-                    }}
-                    type='submit'
-                    variant='contained'
-                  >
-                    Edit
-                  </Button>
-                </Typography>
-              </Box>
-            </Modal>
-          </>
-        );
-      },
+      field: 'name',
+      headerName: 'Name',
+      width: 300,
+      renderCell: renderCellExpand,
     },
     {
-      field: 'Delete',
-      renderCell: (cellValues) => {
-        return (
-          <Button
-            variant='contained'
-            color='primary'
-            onClick={(event) => {
-              handleDelete(event, cellValues);
-            }}
-          >
-            Delete
-          </Button>
-        );
-      },
+      field: 'phoneNumber',
+      headerName: 'Phone Number',
+      width: 180,
+      renderCell: renderCellExpand,
+    },
+    {
+      field: 'email',
+      headerName: 'Email',
+      width: 300,
+      renderCell: renderCellExpand,
     },
   ];
 
   return (
-    <div style={{ height: 400, width: '50%' }}>
+    <div style={{ height: 400, width: '70%' }}>
       <DataGrid
-        rows={roles}
+        rows={contactsSubsectionRow}
         columns={columns}
         disableSelectionOnClick
         getRowId={(row) => row._id}
+        onSelectionModelChange={(ids) => {
+          const selectedIDs = new Set(ids);
+
+          let selectrows = [];
+          selectedIDs.forEach(function (value) {
+            selectrows.push(value);
+          });
+          setSelectedRows(selectrows);
+        }}
       />
     </div>
   );

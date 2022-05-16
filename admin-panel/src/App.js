@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-
+import UserTable from './components/UserTable.js';
 import Login from './components/Login.js';
 import Contacts from './components/Contacts.js';
 import FoodItems from './components/FoodItems.js';
@@ -12,6 +12,9 @@ import FerryTimings from './components/FerryTimings.js';
 import SideNav from './components/SideNav';
 import './App.css';
 
+const BASE_URL = process.env.REACT_APP_BASE_URL;
+console.log(BASE_URL);
+
 function App() {
   return (
     <>
@@ -22,6 +25,7 @@ function App() {
         
           <Route path="/" element={<User />} />
           <Route path='/user' element={<><User /></>} />
+          <Route path='/usertable' element={<><UserTable /></>} />
           <Route path='/login' element={<><Login /></>} />
           <Route path='/contacts' element={<><Contacts /></>} />
           <Route path='/food-items' element={<><FoodItems /></>} />

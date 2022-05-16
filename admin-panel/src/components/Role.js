@@ -8,15 +8,16 @@ import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
 import TextField from '@mui/material/TextField';
 import axios from 'axios';
-import TableRole from './TableRole';
+
 import './css/Role.css';
+import RoleTable from "./RoleTable";
 
 const Role = () => {
   const [role, setRole] = useState('');
   const handleUpdate = async (e) => {
     try {
       const response = await axios.post(
-        'https://swc.iitg.ac.in/onestopapi/createRole',
+        'https://one-stop-api.herokuapp.com/createRole',
         {
           role: role,
         }
@@ -31,7 +32,8 @@ const Role = () => {
   return (
     <>
       <div className='role_page'>
-        <TableRole />
+        {/* <TableRole /> */}
+        <RoleTable />
         <div className='role_page_add'>
           <form noValidate autoComplete='off'>
             <TextField
