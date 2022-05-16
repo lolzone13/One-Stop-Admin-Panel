@@ -1,5 +1,5 @@
 .messmenu_page {
-  width: 100;
+  width: 80%;
   height: 100vh;
   margin-left: 10%;
 }
@@ -34,6 +34,7 @@
 
 @media screen and (max-width: 480px) {
   .messmenu_page {
+    width: 100%;
     margin-left: 0%;
     padding: 2%;
   }
