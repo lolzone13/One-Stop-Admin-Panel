@@ -132,7 +132,8 @@ renderCellExpand.propTypes = {
   value: PropTypes.string,
 };
 
-export default function RenderExpandCellGrid() {
+export default function RenderExpandCellGrid(props) {
+  console.log(props.data);
   const [contactsSubsection, setContactsSubsection] = React.useState([]);
   const [selectedRows, setSelectedRows] = React.useState([]);
 
@@ -152,10 +153,13 @@ export default function RenderExpandCellGrid() {
     async function fetchData() {
       try {
         const res = await axios.get(
-          'https://one-stop-api.herokuapp.com/getAllSubsections'
+          'https://one-stop-api.herokuapp.com/getAllContacts'
         );
-        console.log('hiiii', res.data);
-        setContactsSubsection(res.data);
+        console.log('table-contacts-subsection', res.data);
+        const selectedData = res.data.filter((value) => {
+          return value.subsection === props.data
+        })
+        setContactsSubsection(selectedData);
       } catch (error) {
         console.log(error);
       }
@@ -215,7 +219,7 @@ export default function RenderExpandCellGrid() {
   return (
     <div style={{ height: 400, width: '70%' }}>
       <DataGrid
-        rows={contactsSubsectionRow}
+        rows={contactsSubsection}
         columns={columns}
         disableSelectionOnClick
         getRowId={(row) => row._id}

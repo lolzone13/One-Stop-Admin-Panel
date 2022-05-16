@@ -19,6 +19,7 @@ const Contacts = () => {
     ]
   const [allSections, setAllSections] = React.useState([]);
   const [selection, setSelection] = React.useState('');
+  const [secondSelection, setSecondSelection] = React.useState('');
   const [allSubsections, setAllSubsections] = React.useState({});
 
 
@@ -82,12 +83,15 @@ const Contacts = () => {
             <span>Select Subsection</span>
             <Dropdown 
           data = {allSubsections[selection]}
+          setSelection = {setSecondSelection}
           />
           </div>
         }
         </div>
         <div className='contacts_page_table2'>
-          <TableContactsSubsection />
+          <TableContactsSubsection 
+          data = {secondSelection}
+          />
         </div>
       </div>
     </>
