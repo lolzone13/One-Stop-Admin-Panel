@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import './css/MessMenu.css';
-import { DataGrid } from '@mui/x-data-grid';
+// import { DataGrid } from '@mui/x-data-grid';
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
 import TextField from '@mui/material/TextField';
@@ -13,6 +13,14 @@ import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import Popper from '@mui/material/Popper';
 import { flexbox } from '@mui/system';
+import {
+  DataGrid,
+  GridToolbarContainer,
+  GridToolbarColumnsButton,
+  GridToolbarFilterButton,
+  GridToolbarExport,
+  GridToolbarDensitySelector
+} from "@mui/x-data-grid";
 
 function DataTable() {
   const [messMenu, setMessMenu] = React.useState([]);
@@ -28,6 +36,146 @@ function DataTable() {
   const [saturday, setSaturday] = React.useState('');
   const [sunday, setSunday] = React.useState('');
   const [selectedRows, setSelectedRows] = React.useState([]);
+
+  function isOverflown(element) {
+    return (
+      element.scrollHeight > element.clientHeight ||
+      element.scrollWidth > element.clientWidth
+    );
+  }
+
+  const GridCellExpand = React.memo(function GridCellExpand(props) {
+    const { width, value } = props;
+    const wrapper = React.useRef(null);
+    const cellDiv = React.useRef(null);
+    const cellValue = React.useRef(null);
+    const [anchorEl, setAnchorEl] = React.useState(null);
+    const [showFullCell, setShowFullCell] = React.useState(false);
+    const [showPopper, setShowPopper] = React.useState(false);
+  
+    const handleMouseEnter = () => {
+      const isCurrentlyOverflown = isOverflown(cellValue.current);
+      setShowPopper(isCurrentlyOverflown);
+      setAnchorEl(cellDiv.current);
+      setShowFullCell(true);
+    };
+  
+    const handleMouseLeave = () => {
+      setShowFullCell(false);
+    };
+  
+    React.useEffect(() => {
+      if (!showFullCell) {
+        return undefined;
+      }
+  
+      function handleKeyDown(nativeEvent) {
+        // IE11, Edge (prior to using Bink?) use 'Esc'
+        if (nativeEvent.key === "Escape" || nativeEvent.key === "Esc") {
+          setShowFullCell(false);
+        }
+      }
+  
+      document.addEventListener("keydown", handleKeyDown);
+  
+      return () => {
+        document.removeEventListener("keydown", handleKeyDown);
+      };
+    }, [setShowFullCell, showFullCell]);
+  
+    return (
+      <Box
+        ref={wrapper}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+        sx={{
+          alignItems: "center",
+          lineHeight: "24px",
+          width: 1,
+          height: 1,
+          position: "relative",
+          display: "flex"
+        }}
+      >
+        <Box
+          ref={cellDiv}
+          sx={{
+            height: 1,
+            width,
+            display: "block",
+            position: "absolute",
+            top: 0
+          }}
+        />
+        <Box
+          ref={cellValue}
+          sx={{
+            whiteSpace: "nowrap",
+            overflow: "hidden",
+            textOverflow: "ellipsis"
+          }}
+        >
+          {value}
+        </Box>
+        {showPopper && (
+          <Popper
+            open={showFullCell && anchorEl !== null}
+            anchorEl={anchorEl}
+            style={{ width, marginLeft: -1 }}
+          >
+            <Paper
+              elevation={3}
+              style={{ minHeight: wrapper.current.offsetHeight - 3 }}
+            >
+              <Typography
+                variant="body2"
+                style={{ padding: 8, wordWrap: "break-word" }}
+              >
+                {value}
+              </Typography>
+            </Paper>
+          </Popper>
+        )}
+      </Box>
+    );
+  });
+  
+  GridCellExpand.propTypes = {
+    value: PropTypes.string.isRequired,
+    width: PropTypes.number.isRequired
+  };
+  
+  function renderCellExpand(params) {
+    return (
+      <GridCellExpand
+        value={params.value || ""}
+        width={params.colDef.computedWidth}
+      />
+    );
+  }
+  
+  renderCellExpand.propTypes = {
+    /**
+     * The column of the row that the current cell belongs to.
+     */
+    colDef: PropTypes.object.isRequired,
+    /**
+     * The cell value, but if the column has valueGetter, use getValue.
+     */
+    value: PropTypes.string
+  };
+
+  function CustomToolbar() {
+    return (
+      <GridToolbarContainer>
+        <GridToolbarColumnsButton style={{display:selectedRows.length===0?"":"none"}}/>
+        <GridToolbarFilterButton style={{display:selectedRows.length===0?"":"none"}}/>
+        {/* <GridToolbarDensitySelector /> */}
+        <GridToolbarExport style={{display:selectedRows.length===0?"":"none"}}/>
+        <DeleteOutlinedIcon style={{fontSize:"26px",display:selectedRows.length===0?"none":"",color:"#1976d2",marginLeft:"7.5px"}} onClick={()=>deleteMessMenu(selectedRows)}/>
+      </GridToolbarContainer>
+    );
+  }
 
   const handleEdit = (event, cellValues) => {
     setHostel(cellValues.row.hostel);
@@ -69,17 +217,29 @@ function DataTable() {
     setOpen(false);
   };
 
-  const handleDelete = (event, cellValues) => {
-    deleteMessMenu(cellValues.row._id);
-  };
+  // const handleDelete = (event, cellValues) => {
+  //   deleteMessMenu(cellValues.row._id);
+  // };
 
-  const deleteMessMenu = async (_id) => {
-    const response = await axios.delete(
-      `https://swc.iitg.ac.in/onestopapi/deletemessmenu/${_id}`
-    );
-    if (response.status === 200) {
-      setMessMenu(messMenu.filter((messmenuitem) => messmenuitem._id !== _id));
-    }
+  // const deleteMessMenu = async (_id) => {
+  //   const response = await axios.delete(
+  //     `https://swc.iitg.ac.in/onestopapi/deletemessmenu/${_id}`
+  //   );
+  //   if (response.status === 200) {
+  //     setMessMenu(messMenu.filter((messmenuitem) => messmenuitem._id !== _id));
+  //   }
+  // };
+  const deleteMessMenu = async (ids) => {
+    // const response = await axios.delete(
+    //   `https://swc.iitg.ac.in/onestopapi/deletemessmenu/${_id}`
+    // );
+    // if (response.status === 200) {
+    //   setMessMenu(
+    //     foodOutlets.filter((foodOutlet) => foodOutlet._id !== _id)
+    //   );
+    // }
+    // let res = rows.filter(fooditem => !ids.includes(fooditem._id));
+    // console.log(res);
   };
 
   const handleClose = () => setOpen(false);
@@ -115,25 +275,34 @@ function DataTable() {
       field: 'id',
       headerName: 'ID',
       width: 50,
+      renderCell: renderCellExpand,
+            sortable: false,
     },
     {
       field: 'hostel',
       headerName: 'Hostel',
       width: 200,
+      renderCell: renderCellExpand,
+            sortable: false,
     },
     {
       field: 'type',
       headerName: 'Type',
       width: 130,
+      renderCell: renderCellExpand,
+            sortable: false,
     },
     {
       field: 'timing',
       headerName: 'Timing',
       width: 200,
+      renderCell: renderCellExpand,
+            sortable: false,
     },
     {
       field: 'monday',
       headerName: 'Monday',
+      sortable: false,
       width: 100,
       renderCell: (params) => {
         const content = params.value.map((val) => (
@@ -145,6 +314,7 @@ function DataTable() {
     {
       field: 'tuesday',
       headerName: 'Tuesday',
+      sortable: false,
       width: 100,
       renderCell: (params) => {
         const content = params.value.map((val) => (
@@ -156,6 +326,7 @@ function DataTable() {
     {
       field: 'wednesday',
       headerName: 'Wednesday',
+      sortable: false,
       width: 100,
       renderCell: (params) => {
         const content = params.value.map((val) => (
@@ -167,6 +338,7 @@ function DataTable() {
     {
       field: 'thursday',
       headerName: 'Thursday',
+      sortable: false,
       width: 100,
       renderCell: (params) => {
         const content = params.value.map((val) => (
@@ -178,6 +350,7 @@ function DataTable() {
     {
       field: 'friday',
       headerName: 'Friday',
+      sortable: false,
       width: 100,
       renderCell: (params) => {
         const content = params.value.map((val) => (
@@ -189,6 +362,7 @@ function DataTable() {
     {
       field: 'saturday',
       headerName: 'Saturday',
+      sortable: false,
       width: 100,
       renderCell: (params) => {
         const content = params.value.map((val) => (
@@ -200,6 +374,7 @@ function DataTable() {
     {
       field: 'sunday',
       headerName: 'Sunday',
+      sortable: false,
       width: 100,
       renderCell: (params) => {
         const content = params.value.map((val) => (
@@ -210,6 +385,7 @@ function DataTable() {
     },
     {
       field: 'Edit',
+      sortable: false,
       renderCell: (cellValues) => {
         return (
           <>
@@ -352,26 +528,26 @@ function DataTable() {
         );
       },
     },
-    {
-      field: 'delete',
-      width: 50,
-      sortable: false,
-      disableColumnMenu: true,
-      renderHeader: () => {
-        return (
-          <DeleteOutlinedIcon
-            onClick={() => {
-              console.log(selectedRows);
-            }}
-          />
-        );
-      },
-    },
+    // {
+    //   field: 'delete',
+    //   width: 50,
+    //   sortable: false,
+    //   disableColumnMenu: true,
+    //   renderHeader: () => {
+    //     return (
+    //       <DeleteOutlinedIcon
+    //         onClick={() => {
+    //           console.log(selectedRows);
+    //         }}
+    //       />
+    //     );
+    //   },
+    // },
   ];
 
   const rows = [
     {
-      id: 1,
+      _id: 1,
       hostel: 'Brahmaputra',
       type: 'Breakfast',
       timing: '7:30AM - 10:30AM',
@@ -384,7 +560,7 @@ function DataTable() {
       sunday: ['eggs', 'milk'],
     },
     {
-      id: 2,
+      _id: 2,
       hostel: 'Brahmaputra',
       type: 'Lunch',
       timing: '12:00PM - 2:30PM',
@@ -402,13 +578,34 @@ function DataTable() {
     <div
       style={{ marginTop: '5%', marginLeft: '10%', height: 400, width: '100%' }}
     >
-      <DataGrid
+      {/* <DataGrid
         rowHeight={104}
         rows={rows}
         columns={columns}
         pageSize={5}
         rowsPerPageOptions={[5]}
         checkboxSelection
+      /> */}
+      <DataGrid
+        rows={rows}
+        columns={columns}
+      
+        components={{
+          Toolbar: CustomToolbar
+        }}
+        checkboxSelection
+        disableColumnMenu
+        getRowId={(row) => row._id}
+        disableSelectionOnClick
+        onSelectionModelChange={(ids) => {
+          const selectedIDs = new Set(ids);
+
+          let selectrows = [];
+          selectedIDs.forEach(function (value) {
+            selectrows.push(value);
+          });
+          setSelectedRows(selectrows);
+        }}
       />
     </div>
   );

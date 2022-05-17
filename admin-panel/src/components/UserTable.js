@@ -239,6 +239,7 @@ const UserTable = () => {
         // if (response.status === 200) {
           let res = rows.filter(user => !ids.includes(user._id));
           console.log(res);
+          
           // setUsers(users.filter((user) => user._id !== _id));
         // }
       };
