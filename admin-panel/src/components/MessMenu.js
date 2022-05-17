@@ -19,14 +19,14 @@ const MessMenu = () => {
       <span style={{ 'margin-left': 640 }}>SELECT THE CSV</span>
       <UploadFiles
         fileType='.csv'
-        url='https://swc.iitg.ac.in/onestopapi/createmessmenu'
+        url={`${process.env.REACT_APP_BASE_URL}`+`createmessmenu`}
       />
       {/* <span style={{ "position": "relative", "margin-left": 575, "top": 60, "font-size": 30}}>Choose the hostel</span> */}
       <div className='messmenu_page_button1'>
         <span>SELECT THE CSV</span>
         <UploadFiles
           fileType='.csv'
-          url='https://swc.iitg.ac.in/onestopapi/createmessmenu'
+          url={`${process.env.REACT_APP_BASE_URL}`+`createmessmenu`}
         />
         <Box sx={{ minWidth: 120 }}>
           <FormControl fullWidth>

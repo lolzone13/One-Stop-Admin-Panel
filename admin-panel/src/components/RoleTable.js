@@ -183,13 +183,13 @@ const RoleTable = () => {
       const editRoles = async (_id) => {
         console.log(role);
         // const response = await axios.put(
-        //   `https://swc.iitg.ac.in/onestopapi/updateRole/${_id}`,
+        //   `${process.env.REACT_APP_BASE_URL}`+`updateRole/${_id}`,
         //   {
         //     role,
         //   }
         // );
         // const new_response = await axios.get(
-        //   `https://swc.iitg.ac.in/onestopapi/getAllRoles`
+        //   `${process.env.REACT_APP_BASE_URL}`+`getAllRoles`
         // );
         // setRoles(new_response.data);
       };
@@ -203,7 +203,7 @@ const RoleTable = () => {
     
       const deleteRoles = async (ids) => {
         // const response = await axios.delete(
-        //   `https://swc.iitg.ac.in/onestopapi/deleteRole/${_id}`
+        //   `${process.env.REACT_APP_BASE_URL}`+`deleteRole/${_id}`
         // );
         // if (response.status === 200) {
           let res = rows.filter(role => !ids.includes(role._id));
@@ -231,7 +231,7 @@ const RoleTable = () => {
         async function fetchData() {
           try {
             const res = await axios.get(
-              'https://swc.iitg.ac.in/onestopapi/getAllRoles'
+              `${process.env.REACT_APP_BASE_URL}`+`getAllRoles`
             );
             console.log('Hello', res.data);
             setRoles(res.data);

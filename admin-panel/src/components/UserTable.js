@@ -210,7 +210,7 @@ const UserTable = () => {
           roles: rolesselected
         })
         // const response = await axios.put(
-        //   `https://swc.iitg.ac.in/onestopapi/updateUser/${_id}`,
+        //   `${process.env.REACT_APP_BASE_URL}`+`updateUser/${_id}`,
         //   {
         //     name,
         //     emailid,
@@ -219,7 +219,7 @@ const UserTable = () => {
         //   }
         // );
         // const new_response = await axios.get(
-        //   `https://swc.iitg.ac.in/onestopapi/getAllUsers`
+        //   `${process.env.REACT_APP_BASE_URL}`+`getAllUsers`
         // );
         // setUsers(new_response.data);
       };
@@ -234,7 +234,7 @@ const UserTable = () => {
       const deleteUser = async (ids) => {
        
         // const response = await axios.delete(
-        //   `https://swc.iitg.ac.in/onestopapi/deleteUser/`,ids
+        //   `${process.env.REACT_APP_BASE_URL}`+`deleteUser/`,ids
         // );
         // if (response.status === 200) {
           let res = rows.filter(user => !ids.includes(user._id));

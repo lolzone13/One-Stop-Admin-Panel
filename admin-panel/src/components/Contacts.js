@@ -28,7 +28,7 @@ const Contacts = () => {
   React.useEffect(() => {
     async function fetchData() {
       try {
-        const res = await axios.get('https://one-stop-api.herokuapp.com/getAllSubsections');
+        const res = await axios.get(`${process.env.REACT_APP_BASE_URL}`+`getAllSubsections`);
         
         const sectionData = {};
         const firstDropDownData = [];
@@ -60,14 +60,14 @@ const Contacts = () => {
           <span>BUTTON 1</span>
           <UploadFiles
             fileType='.csv'
-            url='https://one-stop-api.herokuapp.com/createcontact'
+            url={`${process.env.REACT_APP_BASE_URL}`+`createcontact`}
           />
         </div>
         <div className='contacts_page_button2'>
           <span>BUTTON 2</span>
           <UploadFiles
             fileType='.csv'
-            url='https://one-stop-api.herokuapp.com/createcontact'
+            url={`${process.env.REACT_APP_BASE_URL}`+`createcontact`}
           />
         </div>
         <div className='contacts_page_button2'>

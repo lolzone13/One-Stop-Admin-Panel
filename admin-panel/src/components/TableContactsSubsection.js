@@ -153,7 +153,7 @@ export default function RenderExpandCellGrid(props) {
     async function fetchData() {
       try {
         const res = await axios.get(
-          'https://one-stop-api.herokuapp.com/getAllContacts'
+          `${process.env.REACT_APP_BASE_URL}`+`getAllContacts`
         );
         console.log('table-contacts-subsection', res.data);
         const selectedData = res.data.filter((value) => {

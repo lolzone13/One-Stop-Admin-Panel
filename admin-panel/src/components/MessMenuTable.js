@@ -44,7 +44,7 @@ function DataTable() {
 
   const editMessMenu = async (_id) => {
     const response = await axios.put(
-      `https://swc.iitg.ac.in/onestopapi/updatemessmenu/${_id}`,
+      `${process.env.REACT_APP_BASE_URL}`+`updatemessmenu/${_id}`,
       {
         hostel,
         type,
@@ -59,7 +59,7 @@ function DataTable() {
       }
     );
     const new_response = await axios.get(
-      `https://swc.iitg.ac.in/onestopapi/getmessmenu`
+      `${process.env.REACT_APP_BASE_URL}`+`getmessmenu`
     );
     setMessMenu(new_response.data);
   };
@@ -75,7 +75,7 @@ function DataTable() {
 
   const deleteMessMenu = async (_id) => {
     const response = await axios.delete(
-      `https://swc.iitg.ac.in/onestopapi/deletemessmenu/${_id}`
+      `${process.env.REACT_APP_BASE_URL}`+`deletemessmenu/${_id}`
     );
     if (response.status === 200) {
       setMessMenu(messMenu.filter((messmenuitem) => messmenuitem._id !== _id));
@@ -99,7 +99,7 @@ function DataTable() {
     async function fetchData() {
       try {
         const res = await axios.get(
-          'https://swc.iitg.ac.in/onestopapi/getmessmenu'
+          `${process.env.REACT_APP_BASE_URL}`+`getmessmenu`
         );
         console.log('hiiii', res.data);
         setMessMenu(res.data);

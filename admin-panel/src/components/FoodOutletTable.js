@@ -203,7 +203,7 @@ const FoodOutletTable = () => {
               menu,
             })
         // const response = await axios.put(
-        //   `https://swc.iitg.ac.in/onestopapi/updateOutlet/${_id}`,
+        //   `${process.env.REACT_APP_BASE_URL}`+`/updateOutlet/${_id}`,
         //   {
         //     name,
         //     caption,
@@ -215,7 +215,7 @@ const FoodOutletTable = () => {
         //   }
         // );
         // const new_response = await axios.get(
-        //   `https://swc.iitg.ac.in/onestopapi/getAllRoles`
+        //   `${process.env.REACT_APP_BASE_URL}`+`/getAllRoles`
         // );
         // setFoodOutlets(new_response.data);
       };
@@ -225,7 +225,7 @@ const FoodOutletTable = () => {
     
       const deleteFoodOutlets = async (ids) => {
         // const response = await axios.delete(
-        //   `https://swc.iitg.ac.in/onestopapi/deleteOutlet/${_id}`
+        //   `${process.env.REACT_APP_BASE_URL}`+`/deleteOutlet/${_id}`
         // );
         // if (response.status === 200) {
         //   setFoodOutlets(
@@ -252,10 +252,12 @@ const FoodOutletTable = () => {
       React.useEffect(() => {
         async function fetchData() {
           try {
+            const url = `${process.env.REACT_APP_BASE_URL}`+`getAllOutlets`
+            //const url = `${process.env.REACT_APP_BASE_URL}`+`getAllOutlets`
             const res = await axios.get(
-              'https://swc.iitg.ac.in/onestopapi/getAllOutlets'
+              url
             );
-            console.log(res.data);
+            console.log(res.data, url);
             setFoodOutlets(res.data);
           } catch (error) {
             console.log('error', error);
@@ -452,7 +454,7 @@ const rows=[
     <>
          <div style={{ height: 400, width: "80%" }}>
       <DataGrid
-        rows={rows}
+        rows={foodOutlets}
         columns={columns}
       
         components={{

@@ -213,7 +213,7 @@ const FoodItemsTable = () => {
               waiting_time,
             });
         // const response = await axios.put(
-        //   `https://swc.iitg.ac.in/onestopapi/updateItem/${_id}`,
+        //   `${process.env.REACT_APP_BASE_URL}`+`/updateItem/${_id}`,
         //   {
         //     name,
         //     ingredients,
@@ -223,7 +223,7 @@ const FoodItemsTable = () => {
         //   }
         // );
         // const new_response = await axios.get(
-        //   `https://swc.iitg.ac.in/onestopapi/getAllItems`
+        //   `${process.env.REACT_APP_BASE_URL}`+`/getAllItems`
         // );
         // setFoodItems(new_response.data);
       };
@@ -236,7 +236,7 @@ const FoodItemsTable = () => {
     
       const deleteFoodItems = async (ids) => {
         // const response = await axios.delete(
-        //   `https://swc.iitg.ac.in/onestopapi/deleteItem/${_id}`
+        //   `${process.env.REACT_APP_BASE_URL}`+`/deleteItem/${_id}`
         // );
         // if (response.status === 200) {
         //   setFoodItems(foodItems.filter((foodItem) => foodItem._id !== _id));
@@ -262,7 +262,7 @@ const FoodItemsTable = () => {
         async function fetchData() {
           try {
             const res = await axios.get(
-              'https://swc.iitg.ac.in/onestopapi/getAllItems'
+              `${process.env.REACT_APP_BASE_URL}`+`getAllItems`
             );
             console.log('hiiii', res.data);
             setFoodItems(res.data);
@@ -414,7 +414,7 @@ const FoodItemsTable = () => {
     <>
          <div style={{ height: 400, width: "80%" }}>
       <DataGrid
-        rows={rows}
+        rows={foodItems}
         columns={columns}
        
         components={{
