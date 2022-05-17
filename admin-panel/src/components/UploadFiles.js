@@ -21,7 +21,7 @@ function UploadFiles(props) {
         formData.append('file', file);
         
         try {
-            const res = await axios.post("https://one-stop-api.herokuapp.com/createOutlet", formData);
+            const res = await axios.post(props.url, formData);
             console.log('Successfully added!');
             window.location.reload();
 

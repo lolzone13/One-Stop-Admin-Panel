@@ -152,14 +152,17 @@ export default function RenderExpandCellGrid(props) {
   React.useEffect(() => {
     async function fetchData() {
       try {
-        const res = await axios.get(
-          'https://one-stop-api.herokuapp.com/getAllContacts'
-        );
+        const res = await axios.post(
+          'https://swc.iitg.ac.in/onestopapi/getAllSubsectionContacts',
+          {
+            subsection: props.data
+          }
+      );
         console.log('table-contacts-subsection', res.data);
-        const selectedData = res.data.filter((value) => {
-          return value.subsection === props.data
-        })
-        setContactsSubsection(selectedData);
+        // const selectedData = res.data.filter((value) => {
+        //   return value.subsection === props.data
+        // })
+        setContactsSubsection(res.data);
       } catch (error) {
         console.log(error);
       }
