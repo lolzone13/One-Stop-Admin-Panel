@@ -202,22 +202,22 @@ const FoodOutletTable = () => {
               tags,
               menu,
             })
-        // const response = await axios.put(
-        //   `${process.env.REACT_APP_BASE_URL}`+`/updateOutlet/${_id}`,
-        //   {
-        //     name,
-        //     caption,
-        //     waiting_time,
-        //     closing_time,
-        //     phone_number,
-        //     tags,
-        //     menu,
-        //   }
-        // );
-        // const new_response = await axios.get(
-        //   `${process.env.REACT_APP_BASE_URL}`+`/getAllRoles`
-        // );
-        // setFoodOutlets(new_response.data);
+        const response = await axios.put(
+          `${process.env.REACT_APP_BASE_URL}`+`/updateOutlet/${_id}`,
+          {
+            name,
+            caption,
+            waiting_time,
+            closing_time,
+            phone_number,
+            tags,
+            menu,
+          }
+        );
+        const new_response = await axios.get(
+          `${process.env.REACT_APP_BASE_URL}`+`/getAllRoles`
+        );
+        setFoodOutlets(new_response.data);
       };
     
       
@@ -253,7 +253,7 @@ const FoodOutletTable = () => {
         async function fetchData() {
           try {
             const url = `${process.env.REACT_APP_BASE_URL}`+`getAllOutlets`
-            //const url = `${process.env.REACT_APP_BASE_URL}`+`getAllOutlets`
+            
             const res = await axios.get(
               url
             );
