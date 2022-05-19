@@ -16,7 +16,7 @@ const Contacts = () => {
       section: 'IITG Administration',
       subsection: ['Director Office', 'Deputy Director Office'],
     },
-    ]
+  ]
   const [allSections, setAllSections] = React.useState([]);
   const [selection, setSelection] = React.useState('');
   const [secondSelection, setSecondSelection] = React.useState('');
@@ -28,8 +28,8 @@ const Contacts = () => {
   React.useEffect(() => {
     async function fetchData() {
       try {
-        const res = await axios.get('https://one-stop-api.herokuapp.com/getAllSubsections');
-        
+        const res = await axios.get('https://swc.iitg.ac.in/onestopapi/getAllSubsections');
+
         const sectionData = {};
         const firstDropDownData = [];
         res.data.forEach((element) => {
@@ -38,7 +38,7 @@ const Contacts = () => {
             sectionData[element.section] = element.subsection;
             firstDropDownData.push(element.section);
           }
-          
+
         });
         //console.log(sectionData);
         setAllSections(firstDropDownData);
@@ -50,7 +50,7 @@ const Contacts = () => {
 
     fetchData();
   }, []);
-  
+
   //console.log(selection);
   //console.log(allSubsections[selection]);
   return (
@@ -72,27 +72,28 @@ const Contacts = () => {
         </div>
         <div className='contacts_page_button2'>
           <span>Select Section</span>
-          <Dropdown 
-          data = {allSections}
-          setSelection = {setSelection}
+          <Dropdown
+            data={allSections}
+            setSelection={setSelection}
           />
         </div>
         <div className='contacts_page_button2'>
-          
+
           {selection !== '' && <div>
             <span>Select Subsection</span>
-            <Dropdown 
-          data = {allSubsections[selection]}
-          setSelection = {setSecondSelection}
-          />
+            <Dropdown
+              data={allSubsections[selection]}
+              setSelection={setSecondSelection}
+            />
           </div>
-        }
+          }
         </div>
-        <div className='contacts_page_table2'>
-          <TableContactsSubsection 
-          data = {secondSelection}
+        {secondSelection !== '' && <div className='contacts_page_table2'>
+          <TableContactsSubsection
+            data={secondSelection}
           />
-        </div>
+        </div>}
+
       </div>
     </>
   );

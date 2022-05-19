@@ -137,6 +137,28 @@ export default function RenderExpandCellGrid(props) {
   const [contactsSubsection, setContactsSubsection] = React.useState([]);
   const [selectedRows, setSelectedRows] = React.useState([]);
 
+  
+  React.useEffect(() => {
+    async function fetchData() {
+      try {
+        const res = await axios.post(
+          'https://swc.iitg.ac.in/onestopapi/getAllSubsectionContacts',
+          { subsection: props.data } ,
+          {
+            headers: { 'Content-Type': 'application/json' },
+          }
+        );
+        console.log('table-contacts-subsection', res.data);
+
+        setContactsSubsection(res.data);
+
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    fetchData();
+  }, []);
+
   const style = {
     position: 'absolute',
     top: '50%',
@@ -146,29 +168,10 @@ export default function RenderExpandCellGrid(props) {
     bgcolor: 'background.paper',
     border: '2px solid #000',
     boxShadow: 24,
-    p: 4,
+    p: 4
   };
 
-  React.useEffect(() => {
-    async function fetchData() {
-      try {
-        const res = await axios.post(
-          'https://swc.iitg.ac.in/onestopapi/getAllSubsectionContacts',
-          {
-            subsection: props.data
-          }
-      );
-        console.log('table-contacts-subsection', res.data);
-        // const selectedData = res.data.filter((value) => {
-        //   return value.subsection === props.data
-        // })
-        setContactsSubsection(res.data);
-      } catch (error) {
-        console.log(error);
-      }
-    }
-    fetchData();
-  }, []);
+
   const contactsSubsectionRow = [
     {
       subsection: 'Chemical Engineering',
@@ -236,6 +239,7 @@ export default function RenderExpandCellGrid(props) {
           setSelectedRows(selectrows);
         }}
       />
+
     </div>
   );
 }

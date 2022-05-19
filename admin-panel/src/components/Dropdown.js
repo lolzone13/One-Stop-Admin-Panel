@@ -22,7 +22,6 @@ const Dropdown = (props) => {
 
 
   const [section, setSection] = React.useState('');
-  
 
 
   const handleChange = (event) => {
