@@ -182,16 +182,16 @@ const RoleTable = () => {
     
       const editRoles = async (_id) => {
         console.log(role);
-        // const response = await axios.put(
-        //   `https://swc.iitg.ac.in/onestopapi/updateRole/${_id}`,
-        //   {
-        //     role,
-        //   }
-        // );
-        // const new_response = await axios.get(
-        //   `https://swc.iitg.ac.in/onestopapi/getAllRoles`
-        // );
-        // setRoles(new_response.data);
+        const response = await axios.put(
+          `https://swc.iitg.ac.in/onestopapi/updateRole/${_id}`,
+          {
+            role,
+          }
+        );
+        const new_response = await axios.get(
+          `https://swc.iitg.ac.in/onestopapi/getAllRoles`
+        );
+        setRoles(new_response.data);
       };
     
       const handleUpdate = (event, cellValues) => {
@@ -202,16 +202,20 @@ const RoleTable = () => {
 
     
       const deleteRoles = async (ids) => {
-        // const response = await axios.delete(
-        //   `https://swc.iitg.ac.in/onestopapi/deleteRole/${_id}`
-        // );
-        // if (response.status === 200) {
+        const response = await axios.delete(
+          `https://swc.iitg.ac.in/onestopapi/deletemanyRoles`,
+          { data: { id: ids } },
+          {
+            headers: { 'Content-Type': 'application/json' },
+          }
+        );
+        if (response.status === 200) {
           let res = rows.filter(role => !ids.includes(role._id));
           console.log(res);
-          // setRoles(
-          //   roles.filter((role) => role._id !== _id)
-          // );
-        // }
+          setRoles(
+            res
+          );
+        }
       };
     
       const handleClose = () => setOpen(false);

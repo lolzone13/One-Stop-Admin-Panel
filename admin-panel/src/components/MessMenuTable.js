@@ -207,7 +207,7 @@ function DataTable() {
       }
     );
     const new_response = await axios.get(
-      `https://swc.iitg.ac.in/onestopapi/getmessmenu`
+      `https://swc.iitg.ac.in/onestopapi/all_menuItems`
     );
     setMessMenu(new_response.data);
   };
@@ -230,16 +230,18 @@ function DataTable() {
   //   }
   // };
   const deleteMessMenu = async (ids) => {
-    // const response = await axios.delete(
-    //   `https://swc.iitg.ac.in/onestopapi/deletemessmenu/${_id}`
-    // );
-    // if (response.status === 200) {
-    //   setMessMenu(
-    //     foodOutlets.filter((foodOutlet) => foodOutlet._id !== _id)
-    //   );
-    // }
-    // let res = rows.filter(fooditem => !ids.includes(fooditem._id));
-    // console.log(res);
+    const response = await axios.delete(
+      `https://swc.iitg.ac.in/onestopapi/deletemessmenu/, `,
+      { data: { id: ids } },
+      {
+        headers: { 'Content-Type': 'application/json' },
+      }
+    );
+    if (response.status === 200) {
+      let res = rows.filter((mess) => !ids.includes(mess._id));
+      console.log(res);
+      setMessMenu(res);
+    }
   };
 
   const handleClose = () => setOpen(false);
@@ -259,7 +261,7 @@ function DataTable() {
     async function fetchData() {
       try {
         const res = await axios.get(
-          'https://swc.iitg.ac.in/onestopapi/getmessmenu'
+          'https://swc.iitg.ac.in/onestopapi/all_menuItems'
         );
         console.log('hiiii', res.data);
         setMessMenu(res.data);

@@ -209,19 +209,19 @@ const UserTable = () => {
           microsoftid,
           roles: rolesselected
         })
-        // const response = await axios.put(
-        //   `https://swc.iitg.ac.in/onestopapi/updateUser/${_id}`,
-        //   {
-        //     name,
-        //     emailid,
-        //     microsoftid,
-        //     roles: rolesselected
-        //   }
-        // );
-        // const new_response = await axios.get(
-        //   `https://swc.iitg.ac.in/onestopapi/getAllUsers`
-        // );
-        // setUsers(new_response.data);
+        const response = await axios.put(
+          `https://swc.iitg.ac.in/onestopapi/updateUser/${_id}`,
+          {
+            name,
+            emailid,
+            microsoftid,
+            roles: rolesselected
+          }
+        );
+        const new_response = await axios.get(
+          `https://swc.iitg.ac.in/onestopapi/getAllUsers`
+        );
+        setUsers(new_response.data);
       };
     
       const handleUpdate = (event, cellValues) => {
@@ -233,15 +233,19 @@ const UserTable = () => {
     
       const deleteUser = async (ids) => {
        
-        // const response = await axios.delete(
-        //   `https://swc.iitg.ac.in/onestopapi/deleteUser/`,ids
-        // );
-        // if (response.status === 200) {
+        const response = await axios.delete(
+          `https://swc.iitg.ac.in/onestopapi/deletemanyUsers`,
+          { data: { id: ids } },
+          {
+            headers: { 'Content-Type': 'application/json' },
+          }
+        );
+        if (response.status === 200) {
           let res = rows.filter(user => !ids.includes(user._id));
           console.log(res);
           
-          // setUsers(users.filter((user) => user._id !== _id));
-        // }
+          setUsers(res);
+        }
       };
     
       const handleClose = () => setOpen(false);
@@ -256,6 +260,22 @@ const UserTable = () => {
         boxShadow: 24,
         p: 4
       };
+
+      React.useEffect(() => {
+        async function fetchData() {
+          try {
+            const res = await axios.get(
+              'https://swc.iitg.ac.in/onestopapi/getAllUsers'
+            );
+            console.log(res.data);
+            setUsers(res.data);
+          } catch (error) {
+            console.log('error', error);
+          }
+        }
+        fetchData();
+      }, []);
+
       const columns = [
         {
           field: "name",
@@ -373,7 +393,7 @@ const UserTable = () => {
     <>
          <div style={{ height: 400, width: "100%" }}>
       <DataGrid
-        rows={rows}
+        rows={users}
         columns={columns}
        
         components={{
