@@ -60,7 +60,7 @@ const Contacts = () => {
           <span>BUTTON 1</span>
           <UploadFiles
             fileType='.csv'
-            url='https://one-stop-api.herokuapp.com/createcontact'
+            url='https://swc.iitg.ac.in/onestopapi/createcontact'
           />
         </div>
         <div className='contacts_page_button2'>
@@ -72,28 +72,24 @@ const Contacts = () => {
         </div>
         <div className='contacts_page_button2'>
           <span>Select Section</span>
-          <Dropdown
-            data={allSections}
-            setSelection={setSelection}
-          />
+          <Dropdown data={allSections} setSelection={setSelection} />
         </div>
         <div className='contacts_page_button2'>
-
-          {selection !== '' && <div>
-            <span>Select Subsection</span>
-            <Dropdown
-              data={allSubsections[selection]}
-              setSelection={setSecondSelection}
-            />
-          </div>
-          }
+          {selection !== '' && (
+            <div>
+              <span>Select Subsection</span>
+              <Dropdown
+                data={allSubsections[selection]}
+                setSelection={setSecondSelection}
+              />
+            </div>
+          )}
         </div>
-        {secondSelection !== '' && <div className='contacts_page_table2'>
-          <TableContactsSubsection
-            data={secondSelection}
-          />
-        </div>}
-
+        {secondSelection !== '' && (
+          <div className='contacts_page_table2'>
+            <TableContactsSubsection data={secondSelection} />
+          </div>
+        )}
       </div>
     </>
   );

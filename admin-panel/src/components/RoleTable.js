@@ -166,9 +166,6 @@ const RoleTable = () => {
         );
       }
       const rows = [
-      {role: "Admin", _id: 1},
-        {role: "User", _id: 2},
-        {role: "User", _id: 3},
       ];
 
 
@@ -192,6 +189,7 @@ const RoleTable = () => {
           `https://swc.iitg.ac.in/onestopapi/getAllRoles`
         );
         setRoles(new_response.data);
+        window.location.reload();
       };
     
       const handleUpdate = (event, cellValues) => {
@@ -210,6 +208,7 @@ const RoleTable = () => {
           }
         );
         if (response.status === 200) {
+          window.location.reload();
           let res = rows.filter(role => !ids.includes(role._id));
           console.log(res);
           setRoles(
@@ -319,7 +318,7 @@ const RoleTable = () => {
     <>
          <div style={{ height: 400, width: "50%" }}>
       <DataGrid
-        rows={rows}
+        rows={roles}
         columns={columns}
        
         components={{
