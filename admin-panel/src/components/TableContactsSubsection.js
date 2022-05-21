@@ -4,146 +4,255 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import Popper from '@mui/material/Popper';
-import { DataGrid } from '@mui/x-data-grid';
+import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
+import Modal from '@mui/material/Modal';
+import TextField from '@mui/material/TextField';
+import EditIcon from '@mui/icons-material/Edit';
+import Button from '@mui/material/Button';
 import axios from 'axios';
+import {
+  DataGrid,
+  GridToolbarContainer,
+  GridToolbarColumnsButton,
+  GridToolbarFilterButton,
+  GridToolbarExport,
+  GridToolbarDensitySelector,
+} from '@mui/x-data-grid';
 
-function isOverflown(element) {
-  return (
-    element.scrollHeight > element.clientHeight ||
-    element.scrollWidth > element.clientWidth
-  );
-}
+const TableContactsSubsection = (props) => {
+  const [selectedRows, setSelectedRows] = React.useState([]);
+  const [contactsSubsection, setContactsSubsection] = React.useState([]);
+  const [open, setOpen] = React.useState(false);
+  const [subsection, setSubsection] = React.useState('');
+  const [name, setName] = useState('');
+  const [email, setEmail] = React.useState('');
+  const [phone_number, setPhone_number] = React.useState('');
 
-const GridCellExpand = React.memo(function GridCellExpand(props) {
-  const { width, value } = props;
-  const wrapper = React.useRef(null);
-  const cellDiv = React.useRef(null);
-  const cellValue = React.useRef(null);
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const [showFullCell, setShowFullCell] = React.useState(false);
-  const [showPopper, setShowPopper] = React.useState(false);
 
-  const handleMouseEnter = () => {
-    const isCurrentlyOverflown = isOverflown(cellValue.current);
-    setShowPopper(isCurrentlyOverflown);
-    setAnchorEl(cellDiv.current);
-    setShowFullCell(true);
-  };
 
-  const handleMouseLeave = () => {
-    setShowFullCell(false);
-  };
+  function isOverflown(element) {
+    return (
+      element.scrollHeight > element.clientHeight ||
+      element.scrollWidth > element.clientWidth
+    );
+  }
 
-  React.useEffect(() => {
-    if (!showFullCell) {
-      return undefined;
-    }
+  const GridCellExpand = React.memo(function GridCellExpand(props) {
+    const { width, value } = props;
+    const wrapper = React.useRef(null);
+    const cellDiv = React.useRef(null);
+    const cellValue = React.useRef(null);
+    const [anchorEl, setAnchorEl] = React.useState(null);
+    const [showFullCell, setShowFullCell] = React.useState(false);
+    const [showPopper, setShowPopper] = React.useState(false);
 
-    function handleKeyDown(nativeEvent) {
-      // IE11, Edge (prior to using Bink?) use 'Esc'
-      if (nativeEvent.key === 'Escape' || nativeEvent.key === 'Esc') {
-        setShowFullCell(false);
-      }
-    }
-
-    document.addEventListener('keydown', handleKeyDown);
-
-    return () => {
-      document.removeEventListener('keydown', handleKeyDown);
+    const handleMouseEnter = () => {
+      const isCurrentlyOverflown = isOverflown(cellValue.current);
+      setShowPopper(isCurrentlyOverflown);
+      setAnchorEl(cellDiv.current);
+      setShowFullCell(true);
     };
-  }, [setShowFullCell, showFullCell]);
 
-  return (
-    <Box
-      ref={wrapper}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-      sx={{
-        alignItems: 'center',
-        lineHeight: '24px',
-        width: 1,
-        height: 1,
-        position: 'relative',
-        display: 'flex',
-      }}
-    >
+    const handleMouseLeave = () => {
+      setShowFullCell(false);
+    };
+
+    React.useEffect(() => {
+      if (!showFullCell) {
+        return undefined;
+      }
+
+      function handleKeyDown(nativeEvent) {
+        // IE11, Edge (prior to using Bink?) use 'Esc'
+        if (nativeEvent.key === 'Escape' || nativeEvent.key === 'Esc') {
+          setShowFullCell(false);
+        }
+      }
+
+      document.addEventListener('keydown', handleKeyDown);
+
+      return () => {
+        document.removeEventListener('keydown', handleKeyDown);
+      };
+    }, [setShowFullCell, showFullCell]);
+
+    return (
       <Box
-        ref={cellDiv}
+        ref={wrapper}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
         sx={{
+          alignItems: 'center',
+          lineHeight: '24px',
+          width: 1,
           height: 1,
-          width,
-          display: 'block',
-          position: 'absolute',
-          top: 0,
-        }}
-      />
-      <Box
-        ref={cellValue}
-        sx={{
-          whiteSpace: 'nowrap',
-          overflow: 'hidden',
-          textOverflow: 'ellipsis',
+          position: 'relative',
+          display: 'flex',
         }}
       >
-        {value}
-      </Box>
-      {showPopper && (
-        <Popper
-          open={showFullCell && anchorEl !== null}
-          anchorEl={anchorEl}
-          style={{ width, marginLeft: -17 }}
+        <Box
+          ref={cellDiv}
+          sx={{
+            height: 1,
+            width,
+            display: 'block',
+            position: 'absolute',
+            top: 0,
+          }}
+        />
+        <Box
+          ref={cellValue}
+          sx={{
+            whiteSpace: 'nowrap',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+          }}
         >
-          <Paper
-            elevation={1}
-            style={{ minHeight: wrapper.current.offsetHeight - 3 }}
+          {value}
+        </Box>
+        {showPopper && (
+          <Popper
+            open={showFullCell && anchorEl !== null}
+            anchorEl={anchorEl}
+            style={{ width, marginLeft: -17 }}
           >
-            <Typography variant='body2' style={{ padding: 8 }}>
-              {value}
-            </Typography>
-          </Paper>
-        </Popper>
-      )}
-    </Box>
-  );
-});
+            <Paper
+              elevation={1}
+              style={{ minHeight: wrapper.current.offsetHeight - 3 }}
+            >
+              <Typography variant='body2' style={{ padding: 8 }}>
+                {value}
+              </Typography>
+            </Paper>
+          </Popper>
+        )}
+      </Box>
+    );
+  });
 
-GridCellExpand.propTypes = {
-  value: PropTypes.string.isRequired,
-  width: PropTypes.number.isRequired,
-};
+  GridCellExpand.propTypes = {
+    value: PropTypes.string.isRequired,
+    width: PropTypes.number.isRequired,
+  };
 
-function renderCellExpand(params) {
-  return (
-    <GridCellExpand
-      value={params.value || ''}
-      width={params.colDef.computedWidth}
-    />
-  );
-}
+  function renderCellExpand(params) {
+    return (
+      <GridCellExpand
+        value={params.value || ''}
+        width={params.colDef.computedWidth}
+      />
+    );
+  }
 
-renderCellExpand.propTypes = {
-  /**
-   * The column of the row that the current cell belongs to.
-   */
-  colDef: PropTypes.object.isRequired,
-  /**
-   * The cell value, but if the column has valueGetter, use getValue.
-   */
-  value: PropTypes.string,
-};
+  renderCellExpand.propTypes = {
+    /**
+     * The column of the row that the current cell belongs to.
+     */
+    colDef: PropTypes.object.isRequired,
+    /**
+     * The cell value, but if the column has valueGetter, use getValue.
+     */
+    value: PropTypes.string,
+  };
+  function CustomToolbar() {
+    return (
+      <GridToolbarContainer>
+        <GridToolbarColumnsButton
+          style={{ display: selectedRows.length === 0 ? '' : 'none' }}
+        />
+        <GridToolbarFilterButton
+          style={{ display: selectedRows.length === 0 ? '' : 'none' }}
+        />
+        {/* <GridToolbarDensitySelector /> */}
+        <GridToolbarExport
+          style={{ display: selectedRows.length === 0 ? '' : 'none' }}
+        />
+        <DeleteOutlinedIcon
+          style={{
+            fontSize: '26px',
+            display: selectedRows.length === 0 ? 'none' : '',
+            color: '#1976d2',
+            marginLeft: '7.5px',
+          }}
+          onClick={() => deleteContacts(selectedRows)}
+        />
+      </GridToolbarContainer>
+    );
+  }
 
-export default function RenderExpandCellGrid(props) {
+
   console.log(props.data);
-  const [contactsSubsection, setContactsSubsection] = React.useState([]);
-  const [selectedRows, setSelectedRows] = React.useState([]);
 
-  
+
+  const handleEdit = (event, cellValues) => {
+    setName(cellValues.row.name);
+    setEmail(cellValues.row.email);
+    setSubsection(cellValues.row.subsection);
+    setPhone_number(cellValues.row.phone_number);
+
+  };
+
+  const handleUpdate = (event, cellValues) => {
+    editFoodOutlets(cellValues.row._id);
+    setOpen(false);
+  };
+
+  const editFoodOutlets = async (_id) => {
+    // console.log({
+    //   name,
+    //   phone_number,
+    //   email,
+    //   subsection
+    // });
+    const response = await axios.put(
+      `https://swc.iitg.ac.in/onestopapi/updatecontact/${_id}`,
+      {
+        name,
+        phone_number,
+        email,
+        subsection
+      }
+    );
+    console.log(response.data);
+    const new_response = await axios.post(
+      'https://swc.iitg.ac.in/onestopapi/getAllSubsectionContacts',
+      { subsection: props.data },
+      {
+        headers: { 'Content-Type': 'application/json' },
+      }
+    );
+    setContactsSubsection(new_response.data);
+    console.log(new_response, "hello");
+  };
+
+  const deleteContacts = async (ids) => {
+    console.log({ id: ids });
+    const response = await axios.delete(
+      `https://swc.iitg.ac.in/onestopapi/deletemanycontacts/`,
+      { data: { id: ids } },
+      {
+        headers: { 'Content-Type': 'application/json' },
+      }
+    );
+
+    if (response.status === 200) {
+      let res = contactsSubsection.filter(
+        (contacts) => !ids.includes(contacts._id)
+      );
+      console.log(res);
+      setContactsSubsection(res);
+    }
+  };
+
+  const handleClose = () => setOpen(false);
+
+
   React.useEffect(() => {
     async function fetchData() {
       try {
         const res = await axios.post(
           'https://swc.iitg.ac.in/onestopapi/getAllSubsectionContacts',
-          { subsection: props.data } ,
+          { subsection: props.data },
           {
             headers: { 'Content-Type': 'application/json' },
           }
@@ -220,13 +329,114 @@ export default function RenderExpandCellGrid(props) {
       width: 300,
       renderCell: renderCellExpand,
     },
+    {
+      field: 'Edit',
+      sortable: false,
+      width: 40,
+      renderCell: (cellValues) => {
+        return (
+          <>
+            <EditIcon
+              onClick={(event) => {
+                setOpen(true);
+                handleEdit(event, cellValues);
+              }}
+            />
+
+            <Modal
+              open={open}
+              onClose={handleClose}
+              aria-labelledby='modal-modal-title'
+              aria-describedby='modal-modal-description'
+            >
+              <Box sx={style}>
+                <Typography id='modal-modal-title' variant='h6' component='h2'>
+                  Text in a modal
+                </Typography>
+                <Typography id='modal-modal-description' sx={{ mt: 2 }}>
+                  <form noValidate autoComplete='off'>
+                  <form noValidate autoComplete='off'>
+                    <TextField
+                      id='outlined-basic'
+                      label='Subsection'
+                      defaultValue={subsection}
+                      variant='outlined'
+                      onChange={(event) => setSubsection(event.target.value)}
+                    />
+                  </form>
+                  <br />
+                    <TextField
+                      id='outlined-basic'
+                      label='Name'
+                      variant='outlined'
+                      defaultValue={name}
+                      onChange={(event) => setName(event.target.value)}
+                    />
+                  </form>
+                  <br />
+
+                  <form noValidate autoComplete='off'>
+                    <TextField
+                      id='outlined-basic'
+                      label='Email'
+                      defaultValue={email}
+                      variant='outlined'
+                      onChange={(event) => setEmail(event.target.value)}
+                    />
+                  </form>
+                  <br />
+                  <form noValidate autoComplete='off'>
+                    <TextField
+                      id='outlined-basic'
+                      label='Phone Number'
+                      defaultValue={phone_number}
+                      variant='outlined'
+                      onChange={(event) => setPhone_number(event.target.value)}
+                    />
+                  </form>
+                  <br />
+
+                  <Button
+                    onClick={(event) => {
+                      handleUpdate(event, cellValues);
+                    }}
+                    type='submit'
+                    variant='contained'
+                  >
+                    Edit
+                  </Button>
+                </Typography>
+              </Box>
+            </Modal>
+          </>
+        );
+      },
+    },
   ];
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   return (
     <div style={{ height: 400, width: '70%' }}>
       <DataGrid
         rows={contactsSubsection}
         columns={columns}
+        components={{
+          Toolbar: CustomToolbar,
+        }}
+        checkboxSelection
+        disableColumnMenu
         disableSelectionOnClick
         getRowId={(row) => row._id}
         onSelectionModelChange={(ids) => {
@@ -243,3 +453,4 @@ export default function RenderExpandCellGrid(props) {
     </div>
   );
 }
+export default TableContactsSubsection;
