@@ -309,24 +309,32 @@ const TableContactsSubsection = (props) => {
       field: 'subsection',
       headerName: 'Subsection',
       width: 300,
+            sortable: false,
+
       renderCell: renderCellExpand,
     },
     {
       field: 'name',
       headerName: 'Name',
       width: 300,
+            sortable: false,
+
       renderCell: renderCellExpand,
     },
     {
       field: 'phoneNumber',
       headerName: 'Phone Number',
       width: 180,
+            sortable: false,
+
       renderCell: renderCellExpand,
     },
     {
       field: 'email',
       headerName: 'Email',
       width: 300,
+            sortable: false,
+
       renderCell: renderCellExpand,
     },
     {
