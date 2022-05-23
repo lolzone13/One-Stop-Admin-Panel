@@ -61,6 +61,7 @@ const Contacts = () => {
           <UploadFiles
             fileType='.csv'
             url='https://swc.iitg.ac.in/onestopapi/createsection'
+            compName='first'
           />
         </div>
         <div className='contacts_page_button2'>
@@ -68,6 +69,7 @@ const Contacts = () => {
           <UploadFiles
             fileType='.csv'
             url='https://swc.iitg.ac.in/onestopapi/createcontact'
+            compName='second'
           />
         </div>
         <div className='contacts_page_button2'>

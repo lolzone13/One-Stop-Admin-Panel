@@ -20,6 +20,7 @@ const MessMenu = () => {
       <UploadFiles
         fileType='.csv'
         url='https://swc.iitg.ac.in/onestopapi/createMessMenu'
+        compName='first'
       />
       {/* <span style={{ "position": "relative", "margin-left": 575, "top": 60, "font-size": 30}}>Choose the hostel</span> */}
       <div className='messmenu_page_button1'>
@@ -27,6 +28,7 @@ const MessMenu = () => {
         <UploadFiles
           fileType='.csv'
           url='https://swc.iitg.ac.in/onestopapi/createMessMenu'
+          compName='second'
         />
         <Box sx={{ minWidth: 120 }}>
           <FormControl fullWidth>

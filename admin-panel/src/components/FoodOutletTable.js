@@ -413,16 +413,6 @@ const FoodOutletTable = () => {
                     />
                   </form>
                   <br />
-                  <form noValidate autoComplete='off'>
-                    <TextField
-                      id='outlined-basic'
-                      label='Menu'
-                      defaultValue={menu}
-                      variant='outlined'
-                      onChange={(event) => setMenu(event.target.value)}
-                    />
-                  </form>
-                  <br />
 
                   <Button
                     onClick={(event) => {
