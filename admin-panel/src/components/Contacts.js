@@ -57,17 +57,17 @@ const Contacts = () => {
     <>
       <div className='contacts_page'>
         <div className='contacts_page_button1'>
-          <span>BUTTON 1</span>
+          <span>Section</span>
           <UploadFiles
             fileType='.csv'
-            url='https://swc.iitg.ac.in/onestopapi/createcontact'
+            url='https://swc.iitg.ac.in/onestopapi/createsection'
           />
         </div>
         <div className='contacts_page_button2'>
-          <span>BUTTON 2</span>
+          <span>Contacts</span>
           <UploadFiles
             fileType='.csv'
-            url='https://one-stop-api.herokuapp.com/createcontact'
+            url='https://swc.iitg.ac.in/onestopapi/createcontact'
           />
         </div>
         <div className='contacts_page_button2'>

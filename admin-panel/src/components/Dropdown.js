@@ -7,16 +7,16 @@ import Select from '@mui/material/Select';
 import axios from 'axios';
 
 
-const schema = [
-  {
-    section: 'Departments',
-    subsection: ['Chemical Engineering', 'Civil Engineering', 'Computer Science and Engineering', 'Electrical Engineering', 'Electronics and Communication Engineering', 'Mechanical Engineering'],
-  },
-  {
-    section: 'IITG Administration',
-    subsection: ['Director Office', 'Deputy Director Office'],
-  },
-]
+// const schema = [
+//   {
+//     section: 'Departments',
+//     subsection: ['Chemical Engineering', 'Civil Engineering', 'Computer Science and Engineering', 'Electrical Engineering', 'Electronics and Communication Engineering', 'Mechanical Engineering'],
+//   },
+//   {
+//     section: 'IITG Administration',
+//     subsection: ['Director Office', 'Deputy Director Office'],
+//   },
+// ]
 
 const Dropdown = (props) => {
 

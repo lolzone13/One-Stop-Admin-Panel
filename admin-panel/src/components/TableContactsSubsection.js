@@ -188,16 +188,16 @@ const TableContactsSubsection = (props) => {
     setName(cellValues.row.name);
     setEmail(cellValues.row.email);
     setSubsection(cellValues.row.subsection);
-    setPhone_number(cellValues.row.phone_number);
+    setPhone_number(cellValues.row.phoneNumber);
 
   };
 
   const handleUpdate = (event, cellValues) => {
-    editFoodOutlets(cellValues.row._id);
+    editContacts(cellValues.row._id);
     setOpen(false);
   };
 
-  const editFoodOutlets = async (_id) => {
+  const editContacts = async (_id) => {
     // console.log({
     //   name,
     //   phone_number,
@@ -207,10 +207,10 @@ const TableContactsSubsection = (props) => {
     const response = await axios.put(
       `https://swc.iitg.ac.in/onestopapi/updatecontact/${_id}`,
       {
-        name,
-        phone_number,
-        email,
-        subsection
+        name: name,
+        phoneNumber: phone_number,
+        email: email,
+        subsection: subsection
       }
     );
     console.log(response.data);
