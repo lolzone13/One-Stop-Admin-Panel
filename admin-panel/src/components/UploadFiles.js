@@ -27,10 +27,12 @@ function UploadFiles(props) {
             const res = await axios.post(props.url, formData);
             console.log(props.url);
             console.log('Successfully added!');
+            alert('file uploaded!');
             window.location.reload();
 
 
         } catch (error) {
+            alert('file was not uploaded, try again!');
             console.log(error);
         }
         

@@ -332,13 +332,7 @@ const FoodOutletTable = () => {
       renderCell: renderCellExpand,
       sortable: false,
     },
-    {
-      field: 'menu',
-      headerName: 'Menu',
-      width: 150,
-      renderCell: renderCellExpand,
-      sortable: false,
-    },
+
     {
       field: 'address',
       headerName: 'Address',

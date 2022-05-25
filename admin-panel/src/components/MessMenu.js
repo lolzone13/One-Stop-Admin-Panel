@@ -27,6 +27,11 @@ const MessMenu = () => {
 
       {/* <span style={{ "position": "relative", "margin-left": 575, "top": 60, "font-size": 30}}>Choose the hostel</span> */}
       <div className='messmenu_page_button1'>
+      <br />
+      <br />
+      <br />
+      <br />
+      Choose Hostel
         <Box sx={{ minWidth: 120 }}>
           <FormControl fullWidth>
             <InputLabel id='demo-simple-select-label'>Hostel</InputLabel>
@@ -56,7 +61,14 @@ const MessMenu = () => {
           </FormControl>
         </Box>
       </div>
-      <DataTable />
+      
+
+      <div>
+      {hostel !== '' && <DataTable 
+      selectedHostel={hostel}
+      
+      />}
+      </div>
     </div>
   );
 };
