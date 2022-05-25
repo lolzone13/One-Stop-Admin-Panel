@@ -327,6 +327,27 @@ const FoodOutletTable = () => {
       renderCell: renderCellExpand,
       sortable: false,
     },
+    {
+      field: 'latitude',
+      headerName: 'Latitude',
+      width: 200,
+      renderCell: renderCellExpand,
+      sortable: false,
+    },
+    {
+      field: 'longitude',
+      headerName: 'Longitude',
+      width: 200,
+      renderCell: renderCellExpand,
+      sortable: false,
+    },
+    {
+      field: 'address',
+      headerName: 'Address',
+      width: 200,
+      renderCell: renderCellExpand,
+      sortable: false,
+    },
 
     {
       field: 'Edit',
@@ -437,6 +458,7 @@ const FoodOutletTable = () => {
     {
       name: 'parshva',
       _id: '1',
+      
     },
     {
       name: 'ayush',
