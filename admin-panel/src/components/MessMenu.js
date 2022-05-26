@@ -16,20 +16,22 @@ const MessMenu = () => {
   };
   return (
     <div className='messmenu_page'>
-      <span style={{ 'margin-left': 640 }}>SELECT THE CSV</span>
-      <UploadFiles
-        fileType='.csv'
-        url='https://swc.iitg.ac.in/onestopapi/createMessMenu'
-        compName='first'
-      />
-      {/* <span style={{ "position": "relative", "margin-left": 575, "top": 60, "font-size": 30}}>Choose the hostel</span> */}
-      <div className='messmenu_page_button1'>
-        <span>SELECT THE CSV</span>
+      <span style={{ 'margin-left': '35rem' }}>SELECT THE CSV</span>
+      <div className='messmenu_upload'>
         <UploadFiles
           fileType='.csv'
           url='https://swc.iitg.ac.in/onestopapi/createMessMenu'
-          compName='second'
+          compName='first'
         />
+      </div>
+
+      {/* <span style={{ "position": "relative", "margin-left": 575, "top": 60, "font-size": 30}}>Choose the hostel</span> */}
+      <div className='messmenu_page_button1'>
+      <br />
+      <br />
+      <br />
+      <br />
+      Choose Hostel
         <Box sx={{ minWidth: 120 }}>
           <FormControl fullWidth>
             <InputLabel id='demo-simple-select-label'>Hostel</InputLabel>
@@ -59,7 +61,14 @@ const MessMenu = () => {
           </FormControl>
         </Box>
       </div>
-      <DataTable />
+      
+
+      <div>
+      {hostel !== '' && <DataTable 
+      selectedHostel={hostel}
+      
+      />}
+      </div>
     </div>
   );
 };

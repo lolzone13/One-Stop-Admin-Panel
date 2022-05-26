@@ -22,7 +22,8 @@ import {
   GridToolbarDensitySelector
 } from "@mui/x-data-grid";
 
-function DataTable() {
+function DataTable(props) {
+  //const selectedHostel = props.selectedHostel;
   const [messMenu, setMessMenu] = React.useState([]);
   const [open, setOpen] = React.useState(false);
   const [hostel, setHostel] = React.useState('');
@@ -264,7 +265,9 @@ function DataTable() {
           'https://swc.iitg.ac.in/onestopapi/all_menuItems'
         );
         console.log('hiiii', res.data);
-        setMessMenu(res.data);
+        const finalData = res.data.filter(itemVal => itemVal.hostel.toUpperCase === props.data.selectedHostel.toUpperCase);
+        
+        setMessMenu(finalData);
       } catch (error) {
         console.log(error);
       }

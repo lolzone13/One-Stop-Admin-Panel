@@ -30,7 +30,10 @@ const FoodOutletTable = () => {
   const [closing_time, setClosing_time] = React.useState('');
   const [phone_number, setPhone_number] = React.useState('');
   const [tags, setTags] = React.useState('');
-  const [menu, setMenu] = React.useState('');
+  const [menu, setMenu] = React.useState([]);
+  const [address, setAddress] = React.useState('');
+  const [latitude, setLatitude] = React.useState('');
+  const [longitude, setLongitude] = React.useState('');
   function isOverflown(element) {
     return (
       element.scrollHeight > element.clientHeight ||
@@ -193,6 +196,9 @@ const FoodOutletTable = () => {
     setPhone_number(cellValues.row.phone_number);
     setTags(cellValues.row.tags);
     setMenu(cellValues.row.menu);
+    setAddress(cellValues.row.address);
+    setLatitude(cellValues.row.latitude);
+    setLongitude(cellValues.row.longitude);
   };
 
   const handleUpdate = (event, cellValues) => {
@@ -209,6 +215,9 @@ const FoodOutletTable = () => {
       phone_number,
       tags,
       menu,
+      address,
+      latitude,
+      longitude
     });
     const response = await axios.put(
       `https://swc.iitg.ac.in/onestopapi/updateOutlet/${_id}`,
@@ -220,6 +229,9 @@ const FoodOutletTable = () => {
         phone_number,
         tags,
         menu,
+        address,
+        latitude,
+        longitude
       }
     );
     console.log(response.data);
@@ -268,7 +280,10 @@ const FoodOutletTable = () => {
         const res = await axios.get(
           'https://swc.iitg.ac.in/onestopapi/getAllOutlets'
         );
-        console.log(res.data);
+        // let newData = res.data;
+        // const menuItems = [];
+        // res.data.menu.forEach((item) => menuItems.push(item.name));
+        // newData.menu = menuItems;
         setFoodOutlets(res.data);
       } catch (error) {
         console.log('error', error);
@@ -320,27 +335,7 @@ const FoodOutletTable = () => {
       renderCell: renderCellExpand,
       sortable: false,
     },
-    {
-      field: 'menu',
-      headerName: 'Menu',
-      width: 150,
-      renderCell: renderCellExpand,
-      sortable: false,
-    },
-    {
-      field: 'latitude',
-      headerName: 'Latitude',
-      width: 200,
-      renderCell: renderCellExpand,
-      sortable: false,
-    },
-    {
-      field: 'longitude',
-      headerName: 'Longitude',
-      width: 200,
-      renderCell: renderCellExpand,
-      sortable: false,
-    },
+
     {
       field: 'address',
       headerName: 'Address',
@@ -348,7 +343,33 @@ const FoodOutletTable = () => {
       renderCell: renderCellExpand,
       sortable: false,
     },
-
+    {
+      field: 'latitude',
+      headerName: 'Latitude',
+      width: 150,
+      renderCell: renderCellExpand,
+      sortable: false,
+    },
+    {
+      field: 'longitude',
+      headerName: 'Longitude',
+      width: 150,
+      renderCell: renderCellExpand,
+      sortable: false,
+    },
+    {
+      field: 'menu',
+      headerName: 'Menu',
+      width: 200,
+      sortable: false,
+      renderCell: (params) => {
+        const content = params.value.map((val) => (
+          <li key={val.id}> {val.name} </li>
+        ));
+        return <div>{content}</div>;
+      },
+      
+    },
     {
       field: 'Edit',
       sortable: false,
@@ -433,6 +454,33 @@ const FoodOutletTable = () => {
                       onChange={(event) => setTags(event.target.value)}
                     />
                   </form>
+                  <form noValidate autoComplete='off'>
+                    <TextField
+                      id='outlined-basic'
+                      label='Address'
+                      defaultValue={address}
+                      variant='outlined'
+                      onChange={(event) => setAddress(event.target.value)}
+                    />
+                  </form>
+                  <form noValidate autoComplete='off'>
+                    <TextField
+                      id='outlined-basic'
+                      label='Latitude'
+                      defaultValue={latitude}
+                      variant='outlined'
+                      onChange={(event) => setLatitude(event.target.value)}
+                    />
+                  </form>
+                  <form noValidate autoComplete='off'>
+                    <TextField
+                      id='outlined-basic'
+                      label='Longitude'
+                      defaultValue={longitude}
+                      variant='outlined'
+                      onChange={(event) => setLongitude(event.target.value)}
+                    />
+                  </form>
                   <br />
 
                   <Button
@@ -454,17 +502,6 @@ const FoodOutletTable = () => {
   ];
   console.log(selectedRows);
 
-  const rows = [
-    {
-      name: 'parshva',
-      _id: '1',
-      
-    },
-    {
-      name: 'ayush',
-      _id: '2',
-    },
-  ];
 
   return (
     <>
