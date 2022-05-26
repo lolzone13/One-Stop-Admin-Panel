@@ -1,6 +1,9 @@
 .role_page {
   display: flex;
-  margin-left: 20%;
+  /* border:3px solid black; */
+  width:90%;
+  justify-content: space-between;
+  /* margin-left: 20%; */
 }
 
 .role_page_add {
@@ -8,10 +11,16 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 50%;
+  width: 30%;
+  /* border:3px solid black; */
+
 }
 
-@media screen and (max-width: 480px) {
+.role_page_add>form{
+  margin-bottom: 20px;
+}
+
+/* @media screen and (max-width: 480px) {
   .role_page {
     margin-left: 0%;
     display: flex;
@@ -23,4 +32,4 @@
   .role_page_add {
     margin-top: 2rem;
   }
-}
+} */

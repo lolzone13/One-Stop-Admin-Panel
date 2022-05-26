@@ -8,7 +8,9 @@ const User = () => {
     <>
       <div className='user_page'>
       {/* <TableUser /> */}
+      <div className="user_table">
       <UserTable />
+      </div>
     </div>
     
     </>

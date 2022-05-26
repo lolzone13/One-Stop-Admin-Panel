@@ -316,7 +316,7 @@ const RoleTable = () => {
     
   return (
     <>
-         <div style={{ height: 400, width: "50%" }}>
+         <div style={{ height: 400, width: "60%" }}>
       <DataGrid
         rows={roles}
         columns={columns}

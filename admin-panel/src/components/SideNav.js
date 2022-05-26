@@ -121,8 +121,9 @@ function ResponsiveDrawer(props) {
   };
 
   return (
-    <Box sx={{ display: 'flex' }}>
-      <CssBaseline />
+    <div style={{}}>
+    {/* <Box sx={{ display: 'flex', }}> */}
+      {/* <CssBaseline /> */}
       <AppBar
         position='fixed'
         sx={{
@@ -130,24 +131,28 @@ function ResponsiveDrawer(props) {
           ml: { sm: `${drawerWidth}px` },
         }}
       >
-        <Toolbar>
+        <Toolbar style={{display:"flex",justifyContent:"space-between"}}>
           <IconButton
             color='inherit'
             aria-label='open drawer'
             edge='start'
             onClick={handleDrawerToggle}
-            sx={{ mr: 2, display: { sm: 'none' } }}
+            sx={{ mr: 2, display: { sm: 'none' },position:"relative",top:"0",left:"-100px" }}
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant='h6' noWrap component='div'>
+          <div style={{display:"flex",marginRight:"10px"}}>
+         <h3 style={{marginRight:"5px"}}>Admin</h3>
+         <h3 style={{marginRight:"10px"}}>Panel</h3>
+          </div>
+          {/* <Typography variant='h6' component='div' >
             Admin Panel
-          </Typography>
+          </Typography> */}
         </Toolbar>
       </AppBar>
       <Box
         component='nav'
-        sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
+        sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 },  }}
         aria-label='mailbox folders'
       >
         {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
@@ -164,6 +169,7 @@ function ResponsiveDrawer(props) {
             '& .MuiDrawer-paper': {
               boxSizing: 'border-box',
               width: drawerWidth,
+              
             },
           }}
         >
@@ -176,6 +182,7 @@ function ResponsiveDrawer(props) {
             '& .MuiDrawer-paper': {
               boxSizing: 'border-box',
               width: drawerWidth,
+              // border:"3px solid pink"
             },
           }}
           open
@@ -183,7 +190,7 @@ function ResponsiveDrawer(props) {
           {drawer}
         </Drawer>
       </Box>
-      <Box
+      {/* <Box
         component='main'
         sx={{
           flexGrow: 1,
@@ -191,10 +198,12 @@ function ResponsiveDrawer(props) {
           width: { sm: `calc(100% - ${drawerWidth}px)` },
         }}
       >
+      
         <Toolbar />
-        {/* <Typography paragraph>{loadComponent()}</Typography> */}
-      </Box>
-    </Box>
+        <Typography paragraph>{loadComponent()}</Typography>
+      </Box> */}
+    {/* </Box> */}
+    </div>
   );
 }
 
