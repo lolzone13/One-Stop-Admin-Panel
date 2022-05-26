@@ -422,21 +422,8 @@ const TableContactsSubsection = (props) => {
     },
   ];
 
-
-
-
-
-
-
-
-
-
-
-
-
-
   return (
-    <div style={{ height: 400, width: '70%' }}>
+    <div style={{ height: 400, width: '100%' }}>
       <DataGrid
         rows={contactsSubsection}
         columns={columns}

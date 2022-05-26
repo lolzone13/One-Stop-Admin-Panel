@@ -42,14 +42,14 @@ function UploadFiles(props) {
     return (
         <div className="file-box">
             <form onSubmit={onSubmit} className="form-box">
-                <div>
+                
                     <input name="upload-file" type="file" accept={props.fileType} id={idVal} onChange={onChange} style = {{ visibility:' hidden '}} />
                     <label htmlFor={idVal}>
                         <div className="file-select">
                             {filename}
                         </div>
                     </label>
-                </div>
+                
                 <div className="upload-button">
                     <Button type="submit" variant="contained" > 
                 

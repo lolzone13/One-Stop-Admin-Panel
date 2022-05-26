@@ -580,9 +580,7 @@ function DataTable(props) {
   ];
 
   return (
-    <div
-      style={{ marginTop: '5%', marginLeft: '10%', height: 400, width: '100%' }}
-    >
+    <div style={{ height: 400, width: '100%', marginTop: '2rem', marginBottom: '1rem' }}>
       {/* <DataGrid
         rowHeight={104}
         rows={rows}
@@ -594,9 +592,8 @@ function DataTable(props) {
       <DataGrid
         rows={messMenu}
         columns={columns}
-      
         components={{
-          Toolbar: CustomToolbar
+          Toolbar: CustomToolbar,
         }}
         checkboxSelection
         disableColumnMenu

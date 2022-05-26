@@ -421,7 +421,14 @@ const FoodItemsTable = () => {
 
   return (
     <>
-      <div style={{ height: 400, width: '80%' }}>
+      <div
+        style={{
+          height: 400,
+          width: '100%',
+          marginTop: '2rem',
+          marginBottom: '1rem',
+        }}
+      >
         <DataGrid
           rows={foodItems}
           columns={columns}

@@ -56,37 +56,47 @@ const Contacts = () => {
   return (
     <>
       <div className='contacts_page'>
-        <div className='contacts_page_button1'>
-          <span>Section</span>
-          <UploadFiles
-            fileType='.csv'
-            url='https://swc.iitg.ac.in/onestopapi/createsection'
-            compName='first'
-          />
+        <div className='contacts-upload'>
+          <div className='contacts_page_button1'>
+            <span>Section</span>
+            <UploadFiles
+              fileType='.csv'
+              url='https://swc.iitg.ac.in/onestopapi/createsection'
+              compName='first'
+            />
+          </div>
+          <div className='contacts_page_button2'>
+            <span>Contacts</span>
+            <UploadFiles
+              fileType='.csv'
+              url='https://swc.iitg.ac.in/onestopapi/createcontact'
+              compName='second'
+            />
+          </div>
         </div>
-        <div className='contacts_page_button2'>
-          <span>Contacts</span>
-          <UploadFiles
-            fileType='.csv'
-            url='https://swc.iitg.ac.in/onestopapi/createcontact'
-            compName='second'
-          />
+        <div className='contacts-select'>
+          <div className='contacts_page_button2'>
+            <span style={{ marginBottom: '1.1rem' }}>Select Section</span>
+            <br />
+            <Dropdown data={allSections} setSelection={setSelection} />
+          </div>
+          <div className='contacts_page_button2'>
+            {selection !== '' && (
+              <div>
+                <span>Select Subsection</span>
+                <div>
+                  <br />
+                  <br />
+                </div>
+                <Dropdown
+                  data={allSubsections[selection]}
+                  setSelection={setSecondSelection}
+                />
+              </div>
+            )}
+          </div>
         </div>
-        <div className='contacts_page_button2'>
-          <span>Select Section</span>
-          <Dropdown data={allSections} setSelection={setSelection} />
-        </div>
-        <div className='contacts_page_button2'>
-          {selection !== '' && (
-            <div>
-              <span>Select Subsection</span>
-              <Dropdown
-                data={allSubsections[selection]}
-                setSelection={setSecondSelection}
-              />
-            </div>
-          )}
-        </div>
+
         {secondSelection !== '' && (
           <div className='contacts_page_table2'>
             <TableContactsSubsection data={secondSelection} />
