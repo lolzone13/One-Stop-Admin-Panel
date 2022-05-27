@@ -523,6 +523,11 @@ const FoodOutletTable = () => {
           disableColumnMenu
           getRowId={(row) => row._id}
           disableSelectionOnClick
+          getRowHeight={(val) => {
+            //console.log(val);
+            return Math.max(52, val.model.menu.length * 26);
+          }}
+
           onSelectionModelChange={(ids) => {
             const selectedIDs = new Set(ids);
 

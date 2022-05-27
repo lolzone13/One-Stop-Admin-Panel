@@ -20,6 +20,16 @@
   margin-bottom: 20px;
 }
 
+.role_button {
+  top: 5%;
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+  width: 100%; 
+  margin-left: 5%;
+
+}
+
 /* @media screen and (max-width: 480px) {
   .role_page {
     margin-left: 0%;
