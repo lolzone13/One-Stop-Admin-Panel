@@ -78,7 +78,7 @@ const Contacts = () => {
           <div className='contacts_page_button2'>
             <span style={{ marginBottom: '1.1rem' }}>Select Section</span>
             <br />
-            <Dropdown data={allSections} setSelection={setSelection} />
+            <Dropdown data={allSections} setSelection={setSelection} setSecond={setSecondSelection} />
           </div>
           <div className='contacts_page_button2'>
             {selection !== '' && (

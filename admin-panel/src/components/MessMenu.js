@@ -62,7 +62,7 @@ const MessMenu = () => {
         </Box>
       </div>
 
-      <div>{hostel !== '' && <DataTable selectedHostel={hostel} />}</div>
+      <div>{hostel !== '' && <DataTable data={hostel} />}</div>
     </div>
   );
 };

@@ -21,12 +21,13 @@ import axios from 'axios';
 const Dropdown = (props) => {
 
 
-  const [section, setSection] = React.useState('');
+  const [, setSection] = React.useState('');
 
 
   const handleChange = (event) => {
     setSection(event.target.value);
     props.setSelection(event.target.value);
+    props.setSecond('');
 
   };
 
