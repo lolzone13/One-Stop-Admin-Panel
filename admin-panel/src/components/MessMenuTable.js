@@ -273,7 +273,7 @@ function DataTable(props) {
       }
     }
     fetchData();
-  }, [props.data]);
+  }, []);
 
   const columns = [
     {
@@ -568,7 +568,7 @@ function DataTable(props) {
     <div style={{ height: 400, width: '100%', marginTop: '2rem', marginBottom: '1rem' }}>
 
       <DataGrid
-        rows={rows.filter(itemVal => itemVal.hostel.toUpperCase() === props.data.toUpperCase())}
+        rows={messMenu.filter(itemVal => itemVal.hostel.toUpperCase() === props.data.toUpperCase())}
         columns={columns}
         components={{
           Toolbar: CustomToolbar,
