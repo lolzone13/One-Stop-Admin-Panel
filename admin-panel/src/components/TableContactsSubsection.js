@@ -360,7 +360,7 @@ const TableContactsSubsection = (props) => {
             >
               <Box sx={style}>
                 <Typography id='modal-modal-title' variant='h6' component='h2'>
-                  Text in a modal
+                  Edit Contact
                 </Typography>
                 <Typography id='modal-modal-description' sx={{ mt: 2 }}>
                   <form noValidate autoComplete='off'>

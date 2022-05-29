@@ -408,7 +408,7 @@ function DataTable(props) {
             >
               <Box sx={style}>
                 <Typography id='modal-modal-title' variant='h6' component='h2'>
-                  Text in a modal
+                  Edit Mess Menu
                 </Typography>
                 <Typography id='modal-modal-description' sx={{ mt: 2 }}>
                   <div style={{display:'flex', width:'50rem', justifyContent:'space-between'}}>

@@ -267,7 +267,7 @@ const FoodOutletTable = () => {
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: 400,
+    width: 1000,
     bgcolor: 'background.paper',
     border: '2px solid #000',
     boxShadow: 24,
@@ -392,95 +392,115 @@ const FoodOutletTable = () => {
             >
               <Box sx={style}>
                 <Typography id='modal-modal-title' variant='h6' component='h2'>
-                  Text in a modal
+                  Edit Food Outlet
                 </Typography>
                 <Typography id='modal-modal-description' sx={{ mt: 2 }}>
-                  <form noValidate autoComplete='off'>
-                    <TextField
-                      id='outlined-basic'
-                      label='Name'
-                      variant='outlined'
-                      defaultValue={name}
-                      onChange={(event) => setName(event.target.value)}
-                    />
-                  </form>
+                  <div
+                    style={{
+                      display: 'flex',
+                      width: '50rem',
+                      justifyContent: 'space-between',
+                    }}
+                  >
+                    <form noValidate autoComplete='off'>
+                      <TextField
+                        id='outlined-basic'
+                        label='Name'
+                        variant='outlined'
+                        defaultValue={name}
+                        onChange={(event) => setName(event.target.value)}
+                      />
+                    </form>
+                    <br />
+                    <form noValidate autoComplete='off'>
+                      <TextField
+                        id='outlined-basic'
+                        label='Caption'
+                        variant='outlined'
+                        defaultValue={caption}
+                        onChange={(event) => setCaption(event.target.value)}
+                      />
+                    </form>
+                    <br />
+                    <form noValidate autoComplete='off'>
+                      <TextField
+                        id='outlined-basic'
+                        label='Waiting Time'
+                        defaultValue={waiting_time}
+                        variant='outlined'
+                        onChange={(event) =>
+                          setWaiting_time(event.target.value)
+                        }
+                      />
+                    </form>
+                    <br />
+                    <form noValidate autoComplete='off'>
+                      <TextField
+                        id='outlined-basic'
+                        label='Closing Time'
+                        defaultValue={closing_time}
+                        variant='outlined'
+                        onChange={(event) =>
+                          setClosing_time(event.target.value)
+                        }
+                      />
+                    </form>
+                    <br />
+                    <form noValidate autoComplete='off'>
+                      <TextField
+                        id='outlined-basic'
+                        label='Phone Number'
+                        defaultValue={phone_number}
+                        variant='outlined'
+                        onChange={(event) =>
+                          setPhone_number(event.target.value)
+                        }
+                      />
+                    </form>
+                  </div>
                   <br />
-                  <form noValidate autoComplete='off'>
-                    <TextField
-                      id='outlined-basic'
-                      label='Caption'
-                      variant='outlined'
-                      defaultValue={caption}
-                      onChange={(event) => setCaption(event.target.value)}
-                    />
-                  </form>
-                  <br />
-                  <form noValidate autoComplete='off'>
-                    <TextField
-                      id='outlined-basic'
-                      label='Waiting Time'
-                      defaultValue={waiting_time}
-                      variant='outlined'
-                      onChange={(event) => setWaiting_time(event.target.value)}
-                    />
-                  </form>
-                  <br />
-                  <form noValidate autoComplete='off'>
-                    <TextField
-                      id='outlined-basic'
-                      label='Closing Time'
-                      defaultValue={closing_time}
-                      variant='outlined'
-                      onChange={(event) => setClosing_time(event.target.value)}
-                    />
-                  </form>
-                  <br />
-                  <form noValidate autoComplete='off'>
-                    <TextField
-                      id='outlined-basic'
-                      label='Phone Number'
-                      defaultValue={phone_number}
-                      variant='outlined'
-                      onChange={(event) => setPhone_number(event.target.value)}
-                    />
-                  </form>
-                  <br />
-                  <form noValidate autoComplete='off'>
-                    <TextField
-                      id='outlined-basic'
-                      label='Tags'
-                      defaultValue={tags}
-                      variant='outlined'
-                      onChange={(event) => setTags(event.target.value)}
-                    />
-                  </form>
-                  <form noValidate autoComplete='off'>
-                    <TextField
-                      id='outlined-basic'
-                      label='Address'
-                      defaultValue={address}
-                      variant='outlined'
-                      onChange={(event) => setAddress(event.target.value)}
-                    />
-                  </form>
-                  <form noValidate autoComplete='off'>
-                    <TextField
-                      id='outlined-basic'
-                      label='Latitude'
-                      defaultValue={latitude}
-                      variant='outlined'
-                      onChange={(event) => setLatitude(event.target.value)}
-                    />
-                  </form>
-                  <form noValidate autoComplete='off'>
-                    <TextField
-                      id='outlined-basic'
-                      label='Longitude'
-                      defaultValue={longitude}
-                      variant='outlined'
-                      onChange={(event) => setLongitude(event.target.value)}
-                    />
-                  </form>
+                  <div style={{ display: 'flex', flex: 'wrap' }}>
+                    <form noValidate autoComplete='off'>
+                      <TextField
+                        id='outlined-basic'
+                        label='Tags'
+                        defaultValue={tags}
+                        variant='outlined'
+                        onChange={(event) => setTags(event.target.value)}
+                      />
+                    </form>
+                    <br />
+                    <form noValidate autoComplete='off'>
+                      <TextField
+                        id='outlined-basic'
+                        label='Address'
+                        defaultValue={address}
+                        variant='outlined'
+                        onChange={(event) => setAddress(event.target.value)}
+                      />
+                    </form>
+                    <br />
+                    <form noValidate autoComplete='off'>
+                      <TextField
+                        id='outlined-basic'
+                        label='Latitude'
+                        defaultValue={latitude}
+                        variant='outlined'
+                        onChange={(event) => setLatitude(event.target.value)}
+                      />
+                    </form>
+                    <br />
+                    <form noValidate autoComplete='off'>
+                      <TextField
+                        id='outlined-basic'
+                        label='Longitude'
+                        defaultValue={longitude}
+                        variant='outlined'
+                        onChange={(event) => setLongitude(event.target.value)}
+                      />
+                    </form>
+                  </div>
+
                   <br />
 
                   <Button
