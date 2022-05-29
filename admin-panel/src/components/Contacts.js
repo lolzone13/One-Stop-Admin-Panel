@@ -97,7 +97,7 @@ const Contacts = () => {
           </div>
         </div>
 
-        {secondSelection !== '' && (
+        {secondSelection  && (
           <div className='contacts_page_table2'>
             <TableContactsSubsection data={secondSelection} />
           </div>

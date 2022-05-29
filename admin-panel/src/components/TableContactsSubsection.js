@@ -27,6 +27,7 @@ const TableContactsSubsection = (props) => {
   const [name, setName] = useState('');
   const [email, setEmail] = React.useState('');
   const [phone_number, setPhone_number] = React.useState('');
+  console.log(props.data);
 
 
 
@@ -266,7 +267,7 @@ const TableContactsSubsection = (props) => {
       }
     }
     fetchData();
-  }, []);
+  }, [props]);
 
   const style = {
     position: 'absolute',
