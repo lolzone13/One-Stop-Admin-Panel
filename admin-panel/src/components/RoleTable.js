@@ -277,7 +277,7 @@ const RoleTable = () => {
                 >
                   <Box sx={style}>
                     <Typography id='modal-modal-title' variant='h6' component='h2'>
-                      Text in a modal
+                      Edit Role
                     </Typography>
                     <Typography id='modal-modal-description' sx={{ mt: 2 }}>
                       <form noValidate autoComplete='off'>
@@ -316,7 +316,7 @@ const RoleTable = () => {
     
   return (
     <>
-         <div style={{ height: 400, width: "50%" }}>
+         <div style={{ height: 400, width: "60%" }}>
       <DataGrid
         rows={roles}
         columns={columns}

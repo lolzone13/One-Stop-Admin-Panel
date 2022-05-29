@@ -23,7 +23,7 @@ import {
 } from "@mui/x-data-grid";
 
 function DataTable(props) {
-  //const selectedHostel = props.selectedHostel;
+
   const [messMenu, setMessMenu] = React.useState([]);
   const [open, setOpen] = React.useState(false);
   const [hostel, setHostel] = React.useState('');
@@ -264,10 +264,10 @@ function DataTable(props) {
         const res = await axios.get(
           'https://swc.iitg.ac.in/onestopapi/all_menuItems'
         );
-        console.log('hiiii', res.data);
-        const finalData = res.data.filter(itemVal => itemVal.hostel.toUpperCase === props.data.selectedHostel.toUpperCase);
+
+        //const finalData = res.data.filter(itemVal => itemVal.hostel.toUpperCase() === props.data.toUpperCase());
         
-        setMessMenu(finalData);
+        setMessMenu(res.data);
       } catch (error) {
         console.log(error);
       }
@@ -408,7 +408,7 @@ function DataTable(props) {
             >
               <Box sx={style}>
                 <Typography id='modal-modal-title' variant='h6' component='h2'>
-                  Text in a modal
+                  Edit Mess Menu
                 </Typography>
                 <Typography id='modal-modal-description' sx={{ mt: 2 }}>
                   <div style={{display:'flex', width:'50rem', justifyContent:'space-between'}}>
@@ -533,21 +533,6 @@ function DataTable(props) {
         );
       },
     },
-    // {
-    //   field: 'delete',
-    //   width: 50,
-    //   sortable: false,
-    //   disableColumnMenu: true,
-    //   renderHeader: () => {
-    //     return (
-    //       <DeleteOutlinedIcon
-    //         onClick={() => {
-    //           console.log(selectedRows);
-    //         }}
-    //       />
-    //     );
-    //   },
-    // },
   ];
 
   const rows = [
@@ -566,7 +551,7 @@ function DataTable(props) {
     },
     {
       _id: 2,
-      hostel: 'Brahmaputra',
+      hostel: 'Lohit',
       type: 'Lunch',
       timing: '12:00PM - 2:30PM',
       monday: ['roti', 'subzi'],
@@ -580,23 +565,13 @@ function DataTable(props) {
   ];
 
   return (
-    <div
-      style={{ marginTop: '5%', marginLeft: '10%', height: 400, width: '100%' }}
-    >
-      {/* <DataGrid
-        rowHeight={104}
-        rows={rows}
-        columns={columns}
-        pageSize={5}
-        rowsPerPageOptions={[5]}
-        checkboxSelection
-      /> */}
+    <div style={{ height: 400, width: '100%', marginTop: '2rem', marginBottom: '1rem' }}>
+
       <DataGrid
-        rows={messMenu}
+        rows={messMenu.filter(itemVal => itemVal.hostel.toUpperCase() === props.data.toUpperCase())}
         columns={columns}
-      
         components={{
-          Toolbar: CustomToolbar
+          Toolbar: CustomToolbar,
         }}
         checkboxSelection
         disableColumnMenu

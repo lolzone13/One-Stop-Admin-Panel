@@ -1,12 +1,7 @@
 .foodoutlet_page{
-    margin:0;
-    height:82vh;
-    width:100%;
-    margin-left: 8%;
-    /* border: 1px solid black; */
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+
+    width:95%;
+
 
 }
 
@@ -23,10 +18,6 @@
 
 .foodoutlet_page_table{
     width:100%;
-    height:60%;
-   margin-left: 9%;
-   margin-top: 2%;
-    /* border: 1px solid black; */
 }
 
 @media screen and (max-width: 480px) {

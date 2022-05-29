@@ -18,24 +18,33 @@ console.log(BASE_URL);
 function App() {
   return (
     <>
+          <Router>
+
+     <div 
+     style={{display:"flex"}}
+     >
+    
+       <SideNav />
      
-      <Router>
-     <SideNav />
+        <div style={{width:"100%",position:"relative",top:"80px",display:"flex",justifyContent:"center"}}>
         <Routes>
         
-          <Route path="/" element={<User />} />
-          <Route path='/user' element={<><User /></>} />
-          <Route path='/usertable' element={<><UserTable /></>} />
-          <Route path='/login' element={<><Login /></>} />
-          <Route path='/contacts' element={<><Contacts /></>} />
-          <Route path='/food-items' element={<><FoodItems /></>} />
-          <Route path='/food-outlets' element={<><Foodoutlet /></>} />
-          <Route path='/mess-menu' element={<><MessMenu /></>} />
-          <Route path='/role' element={<><Role /></>} />
-          <Route path='/bus-timings' element={<><BusTimings /></>} />
-          <Route path='/ferry-timings' element={<><FerryTimings /> </>} />
-        </Routes>
-      </Router>
+        <Route path="/" element={<User />} />
+        <Route path='/user' element={<><User /></>} />
+        <Route path='/usertable' element={<><UserTable /></>} />
+        <Route path='/login' element={<><Login /></>} />
+        <Route path='/contacts' element={<><Contacts /></>} />
+        <Route path='/food-items' element={<><FoodItems /></>} />
+        <Route path='/food-outlets' element={<><Foodoutlet /></>} />
+        <Route path='/mess-menu' element={<><MessMenu /></>} />
+        <Route path='/role' element={<><Role /></>} />
+        <Route path='/bus-timings' element={<><BusTimings /></>} />
+        <Route path='/ferry-timings' element={<><FerryTimings /> </>} />
+      </Routes>
+        </div>
+     </div>
+     </Router>
+
     </>
   );
 }

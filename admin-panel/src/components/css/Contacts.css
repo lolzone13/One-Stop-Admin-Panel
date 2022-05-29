@@ -1,13 +1,27 @@
 .contacts_page {
-  width: 100%;
-  height: 80vh;
-  margin-left: 5%;
+  width: 95%;
+}
+
+.contacts-upload{
+
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 10px;
+
+}
+
+.contacts-select{
+    display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
 }
 
 .contacts_page_button1,
 .contacts_page_button2 {
-  height: 50%;
-  width: 100%;
+
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
@@ -21,9 +35,7 @@
 
 .contacts_page_table2{
     width:100%;
-    height:60%;
-   margin-left: 12%;
-    margin-top: 2%;
+    margin-bottom: 1rem;
     /* border: 1px solid black; */
 }
 

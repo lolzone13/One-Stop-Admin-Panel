@@ -27,6 +27,7 @@ const TableContactsSubsection = (props) => {
   const [name, setName] = useState('');
   const [email, setEmail] = React.useState('');
   const [phone_number, setPhone_number] = React.useState('');
+  console.log(props.data);
 
 
 
@@ -266,7 +267,7 @@ const TableContactsSubsection = (props) => {
       }
     }
     fetchData();
-  }, []);
+  }, [props]);
 
   const style = {
     position: 'absolute',
@@ -359,7 +360,7 @@ const TableContactsSubsection = (props) => {
             >
               <Box sx={style}>
                 <Typography id='modal-modal-title' variant='h6' component='h2'>
-                  Text in a modal
+                  Edit Contact
                 </Typography>
                 <Typography id='modal-modal-description' sx={{ mt: 2 }}>
                   <form noValidate autoComplete='off'>
@@ -422,21 +423,8 @@ const TableContactsSubsection = (props) => {
     },
   ];
 
-
-
-
-
-
-
-
-
-
-
-
-
-
   return (
-    <div style={{ height: 400, width: '70%' }}>
+    <div style={{ height: 400, width: '100%' }}>
       <DataGrid
         rows={contactsSubsection}
         columns={columns}
