@@ -21,7 +21,9 @@ function UploadFiles(props) {
     const onSubmit = async e => {
         e.preventDefault();
         const formData = new FormData();
-        formData.append('file', file);
+        const pickName = (props.fileNameHostel ? props.fileNameHostel : 'file');
+        console.log(pickName);
+        formData.append(pickName, file);
         
         try {
             const res = await axios.post(props.url, formData);

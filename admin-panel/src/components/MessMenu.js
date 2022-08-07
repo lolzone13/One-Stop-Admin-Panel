@@ -24,6 +24,7 @@ const MessMenu = () => {
           fileType='.csv'
           url='https://swc.iitg.ac.in/onestopapi/createMessMenu'
           compName='first'
+          fileNameHostel={hostel}
         />
       </div>
 
